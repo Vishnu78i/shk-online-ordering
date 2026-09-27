@@ -10,7 +10,7 @@ main{padding:52px 0 82px}.crumb{font-size:13px;color:var(--muted);font-weight:80
 <nav><div class="wrap nav"><a href="index.html"><img class="logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a><div class="links"><a href="index.html#menu">MENU</a><a href="about.html">ABOUT</a><a href="cart.html">CART <span id="cartBadge" class="cart-badge">0</span></a></div></div></nav>
 <main><div class="wrap"><div class="crumb"><a href="index.html#menu">← Back to menu</a></div><div id="product"></div></div></main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="assets/menu.js"></script><script>
+<script src="assets/menu.js"></script><script src="assets/premium.js"></script><script>
 const item=SHK_MENU.find(x=>x.id===new URLSearchParams(location.search).get('item'))||SHK_MENU[0];
 document.title=item.name+' • SHK';
 document.querySelector('#product').innerHTML='<div class="product"><div class="image-card"><img src="'+item.image+'" alt="'+item.name+'" onerror="SHK_IMAGE_FALLBACK(this,item.name,item.category)"></div><div><div class="eyebrow">'+item.category.toUpperCase()+' • SWASTIK HOME KITCHEN</div><h1 class="title">'+item.name+'</h1><div class="price">Rs. '+item.price+'</div><p class="description">'+item.short+'</p><div class="detail"><h2>About this dish</h2><p>'+item.about+'</p></div><div class="tags"><span class="tag">FRESHLY PRESENTED</span><span class="tag">SHK HOME KITCHEN</span><span class="tag">'+item.category.toUpperCase()+'</span></div><div class="actions"><button id="add" class="btn add" type="button">ADD TO CART</button><a class="btn cart" href="cart.html">VIEW CART</a></div></div></div>';

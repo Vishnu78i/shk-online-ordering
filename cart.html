@@ -49,7 +49,7 @@ h1{text-align:center;font:700 clamp(44px,7vw,64px)/1 Georgia,serif;color:var(--r
 .checkout-title{font:700 31px Georgia,serif;color:var(--red);margin:0 0 6px}
 .checkout-note{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
 .secure{white-space:nowrap;padding:9px 12px;border-radius:999px;background:#eef5eb;color:var(--green);font-weight:900;font-size:11px;letter-spacing:.7px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.delivery-fields{grid-column:1/-1}
 .field{display:flex;flex-direction:column;gap:7px}
 .field.full{grid-column:1/-1}
 .field label{font-size:12px;font-weight:900;letter-spacing:.6px;color:#604a3b}
@@ -72,7 +72,7 @@ h1{text-align:center;font:700 clamp(44px,7vw,64px)/1 Georgia,serif;color:var(--r
 .float{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;z-index:40;box-shadow:0 12px 28px rgba(0,0,0,.2)}
 .float svg{width:34px;height:34px}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@media(max-width:700px){.nav{min-height:78px}.logo{width:80px;height:64px}.navlinks a{padding:9px 9px;font-size:10px}.wrap{padding:0 16px}main{padding:42px 0 65px}.panel{padding:20px}.cart-item{grid-template-columns:1fr auto}.remove{grid-column:2}.progress{gap:5px;font-size:10px}.progress .step{padding:7px 9px}.progress .line{width:20px}.form-grid,.choice-row,.checkout-actions{grid-template-columns:1fr}.field.full{grid-column:auto}.secure{white-space:normal}.checkout-head{flex-direction:column}.back{min-height:48px}.float{right:16px;bottom:16px;width:56px;height:56px}}
+@media(max-width:700px){.delivery-fields{grid-template-columns:1fr!important}.nav{min-height:78px}.logo{width:80px;height:64px}.navlinks a{padding:9px 9px;font-size:10px}.wrap{padding:0 16px}main{padding:42px 0 65px}.panel{padding:20px}.cart-item{grid-template-columns:1fr auto}.remove{grid-column:2}.progress{gap:5px;font-size:10px}.progress .step{padding:7px 9px}.progress .line{width:20px}.form-grid,.choice-row,.checkout-actions{grid-template-columns:1fr}.field.full{grid-column:auto}.secure{white-space:normal}.checkout-head{flex-direction:column}.back{min-height:48px}.float{right:16px;bottom:16px;width:56px;height:56px}}
 </style>
 </head>
 <body>
@@ -117,7 +117,7 @@ h1{text-align:center;font:700 clamp(44px,7vw,64px)/1 Georgia,serif;color:var(--r
 <div class="field full"><label>FULFILMENT *</label><div class="choice-row"><div class="choice"><input id="delivery" type="radio" name="fulfilment" value="Delivery" checked><label for="delivery">DELIVERY</label></div><div class="choice"><input id="pickup" type="radio" name="fulfilment" value="Pickup"><label for="pickup">PICKUP</label></div></div></div>
 <div class="field full"><label for="checkoutMessage">ORDER NOTE</label><textarea id="checkoutMessage" name="checkoutMessage" maxlength="300" placeholder="Anything else you'd like SHK to know?"></textarea></div>
 </div>
-<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I have entered the correct contact and address details. I understand the order will be sent to SHK on WhatsApp for confirmation.</label></div>
+<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm my contact details are correct. Delivery customers confirm their address details; pickup customers do not need to provide an address.</label></div>
 <div class="checkout-actions">
 <button class="whatsapp" type="submit"><span>◉</span> PLACE ORDER ON WHATSAPP</button>
 <button class="back" type="button" onclick="closeCheckout()">BACK</button>
@@ -145,13 +145,13 @@ function safe(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&g
 function changeQty(n,d){let c=getCart();if(d>0)c.push(n);else{const i=c.indexOf(n);if(i>-1)c.splice(i,1)}save(c);render()}
 function removeItem(n){save(getCart().filter(x=>x!==n));render()}
 function clearCart(){save([]);render()}
-function openCheckout(){document.querySelector('#checkout').classList.add('show');document.querySelector('#step2').classList.add('active');document.querySelector('#checkout').scrollIntoView({behavior:'smooth',block:'start'})}
+function setFulfilmentMode(){const delivery=document.querySelector('#delivery').checked;const box=document.querySelector('#deliveryFields');const address=document.querySelector('#address');const area=document.querySelector('#area');const pin=document.querySelector('#pincode');box.style.display=delivery?'grid':'none';address.required=delivery;area.required=delivery;pin.required=delivery;address.disabled=!delivery;area.disabled=!delivery;pin.disabled=!delivery}function openCheckout(){document.querySelector('#checkout').classList.add('show');document.querySelector('#step2').classList.add('active');setFulfilmentMode();document.querySelector('#checkout').scrollIntoView({behavior:'smooth',block:'start'})}
 function closeCheckout(){document.querySelector('#checkout').classList.remove('show');document.querySelector('#step2').classList.remove('active');document.querySelector('#step3').classList.remove('active')}
 function normalPhone(v){let x=v.replace(/\D/g,'');if(x.length===12&&x.startsWith('91'))x=x.slice(2);return x}
-function placeOrder(ev){ev.preventDefault();const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}
+document.querySelectorAll('input[name="fulfilment"]').forEach(r=>r.addEventListener('change',setFulfilmentMode));setFulfilmentMode();function placeOrder(ev){ev.preventDefault();const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}
 const c=getCart(),counts={};c.forEach(n=>counts[n]=(counts[n]||0)+1);
-const data=new FormData(form),name=data.get('name').trim(),phone=normalPhone(data.get('phone')),address=data.get('address').trim(),area=data.get('area').trim(),pin=data.get('pincode').trim(),fulfil=data.get('fulfilment'),note=data.get('checkoutMessage').trim(),msg=data.get('message');
-let out='Hello Swastik Home Kitchen!\n\n';if(c.length){out+='ORDER:\n';Object.entries(counts).forEach(([n,q])=>out+='• '+n+' × '+q+'\n');out+='\n'}else out+='MESSAGE / ENQUIRY\n';if(msg)out+=msg+'\n\n';out+='CUSTOMER DETAILS:\nName: '+name+'\nPhone: +91 '+phone+'\nAddress: '+address+'\nArea: '+area+'\nPIN Code: '+pin+'\nFulfilment: '+fulfil+'\n';if(note)out+='Order note: '+note+'\n';out+='\nPlease confirm the order and availability.';
+const data=new FormData(form),name=data.get('name').trim(),phone=normalPhone(data.get('phone')),fulfil=data.get('fulfilment'),address=fulfil==='Delivery'?data.get('address').trim():'',area=fulfil==='Delivery'?data.get('area').trim():'',pin=fulfil==='Delivery'?data.get('pincode').trim():'',note=data.get('checkoutMessage').trim(),msg=data.get('message');
+let out='Hello Swastik Home Kitchen!\n\n';if(c.length){out+='ORDER:\n';Object.entries(counts).forEach(([n,q])=>out+='• '+n+' × '+q+'\n');out+='\n'}else out+='MESSAGE / ENQUIRY\n';if(msg)out+=msg+'\n\n';out+='CUSTOMER DETAILS:\nName: '+name+'\nPhone: +91 '+phone+'\nFulfilment: '+fulfil+'\n';if(fulfil==='Delivery')out+='Delivery Address: '+address+'\nArea: '+area+'\nPIN Code: '+pin+'\n';if(note)out+='Order note: '+note+'\n';out+='\nPlease confirm the order and availability.';
 document.querySelector('#step3').classList.add('active');document.querySelector('#success').style.display='block';window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(out),'_blank')}
 render();
 </script>

@@ -50,6 +50,13 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.9);backdrop-fi
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 22px;border-radius:999px;font-weight:900;font-size:14px;letter-spacing:.4px;box-shadow:0 14px 27px rgba(76,44,18,.11);transition:transform .22s,box-shadow .22s}
 .btn:hover{transform:translateY(-3px);box-shadow:0 20px 34px rgba(76,44,18,.16)}
 .red{background:var(--red);color:#fff}.green{background:var(--green);color:#fff}
+.delivery-banner{margin:0;border-top:1px solid rgba(200,161,90,.55);border-bottom:1px solid rgba(200,161,90,.55);background:linear-gradient(90deg,#681725,#8f2232,#681725);color:#fff9e9;text-align:center;box-shadow:0 12px 28px rgba(76,44,18,.12);position:relative;overflow:hidden}
+.delivery-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,239,183,.16) 50%,transparent 80%);transform:translateX(-100%);animation:deliveryShine 4.5s ease-in-out infinite}
+.delivery-inner{position:relative;z-index:1;min-height:62px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:12px 18px}
+.delivery-badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;background:#f3d273;color:#681725;font-size:10px;font-weight:900;letter-spacing:1.4px}
+.delivery-text{font-size:16px;font-weight:900;letter-spacing:1.5px}
+.delivery-text strong{color:#f7df91}
+@keyframes deliveryShine{0%,55%,100%{transform:translateX(-100%)}75%{transform:translateX(100%)}}
 .trustbar{border-top:1px solid rgba(227,201,134,.6);border-bottom:1px solid rgba(227,201,134,.6);background:rgba(255,253,248,.72)}
 .trust{display:grid;grid-template-columns:repeat(4,1fr);align-items:stretch}
 .trust-item{padding:17px 10px;text-align:center;color:#614d3f;font-size:10px;font-weight:900;letter-spacing:1.6px;position:relative}
@@ -125,6 +132,7 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   .wrap{padding:0 12px}.nav{min-height:72px}.nav-logo{width:118px;height:66px}.links{gap:3px}.links a{font-size:9px;padding:8px 9px}.links a:nth-child(2){display:none}
   .hero{padding:34px 0 52px}.hero-logo{width:220px;height:165px;margin-bottom:0}.eyebrow{font-size:9px;letter-spacing:2.4px}.eyebrow:before,.eyebrow:after{width:14px}.hero h1{font-size:37px;line-height:1.02;margin:17px 0 12px}.tagline{font-size:12px}.subhero{font-size:13px}.launch{display:none}
   section{padding:58px 0}.section-title{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border-radius:17px}.card:after{inset:6px;border-radius:13px}.food{height:108px}.body{padding:10px 9px 11px}.image-badge{left:8px;top:8px;padding:5px 6px;font-size:7px;letter-spacing:.7px}.category{font-size:7px;letter-spacing:1px}.name{font-size:15px;line-height:1.05;margin:4px 0 4px}.desc{font-size:9px;line-height:1.35;min-height:25px}.row{gap:5px;margin-top:8px}.price{padding:5px 7px;font-size:10px}.add{min-height:31px;padding:7px 7px;border-radius:9px;font-size:7px;letter-spacing:.25px;gap:4px}.add svg{width:12px;height:12px}
+  .delivery-inner{min-height:56px;gap:7px;padding:10px 8px}.delivery-badge{font-size:7px;padding:5px 7px;letter-spacing:.9px}.delivery-text{font-size:11px;letter-spacing:.7px}
   .trust{grid-template-columns:repeat(2,1fr)}.trust-item{padding:13px 5px}.trust-item strong{font-size:16px}.trust-item{font-size:7px;letter-spacing:.8px}
   .menu-frame:before{inset:-7px -3px;border-radius:24px}.final-box{padding:34px 18px}.wa-float{right:14px;bottom:14px;width:54px;height:54px}.top-btn{right:15px;bottom:78px}
 }
@@ -153,8 +161,8 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   <div class="wrap hero-inner">
     <div class="hero-logo-wrap"><img class="hero-logo" src="assets/shk-logo-clean.svg" alt="Swastik Home Kitchen — SHK"></div>
     <div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div>
-    <h1>Shudh Khanna. SHK Wala.</h1>
-    <div class="tagline">SHUDH KHANNA WITH SHK WALA</div>
+    <h1>Shudh Khana. SHK Wala.</h1>
+    <div class="tagline"># SHUDH KHANA WITH SHK WALA</div>
     <p class="subhero">Comforting Indian food, beautifully presented and ready to order from the SHK table to your home.</p>
     <div class="cta">
       <a class="btn red" href="#menu">VIEW MENU</a>
@@ -162,6 +170,13 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
     </div>
   </div>
 </header>
+
+<div class="delivery-banner" role="note" aria-label="Free delivery offer">
+  <div class="wrap delivery-inner">
+    <span class="delivery-badge">SHK SPECIAL</span>
+    <span class="delivery-text">FREE DELIVERY <strong>• ON ORDERS RS. 250 &amp; ABOVE</strong></span>
+  </div>
+</div>
 
 <div class="trustbar">
   <div class="wrap trust">

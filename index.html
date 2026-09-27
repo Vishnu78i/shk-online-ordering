@@ -31,26 +31,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.9);backdrop-fi
 .links a:hover{background:#fffaf2;color:var(--red);transform:translateY(-1px)}
 .cart-link{background:#f7eedb;border:1px solid rgba(200,161,90,.34)}
 .cart-count{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;margin-left:5px;border-radius:999px;background:var(--red);color:#fff;font-size:11px}
-.hero{position:relative;overflow:hidden;padding:78px 0 70px;text-align:center;scroll-margin-top:92px}
-.hero-bg{position:absolute;inset:0;pointer-events:none}
-.orbit{position:absolute;border:1px solid rgba(212,147,22,.18);border-radius:50%}
-.orbit.o1{width:620px;height:620px;left:-290px;top:-90px}
-.orbit.o2{width:420px;height:420px;right:-190px;top:110px}
-.orbit.o3{width:160px;height:160px;left:13%;bottom:10px;border-color:rgba(53,90,69,.16)}
-.dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--gold);opacity:.26}
-.dot.d1{left:19%;top:20%}.dot.d2{right:24%;top:31%;width:6px;height:6px}.dot.d3{right:14%;bottom:19%;width:11px;height:11px}.dot.d4{left:8%;bottom:28%;width:6px;height:6px}
-.hero-inner{position:relative;z-index:2;max-width:980px;margin:auto}.hero-logo{width:300px;height:230px;object-fit:contain;display:block;margin:0 auto 10px;filter:drop-shadow(0 16px 28px rgba(47,39,36,.12));animation:heroLogoFloat 5.5s ease-in-out infinite}.hero-logo-wrap{display:flex;justify-content:center;margin-bottom:4px}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--green);font-weight:900;letter-spacing:5px;font-size:13px}
-.eyebrow:before,.eyebrow:after{content:"";width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
-.eyebrow:after{transform:scaleX(-1)}
-.hero h1{font:700 clamp(50px,7.5vw,92px)/.98 Georgia,serif;color:var(--red);margin:24px 0 16px;text-shadow:0 7px 24px rgba(167,30,30,.08)}
-.tagline{color:var(--gold);font-weight:900;letter-spacing:3px;font-size:18px}
-.subhero{max-width:700px;margin:18px auto 0;color:var(--muted);line-height:1.7;font-size:16px}
-.launch{display:inline-flex;margin:25px 0 22px;padding:10px 16px;border:1px solid rgba(212,147,22,.42);border-radius:999px;color:var(--red);font-size:11px;font-weight:900;letter-spacing:1.5px;background:rgba(255,253,248,.76);box-shadow:0 14px 35px rgba(76,44,18,.07)}
-.cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 22px;border-radius:999px;font-weight:900;font-size:14px;letter-spacing:.4px;box-shadow:0 14px 27px rgba(76,44,18,.11);transition:transform .22s,box-shadow .22s}
-.btn:hover{transform:translateY(-3px);box-shadow:0 20px 34px rgba(76,44,18,.16)}
-.red{background:var(--red);color:#fff}.green{background:var(--green);color:#fff}
+
 .delivery-banner{margin:0;border-top:1px solid rgba(200,161,90,.55);border-bottom:1px solid rgba(200,161,90,.55);background:linear-gradient(90deg,#681725,#8f2232,#681725);color:#fff9e9;text-align:center;box-shadow:0 12px 28px rgba(76,44,18,.12);position:relative;overflow:hidden}
 .delivery-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,239,183,.16) 50%,transparent 80%);transform:translateX(-100%);animation:deliveryShine 4.5s ease-in-out infinite}
 .delivery-inner{position:relative;z-index:1;min-height:62px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:12px 18px}
@@ -122,7 +103,7 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
 @media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr}.menu-tools{grid-template-columns:1fr}.trust{grid-template-columns:repeat(2,1fr)}.trust-item:nth-child(2):after{display:none}}
 @media(max-width:650px){
   .wrap{padding:0 12px}.nav{min-height:72px}.nav-logo{width:118px;height:66px}.links{gap:3px}.links a{font-size:9px;padding:8px 9px}.links a[href="about.html"]{display:none}.header-search .search-icon-btn{width:36px;height:36px}.header-search .search-icon-btn svg{width:18px;height:18px}.header-search{margin:0 1px}.header-search .search-icon-btn{flex:0 0 36px}.search-popover{right:-8px;top:calc(100% + 10px);width:min(320px,calc(100vw - 24px))}
-  .hero{padding:34px 0 52px}.hero-logo{width:220px;height:165px;margin-bottom:0}.eyebrow{font-size:9px;letter-spacing:2.4px}.eyebrow:before,.eyebrow:after{width:14px}.hero h1{font-size:37px;line-height:1.02;margin:17px 0 12px}.tagline{font-size:12px}.subhero{font-size:13px}.launch{display:none}
+
   section{padding:58px 0}.section-title{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border-radius:17px}.card:after{inset:6px;border-radius:13px}.food{height:108px}.body{padding:10px 9px 11px}.image-badge{left:8px;top:8px;padding:5px 6px;font-size:7px;letter-spacing:.7px}.category{font-size:7px;letter-spacing:1px}.name{font-size:15px;line-height:1.05;margin:4px 0 4px}.desc{font-size:9px;line-height:1.35;min-height:25px}.row{gap:5px;margin-top:8px}.price{padding:5px 7px;font-size:10px}.add{min-height:31px;padding:7px 7px;border-radius:9px;font-size:7px;letter-spacing:.25px;gap:4px}.add svg{width:12px;height:12px}
   .delivery-inner{min-height:56px;gap:7px;padding:10px 8px}.delivery-badge{font-size:7px;padding:5px 7px;letter-spacing:.9px}.delivery-text{font-size:11px;letter-spacing:.7px}
   .location-ribbon{padding:0 8px}.location-ribbon-inner{min-height:50px;gap:7px}.location-pill{font-size:7px;letter-spacing:1.2px}.location-pill:before,.location-pill:after{width:14px}.location-title{font-size:15px}
@@ -130,7 +111,7 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   .trust{grid-template-columns:repeat(2,1fr)}.trust-item{padding:13px 5px}.trust-item strong{font-size:16px}.trust-item{font-size:7px;letter-spacing:.8px}
   .menu-frame:before{inset:-7px -3px;border-radius:24px}.wa-float{right:14px;bottom:70px;width:54px;height:54px}.top-btn{right:15px;bottom:78px}
 }
-@keyframes heroLogoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
 </style>
 </head>
 <body>
@@ -159,21 +140,6 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
     <span class="delivery-text">FREE DELIVERY <strong>• ON ORDERS RS. 250 &amp; ABOVE</strong></span>
   </div>
 </div>
-
-<header id="top" class="hero">
-  <div class="hero-bg" aria-hidden="true">
-    <span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span>
-    <i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i>
-  </div>
-  <div class="wrap hero-inner">
-    <div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div>
-    <div class="tagline"># SHUDH KHANA WITH SHK WALA</div>
-    <p class="subhero">Comforting Indian food, beautifully presented and ready to order from the SHK table to your home.</p>
-    <div class="cta">
-      <a class="btn red" href="#menu">VIEW MENU</a>
-    </div>
-  </div>
-</header>
 
 
 <section id="menu" class="menu-section">

@@ -40,7 +40,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.9);backdrop-fi
 .delivery-text strong{color:#f7df91}
 @keyframes deliveryShine{0%,55%,100%{transform:translateX(-100%)}75%{transform:translateX(100%)}}
 .menu-bottom-actions{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:80;width:min(620px,calc(100% - 32px));margin:0;padding:7px;background:rgba(255,253,248,.9);backdrop-filter:blur(18px);border:1px solid rgba(200,161,90,.48);border-radius:20px;box-shadow:0 18px 45px rgba(47,39,36,.18)}
-section{padding:82px 0}
+section{padding:24px 0 82px}
 .menu-section{position:relative;scroll-margin-top:88px}
 .section-head{text-align:center;max-width:790px;margin:0 auto 36px}
 .section-kicker{color:var(--green);font-size:11px;font-weight:900;letter-spacing:4px;margin-bottom:11px}
@@ -104,7 +104,7 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
 @media(max-width:650px){
   .wrap{padding:0 12px}.nav{min-height:72px}.nav-logo{width:118px;height:66px}.links{gap:3px}.links a{font-size:9px;padding:8px 9px}.links a[href="about.html"]{display:none}.header-search .search-icon-btn{width:36px;height:36px}.header-search .search-icon-btn svg{width:18px;height:18px}.header-search{margin:0 1px}.header-search .search-icon-btn{flex:0 0 36px}.search-popover{right:-8px;top:calc(100% + 10px);width:min(320px,calc(100vw - 24px))}
 
-  section{padding:58px 0}.section-title{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border-radius:17px}.card:after{inset:6px;border-radius:13px}.food{height:108px}.body{padding:10px 9px 11px}.image-badge{left:8px;top:8px;padding:5px 6px;font-size:7px;letter-spacing:.7px}.category{font-size:7px;letter-spacing:1px}.name{font-size:15px;line-height:1.05;margin:4px 0 4px}.desc{font-size:9px;line-height:1.35;min-height:25px}.row{gap:5px;margin-top:8px}.price{padding:5px 7px;font-size:10px}.add{min-height:31px;padding:7px 7px;border-radius:9px;font-size:7px;letter-spacing:.25px;gap:4px}.add svg{width:12px;height:12px}
+  section{padding:18px 0 58px}.section-title{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border-radius:17px}.card:after{inset:6px;border-radius:13px}.food{height:108px}.body{padding:10px 9px 11px}.image-badge{left:8px;top:8px;padding:5px 6px;font-size:7px;letter-spacing:.7px}.category{font-size:7px;letter-spacing:1px}.name{font-size:15px;line-height:1.05;margin:4px 0 4px}.desc{font-size:9px;line-height:1.35;min-height:25px}.row{gap:5px;margin-top:8px}.price{padding:5px 7px;font-size:10px}.add{min-height:31px;padding:7px 7px;border-radius:9px;font-size:7px;letter-spacing:.25px;gap:4px}.add svg{width:12px;height:12px}
   .delivery-inner{min-height:56px;gap:7px;padding:10px 8px}.delivery-badge{font-size:7px;padding:5px 7px;letter-spacing:.9px}.delivery-text{font-size:11px;letter-spacing:.7px}
   .location-ribbon{padding:0 8px}.location-ribbon-inner{min-height:50px;gap:7px}.location-pill{font-size:7px;letter-spacing:1.2px}.location-pill:before,.location-pill:after{width:14px}.location-title{font-size:15px}
   .menu-bottom-actions{width:calc(100% - 18px);bottom:9px;gap:6px;padding:5px;border-radius:15px}.menu-action{min-height:43px;border-radius:11px;font-size:9px;letter-spacing:.8px}.menu-action-icon{font-size:12px}
@@ -144,11 +144,6 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
 
 <section id="menu" class="menu-section">
   <div class="wrap">
-    <div class="section-head">
-      <div class="section-kicker">SHK MENU • MADE TO FEEL LIKE HOME</div>
-      <h2 class="section-title">Choose your comfort</h2>
-      <p class="section-copy">Explore breads, gravies, fragrant rice and refreshing sides. Tap any dish for details or add it directly to your cart.</p>
-    </div>
     <div class="menu-frame">
       <div id="filters" class="filters filter-panel" aria-label="Menu filters"></div>
       <div id="menuGrid" class="grid"></div>

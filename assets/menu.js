@@ -21,3 +21,12 @@ window.SHK_MENU=[
 {id:'lassi',name:'Lassi',category:'Beverages & Sides',price:17,short:'Traditional chilled salted lassi with a refreshing finish.',about:'A classic Indian yogurt drink served chilled, light and refreshing alongside a meal.',image:'https://commons.wikimedia.org/wiki/Special:FilePath/Salt_lassi.jpg?width=1200'},
 {id:'pickle',name:'Pickle',category:'Beverages & Sides',price:25,short:'Bold, tangy Indian pickle for an instant flavour lift.',about:'A punchy Indian pickle accompaniment, full of tangy, spicy flavour and designed to brighten every bite.',image:'https://cdn.prod.website-files.com/64931d2aee18510b47f4bb1f/6740b138ea2d0e5fada387e6_Mango%2520Achar.jpeg'}
 ];
+
+window.SHK_IMAGE_FALLBACK=function(el,name,category){
+  if(!el || el.dataset.fallbackApplied)return;
+  el.dataset.fallbackApplied='1';
+  const safeName=String(name||'SHK').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  const safeCategory=String(category||'').toUpperCase().replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf0"/><stop offset=".55" stop-color="#f4e4be"/><stop offset="1" stop-color="#ead1a0"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><circle cx="600" cy="390" r="210" fill="#fffdf7" opacity=".9"/><ellipse cx="600" cy="455" rx="245" ry="72" fill="#7e5b33" opacity=".13"/><path d="M430 430c0-100 80-180 170-180s170 80 170 180" fill="#a71e1e" opacity=".92"/><path d="M455 430c10-70 70-120 145-120s135 50 145 120" fill="#e0a326"/><circle cx="535" cy="370" r="16" fill="#2f5c2b"/><circle cx="600" cy="345" r="15" fill="#2f5c2b"/><circle cx="670" cy="372" r="14" fill="#2f5c2b"/><text x="600" y="605" text-anchor="middle" font-family="Georgia,serif" font-size="52" font-weight="700" fill="#a71e1e">'+safeName+'</text><text x="600" y="660" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="800" letter-spacing="5" fill="#2f5c2b">'+safeCategory+'</text><text x="600" y="730" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6f5a4b">SWASTIK HOME KITCHEN</text></svg>';
+  el.src='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+};

@@ -31,15 +31,15 @@ main{padding:54px 0 80px}.kicker{text-align:center;color:var(--green);font-weigh
 <h2>Customer Details</h2>
 <form id="checkoutForm" onsubmit="placeOrder(event)">
 <div class="form">
-<div class="field"><label for="name">FULL NAME *</label><input id="name" required maxlength="80" autocomplete="name" placeholder="Your full name"></div>
-<div class="field"><label for="phone">PHONE NUMBER *</label><input id="phone" required inputmode="tel" autocomplete="tel" pattern="(?:\+91[6-9]\d{9}|[6-9]\d{9})" placeholder="10-digit mobile number"><small>Indian mobile number</small></div>
+<div class="field"><label for="name">FULL NAME *</label><input id="name" name="name" required maxlength="80" autocomplete="name" placeholder="Your full name"></div>
+<div class="field"><label for="phone">PHONE NUMBER *</label><input id="phone" name="phone" required inputmode="tel" autocomplete="tel" pattern="(?:\+91[6-9]\d{9}|[6-9]\d{9})" placeholder="10-digit mobile number"><small>Indian mobile number</small></div>
 <div class="field full"><label>FULFILMENT *</label><div class="choice-row"><div class="choice"><input id="delivery" type="radio" name="fulfilment" value="Delivery" checked><label for="delivery">DELIVERY</label></div><div class="choice"><input id="pickup" type="radio" name="fulfilment" value="Pickup"><label for="pickup">PICKUP</label></div></div></div>
 <div id="deliveryFields" class="delivery-fields">
-<div class="field full"><label for="address">DELIVERY ADDRESS *</label><textarea id="address" maxlength="240" autocomplete="street-address" placeholder="House / flat, street, building, locality"></textarea></div>
-<div class="field"><label for="area">AREA / LOCALITY *</label><input id="area" maxlength="80" placeholder="Example: Bannerghatta"></div>
-<div class="field"><label for="pincode">PIN CODE *</label><input id="pincode" inputmode="numeric" pattern="\d{6}" maxlength="6" autocomplete="postal-code" placeholder="6-digit PIN code"></div>
+<div class="field full"><label for="address">DELIVERY ADDRESS *</label><textarea id="address" name="address" maxlength="240" autocomplete="street-address" placeholder="House / flat, street, building, locality"></textarea></div>
+<div class="field"><label for="area">AREA / LOCALITY *</label><input id="area" name="area" maxlength="80" placeholder="Example: Bannerghatta"></div>
+<div class="field"><label for="pincode">PIN CODE *</label><input id="pincode" name="pincode" inputmode="numeric" pattern="\d{6}" maxlength="6" autocomplete="postal-code" placeholder="6-digit PIN code"></div>
 </div>
-<div class="field full"><label for="checkoutMessage">ORDER NOTE</label><textarea id="checkoutMessage" maxlength="300" placeholder="Anything else SHK should know?"></textarea></div>
+<div class="field full"><label for="checkoutMessage">ORDER NOTE</label><textarea id="checkoutMessage" name="checkoutMessage" maxlength="300" placeholder="Anything else SHK should know?"></textarea></div>
 </div>
 <div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm the details are correct. My order will be sent to SHK on WhatsApp for confirmation.</label></div>
 <button class="place" type="submit">PLACE ORDER ON WHATSAPP</button>
@@ -82,14 +82,15 @@ function normalPhone(v){let x=String(v||'').replace(/\D/g,'');if(x.length===12&&
 function placeOrder(ev){
  ev.preventDefault();
  const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}
- const c=getCart(),fd=new FormData(form),name=String(fd.get('name')||'').trim(),phone=normalPhone(fd.get('phone')),fulfil=fd.get('fulfilment'),address=fulfil==='Delivery'?String(fd.get('address')||'').trim():'',area=fulfil==='Delivery'?String(fd.get('area')||'').trim():'',pin=fulfil==='Delivery'?String(fd.get('pincode')||'').trim():'',note=String(fd.get('checkoutMessage')||'').trim(),msg=localStorage.getItem('shkCartMessage')||'';
+ const c=getCart(),name=document.querySelector('#name').value.trim(),phone=normalPhone(document.querySelector('#phone').value),fulfil=document.querySelector('input[name="fulfilment"]:checked')?.value||'Delivery',address=fulfil==='Delivery'?document.querySelector('#address').value.trim():'',area=fulfil==='Delivery'?document.querySelector('#area').value.trim():'',pin=fulfil==='Delivery'?document.querySelector('#pincode').value.trim():'',note=document.querySelector('#checkoutMessage').value.trim(),msg=localStorage.getItem('shkCartMessage')||'';
  let out='Hello Swastik Home Kitchen!\n\n';
+ out+='━━━━━━━━━━━━━━━━━━━━\nSHK CUSTOMER ORDER\n━━━━━━━━━━━━━━━━━━━━\n\n';
  if(c.length){out+='ORDER:\n';c.forEach(({name,qty})=>out+='• '+name+' × '+qty+'\n');out+='\n'}else out+='MESSAGE / ENQUIRY\n';
  if(msg)out+='Customer message: '+msg+'\n\n';
  out+='CUSTOMER DETAILS:\nName: '+name+'\nPhone: +91 '+phone+'\nFulfilment: '+fulfil+'\n';
- if(fulfil==='Delivery')out+='Delivery Address: '+address+'\nArea: '+area+'\nPIN Code: '+pin+'\n';
+ if(fulfil==='Delivery')out+='\nDELIVERY DETAILS:\nAddress: '+address+'\nArea / Locality: '+area+'\nPIN Code: '+pin+'\n';
  if(note)out+='Order note: '+note+'\n';
- out+='\nPlease confirm the order and availability.';
+ out+='\n━━━━━━━━━━━━━━━━━━━━\nPlease confirm the order and availability.\n━━━━━━━━━━━━━━━━━━━━';
  document.querySelector('#step3').classList.add('active');document.querySelector('#success').style.display='block';
  window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(out),'_blank');
 }

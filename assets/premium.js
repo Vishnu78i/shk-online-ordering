@@ -89,7 +89,7 @@
 
   const prepareExisting = () => {
     const selectors = [
-      'section','main > .wrap > *','.hero > .wrap > *','.card','.panel','.photo-card',
+      'section','main > .wrap > *','.hero > .wrap > *','.card','.panel','.image-card','.photo-card',
       '.food-card','.value-card','.story-panel','.closing-box','.item-card','.summary-item',
       '.choice','.payment-option','.field'
     ].join(',');
@@ -160,7 +160,7 @@
       if (!changed) return;
       requestAnimationFrame(() => {
         let index = 0;
-        document.querySelectorAll('.card,.summary-item,.item-card,.panel,.field,.choice,.payment-option,.food-card,.value-card,.story-panel,.closing-box').forEach(el => {
+        document.querySelectorAll('.card,.summary-item,.item-card,.panel,.image-card,.field,.choice,.payment-option,.food-card,.value-card,.story-panel,.closing-box').forEach(el => {
           prepare(el, index++);
           if (['card','summary-item','item-card','panel','food-card','value-card','story-panel','closing-box'].some(c => el.classList.contains(c))) el.classList.add('tilt-card','shk-lift');
         });
@@ -171,7 +171,7 @@
     mo.observe(document.body, {childList:true, subtree:true});
   };
 
-  const init = () => {
+  window.SHK_PREMIUM_REFRESH = () => { prepareExisting(); addButtonGlints(); revealAll(); };\n\n  const init = () => {
     installStyles();
     addScrollBar();
     prepareExisting();

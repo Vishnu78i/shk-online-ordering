@@ -1,199 +1,31 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#a71e1e">
-<title>Cart | Swastik Home Kitchen</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#a71e1e"><title>Cart | Swastik Home Kitchen</title>
 <style>
-:root{--red:#a71e1e;--red2:#7e1616;--green:#2f5c2b;--gold:#d49316;--cream:#fbf7eb;--paper:#fffdf8;--ink:#3a2922;--muted:#766257;--line:#e4ca8f;--soft:#f7efdF;--shadow:0 20px 55px rgba(76,44,18,.10)}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;color:var(--ink);font-family:Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#fffef8 0,#fbf7eb 45%,#f4ead4 100%);min-height:100vh}
-a{text-decoration:none;color:inherit}
-button,input,textarea{font:inherit}
-.wrap{max-width:1060px;margin:auto;padding:0 22px}
-nav{position:sticky;top:0;z-index:30;background:rgba(251,247,235,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 26px rgba(76,44,18,.05)}
-.nav{min-height:92px;display:flex;align-items:center;justify-content:space-between}
-.logo{width:108px;height:82px;object-fit:contain}
-.navlinks{display:flex;gap:8px;align-items:center}
-.navlinks a{padding:11px 15px;border-radius:999px;font-size:13px;font-weight:900;letter-spacing:1px;transition:.2s}
-.navlinks a:hover{background:#fffaf0;color:var(--red)}
-.cart-link{background:#fff6e2;border:1px solid rgba(212,148,22,.28)}
-.cart-badge{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;letter-spacing:0}
-main{padding:56px 0 86px}
-.kicker{text-align:center;color:var(--green);font-weight:900;letter-spacing:4px;font-size:12px}
-h1{text-align:center;font:700 clamp(44px,7vw,66px)/1 Georgia,serif;color:var(--red);margin:15px 0 9px}
-.lead{text-align:center;color:var(--muted);max-width:720px;margin:0 auto 30px;line-height:1.65}
-.progress{display:flex;justify-content:center;align-items:center;gap:9px;margin-bottom:30px;font-size:11px;font-weight:900}
-.step{padding:8px 12px;border-radius:999px;background:#f0e6d1;color:#8f7868}.step.active{background:var(--green);color:#fff}.line{width:40px;height:1px;background:var(--line)}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start}
-.panel{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
-.items-panel{padding:24px}
-.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
-.panel h2{font:700 29px Georgia,serif;color:var(--red);margin:0}
-.note{color:var(--muted);font-size:13px;line-height:1.5;margin:6px 0 0}
-.item-list{display:grid;gap:12px}
-.cart-card{display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:15px;align-items:center;padding:14px;border:1px solid #ead9b6;background:linear-gradient(180deg,#fffdf8,#fff9ef);border-radius:20px;transition:.2s;box-shadow:0 10px 24px rgba(76,44,18,.05)}
-.cart-card:hover{transform:translateY(-1px);box-shadow:0 13px 28px rgba(76,44,18,.08)}
-.thumb{width:82px;height:72px;border-radius:15px;overflow:hidden;border:1px solid #e2c77e;background:#f3dfb0}.thumb img{width:100%;height:100%;display:block;object-fit:cover}
-.item-name{font:700 20px Georgia,serif;color:var(--red);margin:0 0 4px}
-.item-meta{font-size:12px;color:var(--muted);line-height:1.45}
-.price-note{font-size:11px;color:#8d6d2d;font-weight:800;margin-top:5px}
-.controls{display:flex;align-items:center;justify-content:flex-end;gap:10px}
-.qty-box{display:flex;align-items:center;gap:8px;padding:5px;border-radius:14px;background:#f8f0df;border:1px solid #e6d0a0}
-.qty-btn{width:36px;height:36px;border:0;border-radius:10px;background:#fffdf8;color:var(--green);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px rgba(76,44,18,.08);transition:.16s}
-.qty-btn:hover{background:#edf5e9;transform:translateY(-1px)}
-.qty-btn:active{transform:translateY(0) scale(.97)}
-.qty-btn svg{width:17px;height:17px}
-.qty-value{min-width:28px;text-align:center;font-weight:900;font-size:15px;color:var(--ink)}
-.remove-btn{width:38px;height:38px;border:0;border-radius:11px;background:#fff1ee;color:var(--red);display:grid;place-items:center;cursor:pointer;transition:.16s}
-.remove-btn:hover{background:#fde2dd;transform:translateY(-1px)}
-.remove-btn svg{width:18px;height:18px}
-.empty{padding:30px 20px;border:1px dashed var(--line);background:#fbf2df;border-radius:18px;color:var(--muted);line-height:1.65;text-align:center}
-.empty strong{display:block;color:var(--red);font:700 22px Georgia,serif;margin-bottom:7px}
-.summary-panel{padding:22px;position:sticky;top:112px}
-.summary-title{font:700 27px Georgia,serif;color:var(--red);margin:0 0 16px}
-.summary-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #eee0c4;font-size:14px}
-.summary-row:last-of-type{border-bottom:0}
-.summary-total{display:flex;justify-content:space-between;gap:12px;margin-top:14px;padding-top:15px;border-top:1px solid var(--line);font-weight:900}
-.total-number{color:var(--green);font-size:18px}
-.message-label{display:block;margin-top:20px;font-size:11px;letter-spacing:.8px;font-weight:900;color:#604a3b}
-.message{width:100%;min-height:112px;margin-top:8px;border:1px solid #dccb9c;border-radius:15px;padding:14px;background:#fffdf8;resize:vertical;outline:none;color:var(--ink)}
-.message:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.11)}
-.primary,.secondary{width:100%;min-height:52px;border-radius:15px;font-weight:900;cursor:pointer;margin-top:12px;transition:.18s;display:flex;align-items:center;justify-content:center}
-.primary{border:0;background:var(--green);color:#fff;box-shadow:0 12px 24px rgba(47,92,43,.18)}
-.primary:hover{transform:translateY(-1px);filter:brightness(1.03)}
-.secondary{border:1px solid var(--line);background:#fff5df;color:var(--red)}
-.secondary:hover{background:#fff0d1}
-.clear{display:flex;justify-content:center;margin-top:14px}
-.clear button{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.toast{position:fixed;left:50%;bottom:28px;z-index:100;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--green);color:#fff;padding:13px 18px;border-radius:999px;font-weight:900;box-shadow:0 12px 28px rgba(0,0,0,.18);transition:.25s}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:820px){
- .nav{min-height:78px}.logo{width:82px;height:64px}.navlinks a{font-size:10px;padding:9px 10px}
- .wrap{padding:0 16px}.layout{grid-template-columns:1fr}.summary-panel{position:static}.cart-card{grid-template-columns:68px minmax(0,1fr);gap:12px}.thumb{width:68px;height:64px}.controls{grid-column:1/-1;justify-content:space-between}
- .progress{font-size:10px;gap:5px}.line{width:17px}.panel{border-radius:22px}
-}
-@media(max-width:520px){
- .panel{padding:18px}.cart-card{padding:12px}.item-name{font-size:18px}.qty-box{gap:5px}.qty-btn{width:34px;height:34px}
- .remove-btn{width:36px;height:36px}.navlinks{gap:2px}.navlinks a:nth-child(2){display:none}
-}
-</style>
-</head>
-<body>
-<nav><div class="wrap nav"><a href="index.html"><img class="logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a><div class="navlinks"><a href="index.html#menu">MENU</a><a href="about.html">ABOUT</a><a class="cart-link" href="cart.html">CART <span id="cartBadge" class="cart-badge">0</span></a></div></div></nav>
-<main><div class="wrap">
-<div class="kicker">SWASTIK HOME KITCHEN</div>
-<h1>Your Cart</h1>
-<p class="lead">Choose your quantity, remove anything you do not need, add a note, and continue to the separate checkout page.</p>
-<div class="progress"><span class="step active">1 • CART</span><span class="line"></span><span class="step">2 • DETAILS</span><span class="line"></span><span class="step">3 • WHATSAPP</span></div>
-<div class="layout">
-<section class="panel items-panel">
-<div class="panel-head"><div><h2>Selected Items</h2><p class="note">Use − and + to change quantity. The bin icon removes an item completely.</p></div></div>
-<div id="cartList" class="item-list" aria-live="polite"></div>
-</section>
-<aside class="panel summary-panel">
-<h2 class="summary-title">Order Summary</h2>
-<div class="summary-row"><span>Items</span><strong id="summaryCount">0</strong></div>
-<div class="summary-row"><span>Unique dishes</span><strong id="summaryUnique">0</strong></div>
-<div class="summary-total"><span>Total quantity</span><span id="summaryTotal" class="total-number">0</span></div>
-<label class="message-label" for="message">MESSAGE FOR SHK (OPTIONAL)</label>
-<textarea id="message" class="message" maxlength="400" placeholder="Special request, delivery instruction, or anything else you'd like to tell us."></textarea>
-<button id="checkoutButton" class="primary" type="button">PROCEED TO CHECKOUT</button>
-<a class="secondary" href="index.html#menu">CONTINUE SHOPPING</a>
-<div class="clear"><button id="clearButton" type="button">Clear all items</button></div>
-</aside>
-</div>
-</div></main>
-<div id="toast" class="toast" role="status" aria-live="polite">Cart updated</div>
-<script>
-const CATALOG={
- 'aloo-paratha':{name:'Aloo Paratha',image:'assets/aloo-paratha.svg',meta:'Golden stuffed homestyle paratha.'},
- 'dal-baati-churma':{name:'Dal • Baati • Churma',image:'assets/dal-bati-churma-photo.jpg',meta:'Rajasthani dal, baati and churma.'}
-};
-const LEGACY_NAMES={'Aloo Paratha':'aloo-paratha','Dal – Baati – Churma':'dal-baati-churma','Dal • Baati • Churma':'dal-baati-churma'};
-function readRaw(){try{const x=JSON.parse(localStorage.getItem('shkCart')||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
-function normalizeCart(raw){
- const out=[];
- raw.forEach(entry=>{
-   if(typeof entry==='string'){
-     const id=LEGACY_NAMES[entry]||entry;
-     if(CATALOG[id])out.push({id,qty:1});
-   }else if(entry&&typeof entry==='object'){
-     const id=CATALOG[entry.id]?entry.id:LEGACY_NAMES[entry.name];
-     const qty=Math.max(0,Math.floor(Number(entry.qty)||1));
-     if(id&&qty>0)out.push({id,qty});
-   }
- });
- const merged={};
- out.forEach(x=>merged[x.id]=(merged[x.id]||0)+x.qty);
- return Object.entries(merged).map(([id,qty])=>({id,qty}));
-}
-function getCart(){return normalizeCart(readRaw())}
-function saveCart(cart){localStorage.setItem('shkCart',JSON.stringify(cart))}
-function totalQty(cart){return cart.reduce((sum,x)=>sum+x.qty,0)}
-function safeAttr(v){return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function icon(type){
- if(type==='minus')return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';
- if(type==='plus')return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';
- return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5h6M5.5 7.5h13M8 10v8m4-8v8m4-8v8M7 7.5l.7 12h8.6l.7-12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-}
-function render(){
- const cart=getCart(); saveCart(cart);
- const list=document.querySelector('#cartList');
- const qty=totalQty(cart);
- document.querySelector('#cartBadge').textContent=qty;
- document.querySelector('#summaryCount').textContent=qty;
- document.querySelector('#summaryUnique').textContent=cart.length;
- document.querySelector('#summaryTotal').textContent=qty;
- if(!cart.length){
-   list.innerHTML='<div class="empty"><strong>Your cart is empty</strong>Add a dish from the menu to start your order.<br><a href="index.html#menu" style="display:inline-block;margin-top:12px;color:var(--red);font-weight:900">← Browse the menu</a></div>';
-   return;
- }
- list.innerHTML=cart.map(row=>{
-   const item=CATALOG[row.id];
-   return '<article class="cart-card">'+
-     '<div class="thumb"><img src="'+item.image+'" alt="'+safeAttr(item.name)+'"></div>'+
-     '<div><h3 class="item-name">'+item.name+'</h3><div class="item-meta">'+item.meta+'</div><div class="price-note">Price to be confirmed by SHK</div></div>'+
-     '<div class="controls">'+
-       '<div class="qty-box" aria-label="Quantity controls for '+safeAttr(item.name)+'">'+
-         '<button class="qty-btn" type="button" data-action="minus" data-id="'+row.id+'" aria-label="Decrease '+safeAttr(item.name)+' quantity">'+icon('minus')+'</button>'+
-         '<span class="qty-value" aria-live="polite">'+row.qty+'</span>'+
-         '<button class="qty-btn" type="button" data-action="plus" data-id="'+row.id+'" aria-label="Increase '+safeAttr(item.name)+' quantity">'+icon('plus')+'</button>'+
-       '</div>'+
-       '<button class="remove-btn" type="button" data-action="remove" data-id="'+row.id+'" aria-label="Remove '+safeAttr(item.name)+' from cart" title="Remove item">'+icon('remove')+'</button>'+
-     '</div></article>';
- }).join('');
-}
-function updateQty(id,delta){
- const cart=getCart(); const row=cart.find(x=>x.id===id); if(!row)return;
- row.qty+=delta;
- if(row.qty<=0)saveCart(cart.filter(x=>x.id!==id));else saveCart(cart);
- render(); showToast(delta>0?'Quantity increased':'Quantity decreased');
-}
-function removeItem(id){
- const item=CATALOG[id]; saveCart(getCart().filter(x=>x.id!==id)); render(); showToast(item?item.name+' removed':'Item removed');
-}
-document.querySelector('#cartList').addEventListener('click',event=>{
- const btn=event.target.closest('button[data-action]'); if(!btn)return;
- const id=btn.dataset.id, action=btn.dataset.action;
- if(action==='plus')updateQty(id,1);
- if(action==='minus')updateQty(id,-1);
- if(action==='remove')removeItem(id);
-});
-document.querySelector('#clearButton').addEventListener('click',()=>{
- if(!getCart().length){showToast('Cart is already empty');return}
- saveCart([]); render(); showToast('All items cleared');
-});
-document.querySelector('#checkoutButton').addEventListener('click',()=>{
- localStorage.setItem('shkCart',JSON.stringify(getCart()));
- localStorage.setItem('shkCartMessage',document.querySelector('#message').value.trim());
- location.href='checkout.html';
-});
-document.querySelector('#message').value=localStorage.getItem('shkCartMessage')||'';
-function showToast(msg){const t=document.querySelector('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1700)}
-render();
-</script>
-</body>
-</html>
+:root{--red:#a71e1e;--green:#2f5c2b;--gold:#d49316;--cream:#fbf7eb;--paper:#fffdf8;--ink:#3a2922;--muted:#766257;--line:#e4ca8f;--ok:#25d366}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#fffef8,#fbf7eb 45%,#f4ead4);min-height:100vh}a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}.wrap{max-width:1060px;margin:auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:30;background:rgba(251,247,235,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{min-height:92px;display:flex;justify-content:space-between;align-items:center}.logo{width:108px;height:82px;object-fit:contain}.links{display:flex;gap:8px}.links a{padding:11px 15px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:1px}.links a:hover{background:#fffaf0;color:var(--red)}.cart-link{background:#fff5df;border:1px solid rgba(212,148,22,.25)}
+main{padding:55px 0 84px}.kicker{text-align:center;color:var(--green);font-size:12px;font-weight:900;letter-spacing:4px}h1{text-align:center;font:700 clamp(44px,7vw,66px)/1 Georgia,serif;color:var(--red);margin:15px 0 10px}.lead{text-align:center;color:var(--muted);max-width:720px;margin:0 auto 30px;line-height:1.65}
+.progress{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:30px;font-size:10px;font-weight:900}.step{padding:8px 12px;border-radius:999px;background:#f0e6d1;color:#8f7868}.step.active{background:var(--green);color:#fff}.line{height:1px;width:38px;background:var(--line)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start}.panel{background:rgba(255,253,248,.97);border:1px solid var(--line);border-radius:28px;box-shadow:0 20px 55px rgba(76,44,18,.10)}.items-panel{padding:24px}.panel h2{font:700 29px Georgia,serif;color:var(--red);margin:0}.note{font-size:13px;color:var(--muted);line-height:1.5;margin:6px 0 18px}.item-list{display:grid;gap:12px}
+.item-card{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:14px;align-items:center;padding:13px;border:1px solid #ead9b6;background:linear-gradient(#fffdf8,#fff9ef);border-radius:19px}.thumb{width:78px;height:72px;border-radius:14px;overflow:hidden;border:1px solid #e1c67e;background:#f3dfb0}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.item-name{font:700 19px Georgia,serif;color:var(--red);margin:0 0 4px}.item-meta{font-size:12px;color:var(--muted)}.unit{font-size:12px;color:var(--green);font-weight:900;margin-top:4px}
+.controls{display:flex;align-items:center;gap:9px}.qty-box{display:flex;align-items:center;gap:8px;padding:5px;border-radius:13px;background:#f7efdf;border:1px solid #e5cf9f}.qty-btn{width:36px;height:36px;border:0;border-radius:10px;background:#fffdf8;color:var(--green);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px rgba(76,44,18,.08)}.qty-btn svg,.remove-btn svg{width:17px;height:17px}.qty-value{min-width:26px;text-align:center;font-weight:900}.remove-btn{width:37px;height:37px;border:0;border-radius:10px;background:#fff0ed;color:var(--red);display:grid;place-items:center;cursor:pointer}
+.summary-panel{padding:22px;position:sticky;top:112px}.summary-title{font:700 27px Georgia,serif;color:var(--red);margin:0 0 15px}.summary-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #eee0c4;font-size:13px}.summary-row:last-of-type{border-bottom:0}.summary-total{display:flex;justify-content:space-between;padding-top:14px;margin-top:5px;border-top:1px solid var(--line);font-weight:900}.total-price{color:var(--green);font-size:21px}.message-label{display:block;margin-top:19px;font-size:11px;letter-spacing:.8px;font-weight:900;color:#604a3b}.message{width:100%;min-height:112px;margin-top:8px;border:1px solid #dccb9c;border-radius:15px;padding:14px;background:#fffdf8;resize:vertical;outline:none}.message:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.11)}.primary,.secondary{width:100%;min-height:52px;border-radius:15px;margin-top:12px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer}.primary{border:0;background:var(--green);color:#fff}.secondary{border:1px solid var(--line);background:#fff5df;color:var(--red)}.clear{display:flex;justify-content:center;margin-top:13px}.clear button{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:800;text-decoration:underline;cursor:pointer}.empty{text-align:center;padding:32px 18px;border:1px dashed var(--line);border-radius:18px;background:#fbf2df;color:var(--muted)}.empty strong{display:block;color:var(--red);font:700 22px Georgia,serif;margin-bottom:6px}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--green);color:#fff;padding:13px 18px;border-radius:999px;font-weight:900;transition:.25s;z-index:100}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.summary-panel{position:static}.nav{min-height:78px}.logo{width:82px;height:64px}.links a{font-size:10px;padding:9px}.wrap{padding:0 16px}.item-card{grid-template-columns:66px minmax(0,1fr)}.thumb{width:66px;height:62px}.controls{grid-column:1/-1;justify-content:space-between}.progress{gap:5px}.line{width:18px}}
+@media(max-width:520px){.items-panel,.summary-panel{padding:18px}.links a:nth-child(2){display:none}}
+</style></head><body>
+<nav><div class="wrap nav"><a href="index.html"><img class="logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a><div class="links"><a href="index.html#menu">MENU</a><a href="about.html">ABOUT</a><a class="cart-link" href="cart.html">CART</a></div></div></nav>
+<main><div class="wrap"><div class="kicker">SWASTIK HOME KITCHEN</div><h1>Your Cart</h1><p class="lead">Adjust quantities, review prices, add a message, and continue to the dedicated checkout page.</p><div class="progress"><span class="step active">1 • CART</span><span class="line"></span><span class="step">2 • DETAILS</span><span class="line"></span><span class="step">3 • WHATSAPP</span></div>
+<div class="layout"><section class="panel items-panel"><h2>Selected Items</h2><p class="note">Use − and + to change quantity. The bin button removes a dish completely.</p><div id="cartList" class="item-list"></div></section>
+<aside class="panel summary-panel"><h2 class="summary-title">Order Summary</h2><div class="summary-row"><span>Items</span><strong id="count">0</strong></div><div class="summary-row"><span>Unique dishes</span><strong id="unique">0</strong></div><div class="summary-total"><span>Total</span><span id="total" class="total-price">Rs. 0</span></div><label class="message-label" for="message">MESSAGE FOR SHK (OPTIONAL)</label><textarea id="message" class="message" maxlength="400" placeholder="Special request, delivery instruction, or anything else you'd like to tell us."></textarea><button id="checkout" class="primary" type="button">PROCEED TO CHECKOUT</button><a class="secondary" href="index.html#menu">CONTINUE SHOPPING</a><div class="clear"><button id="clear" type="button">Clear all items</button></div></aside></div></div></main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div><script src="assets/menu.js"></script><script>
+const allowed=new Set(SHK_MENU.map(x=>x.id));const byId=Object.fromEntries(SHK_MENU.map(x=>[x.id,x]));
+function read(){try{const raw=JSON.parse(localStorage.getItem('shkCart')||'[]');if(!Array.isArray(raw))return[];const merged={};raw.forEach(x=>{if(x&&x.id&&allowed.has(x.id))merged[x.id]=(merged[x.id]||0)+Math.max(1,Math.floor(Number(x.qty)||1))});return Object.entries(merged).map(([id,qty])=>({id,qty}))}catch{return[]}}
+function save(c){localStorage.setItem('shkCart',JSON.stringify(c))}
+function qty(c){return c.reduce((s,x)=>s+x.qty,0)}
+function money(n){return'Rs. '+n.toLocaleString('en-IN')}
+function icon(t){if(t==='minus')return'<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';if(t==='plus')return'<svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';return'<svg viewBox="0 0 24 24" fill="none"><path d="M9 5h6M5.5 7.5h13M8 10v8m4-8v8m4-8v8M7 7.5l.7 12h8.6l.7-12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
+function render(){const c=read();save(c);const list=document.querySelector('#cartList'),n=qty(c),total=c.reduce((s,x)=>s+byId[x.id].price*x.qty,0);document.querySelector('#count').textContent=n;document.querySelector('#unique').textContent=c.length;document.querySelector('#total').textContent=money(total);if(!c.length){list.innerHTML='<div class="empty"><strong>Your cart is empty</strong>Add something delicious from the menu.<br><a href="index.html#menu" style="display:inline-block;margin-top:12px;color:var(--red);font-weight:900">← Browse menu</a></div>';return}list.innerHTML=c.map(x=>{const i=byId[x.id];return'<article class="item-card"><div class="thumb"><img loading="lazy" src="'+i.image+'" alt="'+i.name+'"></div><div><h3 class="item-name">'+i.name+'</h3><div class="item-meta">'+i.category+'</div><div class="unit">'+money(i.price)+' each</div></div><div class="controls"><div class="qty-box"><button class="qty-btn" type="button" data-act="minus" data-id="'+i.id+'">'+icon('minus')+'</button><span class="qty-value">'+x.qty+'</span><button class="qty-btn" type="button" data-act="plus" data-id="'+i.id+'">'+icon('plus')+'</button></div><button class="remove-btn" type="button" data-act="remove" data-id="'+i.id+'" title="Remove item" aria-label="Remove '+i.name+'">'+icon('remove')+'</button></div></article>'}).join('')}
+function toast(m){const t=document.querySelector('#toast');t.textContent=m;t.classList.add('show');clearTimeout(window.__t);window.__t=setTimeout(()=>t.classList.remove('show'),1600)}
+document.querySelector('#cartList').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const c=read(),r=c.find(x=>x.id===b.dataset.id);if(b.dataset.act==='plus'){r.qty++;save(c);toast('Quantity increased')}else if(b.dataset.act==='minus'){r.qty--;save(r.qty>0?c.filter(x=>x.qty>0):c.filter(x=>x.id!==b.dataset.id));toast(r.qty>0?'Quantity decreased':'Item removed')}else{save(c.filter(x=>x.id!==b.dataset.id));toast('Item removed')}render()});
+document.querySelector('#clear').addEventListener('click',()=>{save([]);render();toast('Cart cleared')});document.querySelector('#checkout').addEventListener('click',()=>{const c=read();save(c);localStorage.setItem('shkCartMessage',document.querySelector('#message').value.trim());location.href='checkout.html'});document.querySelector('#message').value=localStorage.getItem('shkCartMessage')||'';render();
+</script></body></html>

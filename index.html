@@ -56,7 +56,7 @@ function render(){
  <p class="desc">${x.short}</p>
  <div class="row">
  <span class="price">Rs. ${x.price}</span>
- <button class="add" type="button" data-add="${x.id}" onclick='add("${x.id}")' aria-label="Add ${x.name} to cart">
+ <button class="add" type="button" data-add="${x.id}" onclick='add("${x.id}",this)' aria-label="Add ${x.name} to cart">
  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
  ADD TO CART
  </button>

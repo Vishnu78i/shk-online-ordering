@@ -58,20 +58,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.9);backdrop-fi
 .delivery-text{font-size:16px;font-weight:900;letter-spacing:1.5px}
 .delivery-text strong{color:#f7df91}
 @keyframes deliveryShine{0%,55%,100%{transform:translateX(-100%)}75%{transform:translateX(100%)}}
-.location-ribbon{position:relative;display:flex;justify-content:center;padding:0 14px;margin:0;background:linear-gradient(135deg,#355a45 0%,#234335 50%,#355a45 100%);border-bottom:1px solid rgba(200,161,90,.55);box-shadow:0 12px 28px rgba(35,67,53,.16);overflow:hidden}
-.location-ribbon:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,230,165,.16) 50%,transparent 80%);transform:translateX(-100%);animation:locationShine 5s ease-in-out infinite}
-.location-ribbon-inner{position:relative;z-index:1;min-height:58px;display:flex;align-items:center;justify-content:center;gap:12px;text-align:center}
-.location-pill{display:inline-flex;align-items:center;gap:7px;color:#f5d77d;font-size:10px;font-weight:900;letter-spacing:2.2px}
-.location-pill:before,.location-pill:after{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,#d8b66a)}
-.location-pill:after{transform:scaleX(-1)}
-.location-title{font:700 20px Georgia,serif;color:#fff8e6;letter-spacing:.5px}
-@keyframes locationShine{0%,55%,100%{transform:translateX(-100%)}75%{transform:translateX(100%)}}
 .menu-bottom-actions{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:80;width:min(620px,calc(100% - 32px));margin:0;padding:7px;background:rgba(255,253,248,.9);backdrop-filter:blur(18px);border:1px solid rgba(200,161,90,.48);border-radius:20px;box-shadow:0 18px 45px rgba(47,39,36,.18)}
-.trustbar{border-top:1px solid rgba(227,201,134,.6);border-bottom:1px solid rgba(227,201,134,.6);background:rgba(255,253,248,.72)}
-.trust{display:grid;grid-template-columns:repeat(4,1fr);align-items:stretch}
-.trust-item{padding:17px 10px;text-align:center;color:#614d3f;font-size:10px;font-weight:900;letter-spacing:1.6px;position:relative}
-.trust-item:not(:last-child):after{content:"";position:absolute;right:0;top:28%;height:44%;width:1px;background:var(--line)}
-.trust-item strong{display:block;color:var(--red);font:700 21px Georgia,serif;letter-spacing:0;margin-bottom:3px}
 section{padding:82px 0}
 .menu-section{position:relative;scroll-margin-top:88px}
 .section-head{text-align:center;max-width:790px;margin:0 auto 36px}
@@ -114,18 +101,6 @@ section{padding:82px 0}
 .add:hover{transform:translateY(-2px);box-shadow:0 17px 30px rgba(101,75,34,.25)}
 .add svg{width:17px;height:17px}
 .no-results{padding:38px 20px;border:1px dashed var(--line);border-radius:22px;background:#fbf2df;color:var(--muted);text-align:center;grid-column:1/-1}
-.experience{padding:86px 0;background:linear-gradient(135deg,#355a45,#234335);color:#fff;position:relative;overflow:hidden}
-.experience:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(255,229,165,.08),transparent 26%),radial-gradient(circle at 82% 70%,rgba(255,255,255,.05),transparent 26%)}
-.experience .wrap{position:relative;z-index:1}
-.experience-head{text-align:center;max-width:720px;margin:0 auto 36px}
-.experience-head .section-kicker{color:#f3d273}
-.experience-head .section-title{color:#fff3c9}
-.experience-head .section-copy{color:#f4ecde}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.feature{padding:27px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);border-radius:25px;box-shadow:0 20px 40px rgba(0,0,0,.11)}
-.feature-num{display:grid;place-items:center;width:45px;height:45px;border-radius:14px;background:#fff3d0;color:var(--red);font:700 18px Georgia,serif;margin-bottom:17px}
-.feature h3{font:700 27px Georgia,serif;color:#ffe6a5;margin:0 0 9px}
-.feature p{color:#f5eddf;line-height:1.65;margin:0}
 .final-cta{padding:84px 0 118px}
 .final-box{position:relative;overflow:hidden;max-width:980px;margin:auto;padding:48px 34px;text-align:center;border:1px solid var(--line);border-radius:30px;background:rgba(255,253,248,.9);box-shadow:0 22px 55px rgba(76,44,18,.1)}
 .final-box:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;border:1px solid rgba(212,147,22,.16);left:-95px;top:-95px}
@@ -222,21 +197,6 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
 </section>
 
 <div class="shk-scroll-space" aria-hidden="true"></div>
-<section class="experience">
-  <div class="wrap">
-    <div class="experience-head">
-      <div class="section-kicker">WHY SHK FEELS DIFFERENT</div>
-      <h2 class="section-title">A little more than just ordering food</h2>
-      <p class="section-copy">Every touchpoint is designed to feel warm, clear and satisfying — from the first scroll to the final WhatsApp order.</p>
-    </div>
-    <div class="features">
-      <article class="feature"><div class="feature-num">01</div><h3>Shudh</h3><p>Simple, familiar Indian food with a visual identity rooted in the warmth of a home kitchen.</p></article>
-      <article class="feature"><div class="feature-num">02</div><h3>Apnapan</h3><p>A friendly ordering journey that makes the digital experience feel as welcoming as the food.</p></article>
-      <article class="feature"><div class="feature-num">03</div><h3>Swad</h3><p>Rich presentation, thoughtful details and a menu built around flavours you already love.</p></article>
-    </div>
-  </div>
-</section>
-
 <section class="final-cta">
   <div class="wrap">
     <div class="final-box">

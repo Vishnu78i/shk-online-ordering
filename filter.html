@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8f2232">
+<title>Filter Menu | Swastik Home Kitchen</title>
+<style>
+:root{--red:#8f2232;--green:#355a45;--gold:#c8a15a;--cream:#fbf8f0;--paper:#fffdf8;--ink:#2f2724;--muted:#786b63;--line:#e7d7b5}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+body{background:radial-gradient(circle at 15% 8%,rgba(200,161,90,.15),transparent 25%),linear-gradient(135deg,#f8f1e4,#fffdf8 50%,#f3eadb)}
+a{text-decoration:none;color:inherit}.wrap{max-width:1080px;margin:auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:20;background:rgba(251,248,240,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{min-height:84px;display:flex;align-items:center;justify-content:space-between}.logo{width:110px;height:72px;object-fit:contain}.back{padding:11px 15px;border:1px solid var(--line);border-radius:999px;background:#fffaf2;color:var(--green);font-size:11px;font-weight:900;letter-spacing:1px}
+main{padding:42px 0 90px}.head{margin-bottom:26px}.kicker{color:var(--green);font-size:10px;font-weight:900;letter-spacing:3px}.title{font:700 48px/1.05 Georgia,serif;color:var(--red);margin:9px 0}.copy{color:var(--muted);margin:0;line-height:1.6}
+.filter-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:26px;align-items:start}
+.side{position:sticky;top:108px;padding:15px;border:1px solid var(--line);border-radius:24px;background:rgba(255,253,248,.92);box-shadow:0 18px 40px rgba(76,44,18,.09)}
+.side button{width:100%;padding:15px 14px;border:0;border-radius:14px;background:transparent;color:#6d584a;text-align:left;font-weight:900;font-size:12px;letter-spacing:1px;cursor:pointer;transition:.2s;margin-bottom:5px}.side button:hover{background:#f7efdf;color:var(--red)}.side button.active{background:var(--green);color:#fff;box-shadow:0 10px 20px rgba(53,90,69,.16)}
+.results{min-height:300px}.result-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.result-title{font:700 28px Georgia,serif;color:var(--red);margin:0}.count{font-size:11px;color:var(--muted);font-weight:900}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{display:flex;align-items:center;gap:13px;padding:12px;border:1px solid var(--line);border-radius:18px;background:rgba(255,253,248,.96);box-shadow:0 12px 30px rgba(76,44,18,.07)}.thumb{width:92px;height:82px;flex:0 0 92px;border-radius:13px;overflow:hidden;background:#f2e5c8}.thumb img{width:100%;height:100%;object-fit:cover}.name{font:700 19px Georgia,serif;color:var(--red);margin:0 0 5px}.meta{font-size:10px;color:var(--muted)}.price{margin-top:7px;color:var(--green);font-weight:900;font-size:12px}
+@media(max-width:760px){.wrap{padding:0 14px}.nav{min-height:70px}.logo{width:96px;height:60px}.filter-layout{grid-template-columns:115px minmax(0,1fr);gap:12px}.side{top:84px;padding:8px;border-radius:17px}.side button{font-size:9px;padding:12px 8px}.title{font-size:36px}.cards{grid-template-columns:1fr}.card{gap:9px}.thumb{width:76px;height:70px;flex-basis:76px}.name{font-size:16px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav"><a href="index.html"><img class="logo" src="assets/shk-logo-clean.svg" alt="Swastik Home Kitchen"></a><a class="back" href="index.html#menu">← MENU</a></div></nav>
+<main><div class="wrap">
+<div class="head"><div class="kicker">SHK MENU</div><h1 class="title">Choose a category</h1><p class="copy">Select a category from the left to view the dishes.</p></div>
+<div class="filter-layout"><aside class="side" id="side"></aside><section class="results"><div class="result-head"><h2 id="resultTitle" class="result-title">All</h2><span id="resultCount" class="count"></span></div><div id="cards" class="cards"></div></section></div>
+</div></main>
+<script src="assets/menu.js"></script><script>
+const cats=['All','Breads','Gravy','Rice','Beverages','Sides'];let active='All';
+const side=document.querySelector('#side'),cards=document.querySelector('#cards');
+function render(){
+ side.innerHTML=cats.map(x=>'<button class="'+(x===active?'active':'')+'" data-cat="'+x+'">'+x+'</button>').join('');
+ const items=SHK_MENU.filter(x=>active==='All'||x.category===active);
+ document.querySelector('#resultTitle').textContent=active;
+ document.querySelector('#resultCount').textContent=items.length+' dishes';
+ cards.innerHTML=items.map(x=>'<a class="card" href="product.html?item='+encodeURIComponent(x.id)+'"><div class="thumb"><img loading="lazy" src="'+x.image+'" alt="'+x.name+'" onerror="SHK_IMAGE_FALLBACK(this,this.alt,this.dataset.category)"></div><div><h3 class="name">'+x.name+'</h3><div class="meta">'+x.category+'</div><div class="price">Rs. '+x.price+'</div></div></a>').join('');
+}
+side.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;active=b.dataset.cat;render()});render();
+</script>
+</body></html>

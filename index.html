@@ -40,6 +40,28 @@ function toast(m){const t=document.querySelector('#toast');t.textContent=m;t.cla
 function add(id){const c=cart(),r=c.find(x=>x.id===id);if(r)r.qty++;else c.push({id,qty:1});saveCart(c);updateCount();const item=SHK_MENU.find(x=>x.id===id);toast(item.name+' added to cart')}
 const categories=['All','Breads','Gravy','Rice','Beverages & Sides'];let active='All';
 function renderFilters(){document.querySelector('#filters').innerHTML=categories.map(c=>'<button type="button" class="filter '+(c===active?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('')}
-function render(){const q=document.querySelector('#menuSearch').value.trim().toLowerCase();const items=SHK_MENU.filter(x=>(active==='All'||x.category===active)&&(!q||x.name.toLowerCase().includes(q)));const grid=document.querySelector('#menuGrid');if(!items.length){grid.innerHTML='<div class="no-results">No dishes match your search. Try another category or search term.</div>';return}grid.innerHTML=items.map(x=>'<article class="card"><a class="food-link" href="product.html?item='+x.id+'"><img class="food" loading="lazy" src="'+x.image+'" alt="'+x.name+'" onerror="SHK_IMAGE_FALLBACK(this,'+JSON.stringify(x.name)+','+JSON.stringify(x.category)+')"></a><div class="body"><div class="category">'+x.category.toUpperCase()+'</div><h3 class="name">'+x.name+'</h3><p class="desc">'+x.short+'</p><div class="row"><span class="price">Rs. '+x.price+'</span><button class="add" type="button" data-add="'+x.id+'" onclick="add(''+x.id+'')"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>ADD TO CART</button></div></div></article>').join('')}
-document.querySelector('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;active=b.dataset.cat;renderFilters();render()});document.querySelector('#menuSearch').addEventListener('input',render);document.querySelector('#menuGrid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;e.preventDefault();e.stopPropagation()});updateCount();renderFilters();render();
+function render(){
+ const q=document.querySelector('#menuSearch').value.trim().toLowerCase();
+ const items=SHK_MENU.filter(x=>(active==='All'||x.category===active)&&(!q||x.name.toLowerCase().includes(q)));
+ const grid=document.querySelector('#menuGrid');
+ if(!items.length){grid.innerHTML='<div class="no-results">No dishes match your search. Try another category or search term.</div>';return}
+ grid.innerHTML=items.map(x=>`<article class="card">
+ <a class="food-link" href="product.html?item=${x.id}">
+ <img class="food" loading="lazy" src="${x.image}" alt="${x.name}" data-category="${x.category}" onerror="SHK_IMAGE_FALLBACK(this,this.alt,this.dataset.category)">
+ </a>
+ <div class="body">
+ <div class="category">${x.category.toUpperCase()}</div>
+ <h3 class="name">${x.name}</h3>
+ <p class="desc">${x.short}</p>
+ <div class="row">
+ <span class="price">Rs. ${x.price}</span>
+ <button class="add" type="button" data-add="${x.id}" onclick='add("${x.id}")' aria-label="Add ${x.name} to cart">
+ <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ ADD TO CART
+ </button>
+ </div>
+ </div>
+ </article>`).join('')
+}
+document.querySelector('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;active=b.dataset.cat;renderFilters();render()});document.querySelector('#menuSearch').addEventListener('input',render);updateCount();renderFilters();render();
 </script></body></html>

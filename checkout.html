@@ -78,7 +78,7 @@ function toggleDelivery(){
  ['address','area','pincode'].forEach(id=>{const e=document.getElementById(id);e.required=delivery;e.disabled=!delivery;if(!delivery)e.value=''});
 }
 document.querySelectorAll('input[name="fulfilment"]').forEach(x=>x.addEventListener('change',toggleDelivery));
-function normalPhone(v){let x=String(v||'').replace(/D/g,'');if(x.length===12&&x.startsWith('91'))x=x.slice(2);return x}
+function normalPhone(v){let x=String(v||'').replace(/\D/g,'');if(x.length===12&&x.startsWith('91'))x=x.slice(2);return x}
 function placeOrder(ev){
  ev.preventDefault();
  const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}

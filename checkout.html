@@ -53,13 +53,46 @@ main{padding:54px 0 80px}.kicker{text-align:center;color:var(--green);font-weigh
 </a>
 <script>
 const PHONE='917483962677';
-function getCart(){try{return JSON.parse(localStorage.getItem('shkCart')||'[]')}catch{return[]}}
-function render(){const c=getCart(),e=document.querySelector('#orderList');const total=c.reduce((s,x)=>s+x.qty,0);document.querySelector('#count').textContent=total;if(!c.length)e.innerHTML='<div style="padding:16px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)">No food items selected. You can still send a message/enquiry.</div>';else e.innerHTML=c.map(x=>'<div class="order-row"><span class="order-name">'+safe(x.name)+'</span><span class="qty">× '+x.qty+'</span></div>').join('');const msg=localStorage.getItem('shkCartMessage')||'';if(msg){const p=document.querySelector('#messagePreview');p.style.display='block';p.textContent='Message: '+msg}}
-function safe(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function toggleDelivery(){const delivery=document.querySelector('#delivery').checked;const box=document.querySelector('#deliveryFields');box.style.display=delivery?'grid':'none';['address','area','pincode'].forEach(id=>{const e=document.getElementById(id);e.required=delivery;e.disabled=!delivery;e.value=delivery?e.value:''})}
+const NAME_BY_ID={'aloo-paratha':'Aloo Paratha','dal-baati-churma':'Dal • Baati • Churma'};
+function rawCart(){try{const x=JSON.parse(localStorage.getItem('shkCart')||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
+function getCart(){
+ const merged={};
+ rawCart().forEach(x=>{
+   if(typeof x==='string')merged[x]=(merged[x]||0)+1;
+   else if(x&&x.id){const n=NAME_BY_ID[x.id]||x.name||'';if(n)merged[n]=(merged[n]||0)+Math.max(1,Math.floor(Number(x.qty)||1))}
+ });
+ return Object.entries(merged).map(([name,qty])=>({name,qty}));
+}
+function safe(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){
+ const c=getCart(),e=document.querySelector('#orderList'),total=c.reduce((s,x)=>s+x.qty,0);
+ document.querySelector('#count').textContent=total;
+ if(!c.length)e.innerHTML='<div style="padding:16px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)">No food items selected. You can still send a message/enquiry.</div>';
+ else e.innerHTML=c.map(x=>'<div class="order-row"><span class="order-name">'+safe(x.name)+'</span><span class="qty">× '+x.qty+'</span></div>').join('');
+ const msg=localStorage.getItem('shkCartMessage')||'';
+ if(msg){const p=document.querySelector('#messagePreview');p.style.display='block';p.textContent='Message: '+msg}
+}
+function toggleDelivery(){
+ const delivery=document.querySelector('#delivery').checked,box=document.querySelector('#deliveryFields');
+ box.style.display=delivery?'grid':'none';
+ ['address','area','pincode'].forEach(id=>{const e=document.getElementById(id);e.required=delivery;e.disabled=!delivery;if(!delivery)e.value=''});
+}
 document.querySelectorAll('input[name="fulfilment"]').forEach(x=>x.addEventListener('change',toggleDelivery));
-function normalPhone(v){let x=v.replace(/\D/g,'');if(x.length===12&&x.startsWith('91'))x=x.slice(2);return x}
-function placeOrder(ev){ev.preventDefault();const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}const c=getCart();const fd=new FormData(form),name=fd.get('name').trim(),phone=normalPhone(fd.get('phone')),fulfil=fd.get('fulfilment'),address=fulfil==='Delivery'?fd.get('address').trim():'',area=fulfil==='Delivery'?fd.get('area').trim():'',pin=fulfil==='Delivery'?fd.get('pincode').trim():'',note=fd.get('checkoutMessage').trim(),msg=localStorage.getItem('shkCartMessage')||'';let out='Hello Swastik Home Kitchen!\n\n';if(c.length){out+='ORDER:\n';c.forEach(({name,qty})=>out+='• '+name+' × '+qty+'\n');out+='\n'}else out+='MESSAGE / ENQUIRY\n';if(msg)out+='Customer message: '+msg+'\n\n';out+='CUSTOMER DETAILS:\nName: '+name+'\nPhone: +91 '+phone+'\nFulfilment: '+fulfil+'\n';if(fulfil==='Delivery')out+='Delivery Address: '+address+'\nArea: '+area+'\nPIN Code: '+pin+'\n';if(note)out+='Order note: '+note+'\n';out+='\nPlease confirm the order and availability.';document.querySelector('#step3').classList.add('active');document.querySelector('#success').style.display='block';window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(out),'_blank')}
+function normalPhone(v){let x=String(v||'').replace(/D/g,'');if(x.length===12&&x.startsWith('91'))x=x.slice(2);return x}
+function placeOrder(ev){
+ ev.preventDefault();
+ const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}
+ const c=getCart(),fd=new FormData(form),name=String(fd.get('name')||'').trim(),phone=normalPhone(fd.get('phone')),fulfil=fd.get('fulfilment'),address=fulfil==='Delivery'?String(fd.get('address')||'').trim():'',area=fulfil==='Delivery'?String(fd.get('area')||'').trim():'',pin=fulfil==='Delivery'?String(fd.get('pincode')||'').trim():'',note=String(fd.get('checkoutMessage')||'').trim(),msg=localStorage.getItem('shkCartMessage')||'';
+ let out='Hello Swastik Home Kitchen!\n\n';
+ if(c.length){out+='ORDER:\n';c.forEach(({name,qty})=>out+='• '+name+' × '+qty+'\n');out+='\n'}else out+='MESSAGE / ENQUIRY\n';
+ if(msg)out+='Customer message: '+msg+'\n\n';
+ out+='CUSTOMER DETAILS:\nName: '+name+'\nPhone: +91 '+phone+'\nFulfilment: '+fulfil+'\n';
+ if(fulfil==='Delivery')out+='Delivery Address: '+address+'\nArea: '+area+'\nPIN Code: '+pin+'\n';
+ if(note)out+='Order note: '+note+'\n';
+ out+='\nPlease confirm the order and availability.';
+ document.querySelector('#step3').classList.add('active');document.querySelector('#success').style.display='block';
+ window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(out),'_blank');
+}
 toggleDelivery();render();
 </script>
 </body></html>

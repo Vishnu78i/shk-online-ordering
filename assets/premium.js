@@ -7,7 +7,7 @@
     const style = document.createElement('style');
     style.id = 'shkPremiumStyles';
     style.textContent = `
-      :root{--shk-red:#a71e1e;--shk-green:#2f5c2b;--shk-gold:#d49316}
+      :root{--shk-red:#8f2232;--shk-green:#355a45;--shk-gold:#c8a15a}
       body{overflow-x:hidden}
       body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.28;background-image:radial-gradient(circle at 8% 16%,rgba(212,147,22,.14) 0 1px,transparent 1.5px),radial-gradient(circle at 92% 72%,rgba(167,30,30,.08) 0 1px,transparent 1.5px);background-size:46px 46px,58px 58px}
       .shk-scrollbar{position:fixed;top:0;left:0;width:100%;height:3px;z-index:9999;background:transparent;pointer-events:none}

@@ -72,6 +72,12 @@ section{padding:82px 0}
 .filter{border:1px solid var(--line);background:rgba(255,253,248,.88);color:#6d584a;border-radius:999px;padding:10px 14px;font-size:11px;font-weight:900;cursor:pointer;transition:.2s}
 .filter:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(76,44,18,.07)}
 .filter.active{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 9px 20px rgba(53,90,69,.16)}
+.menu-search-trigger{display:flex;justify-content:flex-end;position:relative;margin:0 0 18px}
+.search-icon-btn{width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:rgba(255,253,248,.94);color:var(--green);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 22px rgba(76,44,18,.08);transition:.22s}
+.search-icon-btn:hover{transform:translateY(-2px);box-shadow:0 15px 28px rgba(76,44,18,.12)}
+.search-icon-btn svg{width:21px;height:21px}
+.search-popover{position:absolute;right:58px;top:0;width:min(360px,calc(100vw - 70px));z-index:20}
+.search-popover[hidden]{display:none}
 .filter-panel{max-height:0;overflow:hidden;opacity:0;transform:translateY(-6px);padding:0;transition:max-height .3s ease,opacity .25s ease,transform .25s ease,margin .3s ease}
 .filter-panel.open{max-height:160px;opacity:1;transform:none;margin-bottom:24px}
 .menu-bottom-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -172,15 +178,16 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
       <p class="section-copy">Explore breads, gravies, fragrant rice and refreshing sides. Tap any dish for details or add it directly to your cart.</p>
     </div>
     <div class="menu-frame">
-      <div class="menu-tools">
-        <input id="menuSearch" class="search" type="search" placeholder="Search your favourite dish..." aria-label="Search menu">
+      <div class="menu-search-trigger">
+        <button id="searchToggle" class="search-icon-btn" type="button" aria-label="Open menu search" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <div id="searchBox" class="search-popover" hidden><input id="menuSearch" class="search" type="search" placeholder="Search your favourite dish..." aria-label="Search menu"></div>
       </div>
       <div id="filters" class="filters filter-panel" aria-label="Menu filters"></div>
       <div id="menuGrid" class="grid"></div>
       <div class="menu-bottom-actions">
-        <button id="filterToggle" class="menu-action filter-action" type="button" aria-expanded="false" aria-controls="filters">
-          <span>FILTER</span><span class="menu-action-icon">☰</span>
-        </button>
+        <a class="menu-action filter-action" href="filter.html"><span>FILTER</span><span class="menu-action-icon">☰</span></a>
         <a class="menu-action cart-action" href="cart.html">
           <span>VIEW CART</span><span class="menu-action-icon">🛒</span>
         </a>
@@ -255,7 +262,7 @@ function flyToCart(button){
     setTimeout(()=>target.classList.remove('cart-glow'),850);
   }).catch(()=>dot.remove());
 }
-const categories=['All','Breads','Gravy','Rice','Beverages & Sides'];
+const categories=['All','Breads','Gravy','Rice','Beverages','Sides'];
 let active='All';
 function renderFilters(){
   document.querySelector('#filters').innerHTML=categories.map(c=>'<button type="button" class="filter '+(c===active?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('');
@@ -286,11 +293,13 @@ function render(){
     '</div></article>').join('');
   if(window.SHK_PREMIUM_REFRESH)window.SHK_PREMIUM_REFRESH();
 }
-document.querySelector('#filterToggle').addEventListener('click',()=>{
-  const panel=document.querySelector('#filters');
-  const button=document.querySelector('#filterToggle');
-  const open=panel.classList.toggle('open');
+document.querySelector('#searchToggle').addEventListener('click',()=>{
+  const box=document.querySelector('#searchBox');
+  const button=document.querySelector('#searchToggle');
+  const open=box.hidden;
+  box.hidden=!open;
   button.setAttribute('aria-expanded',String(open));
+  if(open)document.querySelector('#menuSearch').focus();
 });
 document.querySelector('#filters').addEventListener('click',e=>{
   const b=e.target.closest('[data-cat]');if(!b)return;

@@ -12,7 +12,7 @@
 section{padding:70px 0}.title{text-align:center;font:700 44px Georgia,serif;color:var(--red);margin:0 0 9px}.sub{text-align:center;max-width:720px;margin:0 auto 30px;color:var(--muted);line-height:1.65}
 .menu-tools{display:grid;grid-template-columns:1fr 260px;gap:14px;align-items:center;margin:0 0 25px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#fffdf8;color:#6d584a;border-radius:999px;padding:10px 14px;font-size:12px;font-weight:900;cursor:pointer;transition:.18s}.filter:hover{transform:translateY(-1px)}.filter.active{background:var(--green);border-color:var(--green);color:#fff}
 .search{width:100%;height:44px;border:1px solid var(--line);border-radius:999px;padding:0 16px;background:#fffdf8;outline:none;color:var(--ink)}.search:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.11)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:25px;overflow:hidden;box-shadow:0 18px 42px rgba(76,44,18,.09);transition:.22s}.card:hover{transform:translateY(-4px);box-shadow:0 25px 55px rgba(76,44,18,.13)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:25px;overflow:hidden;box-shadow:0 18px 42px rgba(76,44,18,.09);transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s,opacity .5s}.card:hover{transform:translateY(-6px);box-shadow:0 26px 58px rgba(76,44,18,.14)}.card.reveal{opacity:0;transform:translateY(22px) scale(.985)}.card.revealed{opacity:1;transform:translateY(0) scale(1)}
 .food-link{display:block;overflow:hidden}.food{width:100%;height:245px;display:block;object-fit:cover;transition:transform .45s}.food-link:hover .food{transform:scale(1.045)}
 .body{padding:20px}.category{font-size:10px;font-weight:900;letter-spacing:1.4px;color:var(--green)}.name{font:700 25px Georgia,serif;color:var(--red);margin:7px 0 7px}.desc{margin:0;color:var(--muted);line-height:1.5;font-size:14px;min-height:42px}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:17px}.price{font-size:18px;color:var(--green);font-weight:900}.add{border:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,#bd7b08,#e0a326);color:#fffdf8;font-weight:900;letter-spacing:.5px;cursor:pointer;box-shadow:0 10px 21px rgba(137,86,8,.24);transition:.18s}.add:hover{transform:translateY(-2px);box-shadow:0 15px 27px rgba(137,86,8,.3)}.add svg{width:18px;height:18px}
@@ -64,5 +64,41 @@ function render(){
  </div>
  </article>`).join('')
 }
-document.querySelector('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;active=b.dataset.cat;renderFilters();render()});document.querySelector('#menuSearch').addEventListener('input',render);updateCount();renderFilters();render();
-</script></body></html>
+document.querySelector('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;active=b.dataset.cat;renderFilters();render()});
+document.querySelector('#menuSearch').addEventListener('input',render);
+document.querySelector('#menuGrid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;e.preventDefault();e.stopPropagation();add(b.dataset.add,b)});
+function flyToCart(button){
+ const target=document.querySelector('#cartCount');if(!button||!target)return;
+ const a=button.getBoundingClientRect(),z=target.getBoundingClientRect(),dot=document.createElement('div');
+ dot.className='cart-fly';
+ dot.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+ document.body.appendChild(dot);
+ const sx=a.left+a.width/2-21,sy=a.top+a.height/2-21,tx=z.left+z.width/2-21,ty=z.top+z.height/2-21;
+ const mx=sx+(tx-sx)*.52,my=sy+(ty-sy)*.28-85;
+ dot.style.transform='translate3d('+sx+'px,'+sy+'px,0) scale(1)';
+ const anim=dot.animate([
+   {transform:'translate3d('+sx+'px,'+sy+'px,0) scale(1) rotate(0deg)',opacity:1,filter:'blur(0)'},
+   {transform:'translate3d('+mx+'px,'+my+'px,0) scale(1.15) rotate(-12deg)',opacity:1,filter:'blur(0)'},
+   {transform:'translate3d('+tx+'px,'+ty+'px,0) scale(.48) rotate(8deg)',opacity:.15,filter:'blur(.3px)'}
+ ],{duration:780,easing:'cubic-bezier(.2,.78,.18,1)'});
+ anim.finished.then(()=>{dot.remove();target.classList.remove('cart-pulse','cart-glow');void target.offsetWidth;target.classList.add('cart-pulse','cart-glow');setTimeout(()=>target.classList.remove('cart-pulse'),700);setTimeout(()=>target.classList.remove('cart-glow'),850)}).catch(()=>dot.remove());
+}
+function buttonRipple(button){
+ if(!button)return;
+ button.classList.remove('clicked');void button.offsetWidth;button.classList.add('clicked');
+ const ring=document.createElement('span');ring.style.cssText='position:absolute;left:50%;top:50%;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);transform:translate(-50%,-50%) scale(1);pointer-events:none;animation:rippleOut .55s ease-out forwards;';
+ button.appendChild(ring);setTimeout(()=>ring.remove(),600);
+}
+function add(id,button){
+ const c=cart(),r=c.find(x=>x.id===id);if(r)r.qty++;else c.push({id,qty:1});
+ saveCart(c);updateCount();buttonRipple(button);flyToCart(button);
+ const item=SHK_MENU.find(x=>x.id===id);toast(item.name+' added to cart');
+}
+if(!document.querySelector('#premiumRippleKeyframes')){
+ const s=document.createElement('style');s.id='premiumRippleKeyframes';s.textContent='@keyframes rippleOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(14)}}';document.head.appendChild(s);
+}
+function revealCards(){
+ const cards=[...document.querySelectorAll('.card')];
+ cards.forEach((card,index)=>{card.classList.add('reveal');setTimeout(()=>card.classList.add('revealed'),60+index*45)});
+}
+updateCount();renderFilters();render();revealCards();</script></body></html>

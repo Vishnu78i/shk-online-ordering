@@ -4,47 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#a71e1e">
-<title>SHK Cart & WhatsApp Order</title>
+<title>SHK Cart & Checkout | Swastik Home Kitchen</title>
 <style>
-:root{--red:#a71e1e;--green:#2f5c2b;--gold:#d49416;--cream:#fbf7eb;--paper:#fffdf8;--ink:#3a2922;--muted:#766257;--line:#e3c986}
+:root{--red:#a71e1e;--red2:#7e1515;--green:#2f5c2b;--green2:#244821;--gold:#d49316;--cream:#fbf7eb;--paper:#fffdf8;--ink:#3a2922;--muted:#766257;--line:#e4ca8f;--soft:#fff6e6;--ok:#25d366}
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#fbf7eb,#fffdf8 50%,#f8f1df);color:var(--ink);font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#fffdf7 0,#fbf7eb 38%,#f6edda 100%);min-height:100vh}
 a{text-decoration:none;color:inherit}
-.wrap{max-width:920px;margin:auto;padding:0 22px}
-nav{background:rgba(251,247,235,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1050px;margin:auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:20;background:rgba(251,247,235,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(76,44,18,.06)}
 .nav{min-height:92px;display:flex;align-items:center;justify-content:space-between}
-.logo{width:100px;height:76px;object-fit:contain}
-.navlinks{display:flex;gap:12px;align-items:center}
-.navlinks a{padding:10px 16px;border-radius:999px;font-weight:900;font-size:14px;letter-spacing:1px}
+.logo{width:108px;height:82px;object-fit:contain}
+.navlinks{display:flex;gap:8px;align-items:center}
+.navlinks a{padding:10px 15px;border-radius:999px;font-size:13px;font-weight:900;letter-spacing:1.1px}
 .navlinks a:hover{background:#fffaf0;color:var(--red)}
 main{padding:54px 0 80px}
-.kicker{text-align:center;color:var(--green);font-weight:900;letter-spacing:4px;font-size:14px}
-h1{text-align:center;font:700 clamp(42px,7vw,64px)/1 Georgia,serif;color:var(--red);margin:16px 0 8px}
-.lead{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 34px;line-height:1.6}
-.panel{background:rgba(255,253,248,.92);border:1px solid var(--line);border-radius:26px;box-shadow:0 20px 46px rgba(76,44,18,.1);padding:28px}
+.kicker{text-align:center;color:var(--green);font-weight:900;letter-spacing:4px;font-size:13px}
+h1{text-align:center;font:700 clamp(44px,7vw,64px)/1 Georgia,serif;color:var(--red);margin:16px 0 8px}
+.lead{text-align:center;color:var(--muted);max-width:720px;margin:0 auto 30px;line-height:1.65}
+.progress{display:flex;justify-content:center;align-items:center;gap:9px;margin:0 auto 34px;color:#967c69;font-size:12px;font-weight:900;letter-spacing:1px}
+.progress .step{padding:8px 12px;border-radius:999px;background:#f0e5ce}
+.progress .active{background:var(--green);color:#fff}
+.progress .line{width:38px;height:1px;background:var(--line)}
+.panel{background:rgba(255,253,248,.93);border:1px solid var(--line);border-radius:28px;box-shadow:0 20px 52px rgba(76,44,18,.1);padding:30px}
 .panel h2{font:700 30px Georgia,serif;color:var(--red);margin:0 0 18px}
-.cart-empty{padding:20px;border-radius:16px;background:#fbf2df;color:var(--muted);border:1px dashed var(--line)}
+.section-note{color:var(--muted);font-size:13px;line-height:1.5;margin:-8px 0 18px}
+.cart-empty{padding:20px;border-radius:16px;background:#fbf2df;color:var(--muted);border:1px dashed var(--line);line-height:1.55}
 .cart-item{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid #eee0c4}
 .cart-item:last-child{border-bottom:0}
-.item-name{font:700 19px Georgia,serif;color:var(--ink)}
+.item-name{font:700 20px Georgia,serif;color:var(--ink)}
 .qty{display:flex;align-items:center;gap:8px}
 .qty button{width:34px;height:34px;border:1px solid var(--line);background:#fff9ef;border-radius:10px;font-size:18px;cursor:pointer}
 .qty span{min-width:24px;text-align:center;font-weight:900}
 .remove{border:0;background:transparent;color:var(--red);font-weight:900;cursor:pointer}
-.total{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-weight:900}
-.message{width:100%;min-height:130px;resize:vertical;border:1px solid #dccb9c;border-radius:16px;padding:16px;font:16px Arial,sans-serif;outline:none;background:#fffdf8;margin-top:16px}
-.message:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.12)}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:14px;padding:15px;font-weight:900;font-size:15px;cursor:pointer}
-.greenbtn{background:#25d366;color:#fff}
-.redbtn{background:var(--red);color:#fff}
-.goldbtn{background:#fff6df;color:var(--red);border:1px solid var(--line)}
-.subactions{display:flex;justify-content:space-between;gap:12px;margin-top:16px;flex-wrap:wrap}
-.smallbtn{border:0;background:transparent;color:var(--muted);font-weight:800;cursor:pointer}
-.float{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;box-shadow:0 12px 28px rgba(0,0,0,.2)}
+.summary{display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-weight:900}
+.message{width:100%;min-height:112px;resize:vertical;border:1px solid #dccb9c;border-radius:16px;padding:15px;font:16px Arial,sans-serif;outline:none;background:#fffdf8;margin-top:18px}
+.message:focus,.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.11)}
+.primary{width:100%;border:0;border-radius:15px;padding:16px 18px;background:var(--green);color:#fff;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 12px 25px rgba(47,92,43,.18);transition:.2s}
+.primary:hover{transform:translateY(-1px);background:var(--green2)}
+.muted-btn{border:0;background:transparent;color:var(--muted);font-weight:800;cursor:pointer}
+.checkout{display:none;margin-top:24px}
+.checkout.show{display:block;animation:rise .55s ease both}
+.checkout-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px}
+.checkout-title{font:700 31px Georgia,serif;color:var(--red);margin:0 0 6px}
+.checkout-note{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.secure{white-space:nowrap;padding:9px 12px;border-radius:999px;background:#eef5eb;color:var(--green);font-weight:900;font-size:11px;letter-spacing:.7px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:900;letter-spacing:.6px;color:#604a3b}
+.field input,.field select{width:100%;height:48px;padding:0 14px;border:1px solid #dccb9c;border-radius:13px;background:#fffdf8;color:var(--ink);font:15px Arial,sans-serif;outline:none}
+.field textarea{width:100%;min-height:94px;resize:vertical;padding:13px 14px;border:1px solid #dccb9c;border-radius:13px;background:#fffdf8;color:var(--ink);font:15px Arial,sans-serif;outline:none}
+.field small{font-size:11px;color:#947e6e}
+.choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice label{display:flex;justify-content:center;align-items:center;min-height:48px;border:1px solid #dccb9c;border-radius:13px;background:#fffdf8;font-weight:900;color:#6b5546;cursor:pointer}
+.choice input:checked+label{border-color:var(--green);background:#edf5e9;color:var(--green);box-shadow:0 0 0 2px rgba(47,92,43,.08)}
+.consent{display:flex;gap:9px;align-items:flex-start;margin-top:16px;color:var(--muted);font-size:12px;line-height:1.45}
+.consent input{margin-top:2px;accent-color:var(--green)}
+.checkout-actions{display:grid;grid-template-columns:1fr auto;gap:12px;margin-top:19px}
+.whatsapp{display:flex;justify-content:center;align-items:center;gap:9px;border:0;border-radius:14px;padding:16px 18px;background:var(--ok);color:#fff;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 12px 24px rgba(37,211,102,.18)}
+.back{display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:14px;padding:0 18px;background:#fff8ec;color:var(--red);font-weight:900;cursor:pointer}
+.subactions{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap}
+.notice{text-align:center;margin-top:20px;color:var(--muted);font-size:12px}
+.success{display:none;margin-top:16px;padding:13px 15px;border-radius:13px;background:#edf6ea;border:1px solid #cbe0c5;color:var(--green);font-weight:800;font-size:13px}
+.float{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;z-index:40;box-shadow:0 12px 28px rgba(0,0,0,.2)}
 .float svg{width:34px;height:34px}
-.notice{text-align:center;margin-top:20px;color:var(--muted);font-size:13px}
-@media(max-width:700px){.nav{min-height:78px}.logo{width:78px;height:64px}.navlinks a{padding:9px 10px;font-size:11px}.wrap{padding:0 16px}main{padding:42px 0 65px}.panel{padding:20px}.actions{grid-template-columns:1fr}.cart-item{grid-template-columns:1fr auto}.remove{grid-column:2}.float{right:16px;bottom:16px;width:56px;height:56px}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:700px){.nav{min-height:78px}.logo{width:80px;height:64px}.navlinks a{padding:9px 9px;font-size:10px}.wrap{padding:0 16px}main{padding:42px 0 65px}.panel{padding:20px}.cart-item{grid-template-columns:1fr auto}.remove{grid-column:2}.progress{gap:5px;font-size:10px}.progress .step{padding:7px 9px}.progress .line{width:20px}.form-grid,.choice-row,.checkout-actions{grid-template-columns:1fr}.field.full{grid-column:auto}.secure{white-space:normal}.checkout-head{flex-direction:column}.back{min-height:48px}.float{right:16px;bottom:16px;width:56px;height:56px}}
 </style>
 </head>
 <body>
@@ -52,44 +80,79 @@ h1{text-align:center;font:700 clamp(42px,7vw,64px)/1 Georgia,serif;color:var(--r
 <a href="index.html" aria-label="Swastik Home Kitchen"><img class="logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a>
 <div class="navlinks"><a href="index.html#menu">MENU</a><a href="index.html#about">ABOUT</a></div>
 </div></nav>
+
 <main><div class="wrap">
 <div class="kicker">SWASTIK HOME KITCHEN</div>
-<h1>Your Cart &amp; WhatsApp</h1>
-<p class="lead">Choose dishes from the menu, change quantities here, and send the order. You can also write any message without selecting a dish.</p>
+<h1>Cart &amp; Checkout</h1>
+<p class="lead">Review your selected dishes, then add your delivery details. Your final order will open in WhatsApp for confirmation.</p>
+
+<div class="progress" aria-label="Order progress"><span class="step active">1 • CART</span><span class="line"></span><span id="step2" class="step">2 • DETAILS</span><span class="line"></span><span id="step3" class="step">3 • WHATSAPP</span></div>
+
 <div class="panel">
 <h2>Selected Items</h2>
+<p class="section-note">You can continue without selecting food and use the message box for an enquiry or custom request.</p>
 <div id="cartList"></div>
-<div class="total"><span>Items</span><span id="count">0</span></div>
-<textarea id="message" class="message" placeholder="Write your message here… special request, enquiry, delivery question, or anything else."></textarea>
-<div class="actions">
-<button class="btn greenbtn" onclick="sendWhatsApp()">SEND TO WHATSAPP</button>
-<button class="btn goldbtn" onclick="chatDirect()">CHAT DIRECTLY</button>
-</div>
+<div class="summary"><span>Total items</span><span id="count">0</span></div>
+<textarea id="message" class="message" placeholder="Optional: special request, delivery instruction, enquiry, or any message for SHK."></textarea>
+<button id="checkoutBtn" class="primary" onclick="openCheckout()">PROCEED TO CHECKOUT</button>
 <div class="subactions">
-<a class="smallbtn" href="index.html#menu">← Continue browsing menu</a>
-<button class="smallbtn" onclick="clearCart()">Clear selected items</button>
+<a class="muted-btn" href="index.html#menu">← Continue browsing menu</a>
+<button class="muted-btn" onclick="clearCart()">Clear selected items</button>
 </div>
 </div>
-<div class="notice">Selecting food is optional. Your typed message can be sent by itself.</div>
+
+<div id="checkout" class="panel checkout">
+<div class="checkout-head">
+<div><h2 class="checkout-title">Delivery &amp; Contact Details</h2><p class="checkout-note">Please enter the details we need to contact you and deliver your order.</p></div>
+<div class="secure">WHATSAPP CONFIRMATION</div>
+</div>
+
+<form id="checkoutForm" onsubmit="placeOrder(event)">
+<div class="form-grid">
+<div class="field"><label for="name">FULL NAME *</label><input id="name" name="name" required maxlength="80" autocomplete="name" placeholder="Your full name"></div>
+<div class="field"><label for="phone">PHONE NUMBER *</label><input id="phone" name="phone" required inputmode="tel" autocomplete="tel" pattern="(?:\+91[6-9]\d{9}|[6-9]\d{9})" placeholder="10-digit mobile number"><small>Indian mobile number</small></div>
+<div class="field full"><label for="address">DELIVERY ADDRESS *</label><textarea id="address" name="address" required maxlength="240" autocomplete="street-address" placeholder="House / flat, street, building, locality"></textarea></div>
+<div class="field"><label for="area">AREA / LOCALITY *</label><input id="area" name="area" required maxlength="80" placeholder="Example: Bannerghatta"></div>
+<div class="field"><label for="pincode">PIN CODE *</label><input id="pincode" name="pincode" required inputmode="numeric" pattern="\d{6}" maxlength="6" autocomplete="postal-code" placeholder="6-digit PIN code"></div>
+<div class="field full"><label>FULFILMENT *</label><div class="choice-row"><div class="choice"><input id="delivery" type="radio" name="fulfilment" value="Delivery" checked><label for="delivery">DELIVERY</label></div><div class="choice"><input id="pickup" type="radio" name="fulfilment" value="Pickup"><label for="pickup">PICKUP</label></div></div></div>
+<div class="field full"><label for="checkoutMessage">ORDER NOTE</label><textarea id="checkoutMessage" name="checkoutMessage" maxlength="300" placeholder="Anything else you'd like SHK to know?"></textarea></div>
+</div>
+<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I have entered the correct contact and address details. I understand the order will be sent to SHK on WhatsApp for confirmation.</label></div>
+<div class="checkout-actions">
+<button class="whatsapp" type="submit"><span>◉</span> PLACE ORDER ON WHATSAPP</button>
+<button class="back" type="button" onclick="closeCheckout()">BACK</button>
+</div>
+<div id="success" class="success">Opening WhatsApp with your order details…</div>
+</form>
+</div>
+
+<div class="notice">No online payment is collected on this page. Your order is sent to SHK through WhatsApp for confirmation.</div>
 </div></main>
+
 <a class="float" href="https://wa.me/917483962677" target="_blank" rel="noopener" aria-label="Open SHK WhatsApp chat">
-<svg viewBox="0 0 32 32" fill="none"><path fill="white" d="M19.11 17.35c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.92 2.93 4.65 4.11.65.28 1.15.45 1.54.57.52-.08 1.6-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32Z"/><path fill="white" d="M16.03 3.2c-7.08 0-12.83 5.75-12.83 12.83 0 2.26.59 4.38 1.63 6.22L3.1 28.8l6.72-1.69a12.8 12.8 0 0 0 6.21 1.6h.01c7.08 0 12.83-5.75 12.83-12.83S23.11 3.2 16.03 3.2Zm0 23.42h-.01c-2.01 0-3.98-.54-5.69-1.56l-.41-.24-3.99 1 1.07-3.89-.27-.42a10.61 10.61 0 1 1 9.3 5.11Z"/></svg>
+<svg viewBox="0 0 32 32" fill="none"><path fill="white" d="M19.11 17.35c-.27-.14-1.6-.79-1.85-.88-.25.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.92 2.93 4.65 4.11.65.28 1.15.45 1.54.57.52-.08 1.6-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32Z"/><path fill="white" d="M16.03 3.2c-7.08 0-12.83 5.75-12.83 12.83 0 2.26.59 4.38 1.63 6.22L3.1 28.8l6.72-1.69a12.8 12.8 0 0 0 6.21 1.6h.01c7.08 0 12.83-5.75 12.83-12.83S23.11 3.2 16.03 3.2Zm0 23.42h-.01c-2.01 0-3.98-.54-5.69-1.56l-.41-.24-3.99 1 1.07-3.89a10.61 10.61 0 1 1 9.3 5.11Z"/></svg>
 </a>
+
 <script>
 const PHONE='917483962677';
 function getCart(){try{return JSON.parse(localStorage.getItem('shkCart')||'[]')}catch{return[]}}
 function save(c){localStorage.setItem('shkCart',JSON.stringify(c))}
-function render(){const c=getCart();const e=document.querySelector('#cartList');document.querySelector('#count').textContent=c.length;
-if(!c.length){e.innerHTML='<div class="cart-empty">No dishes selected. You can still type a message below and send it to SHK.</div>';return}
+function render(){const c=getCart(),e=document.querySelector('#cartList');document.querySelector('#count').textContent=c.length;
+if(!c.length){e.innerHTML='<div class="cart-empty">No dishes selected yet. You can still continue to checkout and send a message or enquiry.</div>';return}
 const counts={};c.forEach(n=>counts[n]=(counts[n]||0)+1);
-e.innerHTML=Object.entries(counts).map(([n,q])=>`<div class="cart-item"><div class="item-name">${n}</div><div class="qty"><button onclick="changeQty('${escapeHtml(n)}',-1)">−</button><span>${q}</span><button onclick="changeQty('${escapeHtml(n)}',1)">+</button></div><button class="remove" onclick="removeItem('${escapeHtml(n)}')">REMOVE</button></div>`).join('')}
-function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/'/g,"\\'").replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+e.innerHTML=Object.entries(counts).map(([n,q])=>'<div class="cart-item"><div class="item-name">'+safe(n)+'</div><div class="qty"><button type="button" onclick="changeQty('+JSON.stringify(n)+',-1)">−</button><span>'+q+'</span><button type="button" onclick="changeQty('+JSON.stringify(n)+',1)">+</button></div><button class="remove" type="button" onclick="removeItem('+JSON.stringify(n)+')">REMOVE</button></div>').join('')}
+function safe(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function changeQty(n,d){let c=getCart();if(d>0)c.push(n);else{const i=c.indexOf(n);if(i>-1)c.splice(i,1)}save(c);render()}
 function removeItem(n){save(getCart().filter(x=>x!==n));render()}
 function clearCart(){save([]);render()}
-function messageText(){const c=getCart(),typed=document.querySelector('#message').value.trim();let out='Hello Swastik Home Kitchen!\n\n';if(c.length){const counts={};c.forEach(n=>counts[n]=(counts[n]||0)+1);out+='I would like to order:\n';Object.entries(counts).forEach(([n,q])=>out+='• '+n+' × '+q+'\n');out+='\n'}if(typed)out+=typed+'\n\n';return out+'Name:\nAddress:\nPickup/Delivery:'}
-function sendWhatsApp(){window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(messageText()),'_blank')}
-function chatDirect(){const typed=document.querySelector('#message').value.trim();window.open('https://wa.me/'+PHONE+(typed?'?text='+encodeURIComponent(typed):''),'_blank')}
+function openCheckout(){document.querySelector('#checkout').classList.add('show');document.querySelector('#step2').classList.add('active');document.querySelector('#checkout').scrollIntoView({behavior:'smooth',block:'start'})}
+function closeCheckout(){document.querySelector('#checkout').classList.remove('show');document.querySelector('#step2').classList.remove('active');document.querySelector('#step3').classList.remove('active')}
+function normalPhone(v){let x=v.replace(/\D/g,'');if(x.length===12&&x.startsWith('91'))x=x.slice(2);return x}
+function placeOrder(ev){ev.preventDefault();const form=ev.target;if(!form.checkValidity()){form.reportValidity();return}
+const c=getCart(),counts={};c.forEach(n=>counts[n]=(counts[n]||0)+1);
+const data=new FormData(form),name=data.get('name').trim(),phone=normalPhone(data.get('phone')),address=data.get('address').trim(),area=data.get('area').trim(),pin=data.get('pincode').trim(),fulfil=data.get('fulfilment'),note=data.get('checkoutMessage').trim(),msg=data.get('message');
+let out='Hello Swastik Home Kitchen!\n\n';if(c.length){out+='ORDER:\n';Object.entries(counts).forEach(([n,q])=>out+='• '+n+' × '+q+'\n');out+='\n'}else out+='MESSAGE / ENQUIRY\n';if(msg)out+=msg+'\n\n';out+='CUSTOMER DETAILS:\nName: '+name+'\nPhone: +91 '+phone+'\nAddress: '+address+'\nArea: '+area+'\nPIN Code: '+pin+'\nFulfilment: '+fulfil+'\n';if(note)out+='Order note: '+note+'\n';out+='\nPlease confirm the order and availability.';
+document.querySelector('#step3').classList.add('active');document.querySelector('#success').style.display='block';window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(out),'_blank')}
 render();
 </script>
 </body>

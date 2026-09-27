@@ -9,7 +9,7 @@
     style.textContent = `
       :root{--shk-red:#8f2232;--shk-green:#355a45;--shk-gold:#c8a15a}
       body{overflow-x:hidden}
-      body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.28;background-image:radial-gradient(circle at 8% 16%,rgba(212,147,22,.14) 0 1px,transparent 1.5px),radial-gradient(circle at 92% 72%,rgba(167,30,30,.08) 0 1px,transparent 1.5px);background-size:46px 46px,58px 58px}
+      body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.5;background:radial-gradient(circle at 12% 10%,rgba(200,161,90,.13),transparent 25%),radial-gradient(circle at 88% 28%,rgba(143,34,50,.08),transparent 27%),radial-gradient(circle at 72% 92%,rgba(53,90,69,.09),transparent 28%),linear-gradient(120deg,rgba(255,255,255,.5),transparent 45%);}
       .shk-scrollbar{position:fixed;top:0;left:0;width:100%;height:3px;z-index:9999;background:transparent;pointer-events:none}
       .shk-scrollbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--shk-red),var(--shk-gold),var(--shk-green));box-shadow:0 0 12px rgba(212,147,22,.45);transition:width .08s linear}
       nav{transition:background .35s ease,box-shadow .35s ease,transform .35s ease}
@@ -19,18 +19,18 @@
       .shk-animated.shk-delay-1{transition-delay:.07s}.shk-animated.shk-delay-2{transition-delay:.14s}.shk-animated.shk-delay-3{transition-delay:.21s}.shk-animated.shk-delay-4{transition-delay:.28s}
       .tilt-card{transform-style:preserve-3d;will-change:transform}
       .shk-ripple{position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.42);pointer-events:none;transform:translate(-50%,-50%) scale(1);animation:shkRipple .62s ease-out forwards;mix-blend-mode:screen}
-      .shk-lift{transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}
+      .shk-lift{transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}.card,.panel,.image-card,.photo-card,.food-card,.value-card,.story-panel,.closing-box,.item-card{border-color:rgba(200,161,90,.38)!important;box-shadow:0 14px 35px rgba(47,39,36,.07),0 2px 0 rgba(255,255,255,.72) inset}.card:hover,.panel:hover,.image-card:hover,.photo-card:hover,.food-card:hover,.value-card:hover,.story-panel:hover,.closing-box:hover,.item-card:hover{box-shadow:0 22px 48px rgba(47,39,36,.12),0 2px 0 rgba(255,255,255,.8) inset}
       .shk-lift:hover{filter:saturate(1.04)}
       .links a,.btn,.add,.primary,.secondary,.filter,.qty-btn,.remove-btn,.choice label,.payment-option label{position:relative;overflow:hidden}
       .links a:active,.btn:active,.add:active,.primary:active,.secondary:active,.filter:active,.qty-btn:active,.remove-btn:active,.choice label:active,.payment-option label:active{transform:scale(.97)}
       .shk-glint{position:absolute;inset:-20% auto -20% -42%;width:34%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);pointer-events:none;opacity:0}
       .add:hover .shk-glint,.primary:hover .shk-glint,.btn:hover .shk-glint{animation:shkGlint 1.05s ease}
-      .shk-orbit{animation:shkOrbit 12s ease-in-out infinite}
+      .shk-orbit{animation:shkOrbit 12s ease-in-out infinite}.nav-logo,.hero-logo{filter:drop-shadow(0 12px 24px rgba(47,39,36,.12))}.nav-logo{transition:transform .35s ease,filter .35s ease}.nav-logo:hover{transform:translateY(-2px) scale(1.02);filter:drop-shadow(0 15px 28px rgba(200,161,90,.25))}.section-title{position:relative}.section-title::after{content:"";display:block;width:58px;height:3px;margin:13px auto 0;border-radius:9px;background:linear-gradient(90deg,#8f2232,#c8a15a,#355a45);transform-origin:center;animation:shkTitleLine 3.5s ease-in-out infinite}
       .shk-breathe{animation:shkBreathe 4.8s ease-in-out infinite}
       @keyframes shkRipple{to{opacity:0;transform:translate(-50%,-50%) scale(11)}}
       @keyframes shkGlint{0%{left:-42%;opacity:0}18%{opacity:1}100%{left:125%;opacity:0}}
       @keyframes shkOrbit{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(10px,-12px,0) rotate(1deg)}}
-      @keyframes shkBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+      @keyframes shkBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes shkTitleLine{0%,100%{transform:scaleX(.72);opacity:.72}50%{transform:scaleX(1.15);opacity:1}}
       @media (hover:none){.tilt-card{transform:none!important}}
       @media (max-width:650px){body::before{opacity:.18}.shk-scrollbar{height:2px}}
       @media (prefers-reduced-motion:reduce){

@@ -31,7 +31,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.9);backdrop-fi
 .links a:hover{background:#fffaf2;color:var(--red);transform:translateY(-1px)}
 .cart-link{background:#f7eedb;border:1px solid rgba(200,161,90,.34)}
 .cart-count{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;margin-left:5px;border-radius:999px;background:var(--red);color:#fff;font-size:11px}
-.hero{position:relative;overflow:hidden;padding:78px 0 70px;text-align:center}
+.hero{position:relative;overflow:hidden;padding:78px 0 70px;text-align:center;scroll-margin-top:92px}
 .hero-bg{position:absolute;inset:0;pointer-events:none}
 .orbit{position:absolute;border:1px solid rgba(212,147,22,.18);border-radius:50%}
 .orbit.o1{width:620px;height:620px;left:-290px;top:-90px}
@@ -73,12 +73,12 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.9);backdrop-fi
 .trust-item:not(:last-child):after{content:"";position:absolute;right:0;top:28%;height:44%;width:1px;background:var(--line)}
 .trust-item strong{display:block;color:var(--red);font:700 21px Georgia,serif;letter-spacing:0;margin-bottom:3px}
 section{padding:82px 0}
-.menu-section{position:relative}
+.menu-section{position:relative;scroll-margin-top:88px}
 .section-head{text-align:center;max-width:790px;margin:0 auto 36px}
 .section-kicker{color:var(--green);font-size:11px;font-weight:900;letter-spacing:4px;margin-bottom:11px}
 .section-title{font:700 clamp(38px,5vw,56px)/1.04 Georgia,serif;color:var(--red);margin:0 0 11px}
 .section-copy{color:var(--muted);line-height:1.7;margin:0}
-.menu-frame{position:relative}
+.menu-frame{position:relative;padding-bottom:88px}
 .menu-frame:before{content:"";position:absolute;inset:-18px -10px;border:1px solid rgba(212,147,22,.13);border-radius:38px;pointer-events:none}
 .menu-tools{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:14px;align-items:center;margin-bottom:26px}
 .filters{display:flex;gap:8px;flex-wrap:wrap}
@@ -126,7 +126,7 @@ section{padding:82px 0}
 .feature-num{display:grid;place-items:center;width:45px;height:45px;border-radius:14px;background:#fff3d0;color:var(--red);font:700 18px Georgia,serif;margin-bottom:17px}
 .feature h3{font:700 27px Georgia,serif;color:#ffe6a5;margin:0 0 9px}
 .feature p{color:#f5eddf;line-height:1.65;margin:0}
-.final-cta{padding:84px 0}
+.final-cta{padding:84px 0 118px}
 .final-box{position:relative;overflow:hidden;max-width:980px;margin:auto;padding:48px 34px;text-align:center;border:1px solid var(--line);border-radius:30px;background:rgba(255,253,248,.9);box-shadow:0 22px 55px rgba(76,44,18,.1)}
 .final-box:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;border:1px solid rgba(212,147,22,.16);left:-95px;top:-95px}
 .final-box:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;border:1px solid rgba(47,92,43,.12);right:-85px;bottom:-85px}
@@ -180,13 +180,6 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   </div>
 </div>
 
-<div class="location-ribbon" aria-label="Namma Bengaluru Home Kitchen">
-  <div class="location-ribbon-inner">
-    <span class="location-pill">NAMMA BENGALURU</span>
-    <span class="location-title">HOME KITCHEN</span>
-  </div>
-</div>
-
 <header id="top" class="hero">
   <div class="hero-bg" aria-hidden="true">
     <span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span>
@@ -202,15 +195,6 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   </div>
 </header>
 
-
-<div class="trustbar">
-  <div class="wrap trust">
-    <div class="trust-item"><strong>SHUDH</strong>HONEST HOME-STYLE FOOD</div>
-    <div class="trust-item"><strong>SWAD</strong>COMFORT IN EVERY BITE</div>
-    <div class="trust-item"><strong>APNAPAN</strong>WARMTH ON THE TABLE</div>
-    <div class="trust-item"><strong>BENGALURU</strong>MADE FOR NAMMA BENGALURU</div>
-  </div>
-</div>
 
 <section id="menu" class="menu-section">
   <div class="wrap">
@@ -237,6 +221,7 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   </div>
 </section>
 
+<div class="shk-scroll-space" aria-hidden="true"></div>
 <section class="experience">
   <div class="wrap">
     <div class="experience-head">

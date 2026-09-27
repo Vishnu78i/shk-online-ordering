@@ -1,104 +1,45 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#9d1c1c"><title>Swastik Home Kitchen | SHK</title><style>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#a71e1e"><title>Swastik Home Kitchen | SHK</title>
+<style>
 :root{--red:#a71e1e;--red2:#7e1616;--green:#2f5c2b;--gold:#d49416;--cream:#fbf7eb;--paper:#fffdf8;--ink:#3a2922;--muted:#766257;--line:#e3c986}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:linear-gradient(180deg,#fbf7eb 0%,#fffdf8 48%,#f8f1df 100%);color:var(--ink);font-family:Arial,sans-serif}
-a{text-decoration:none;color:inherit}
-.wrap{max-width:1180px;margin:auto;padding:0 28px}
-nav{position:sticky;top:0;z-index:20;background:rgba(251,247,235,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(76,44,18,.06)}
-.nav{height:94px;display:flex;align-items:center;justify-content:space-between}
-.logo-link{display:flex;align-items:center}
-.nav-logo{width:112px;height:86px;object-fit:contain;display:block}
-.links{display:flex;align-items:center;gap:10px;font-weight:900;font-size:16px;letter-spacing:1.1px}.cart-link{position:relative}.cart-count{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;margin-left:5px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;letter-spacing:0}
-.links a{padding:12px 18px;border-radius:999px;transition:.2s ease}
-.links a:hover{background:#fffaf0;color:var(--red);box-shadow:0 5px 14px rgba(100,55,10,.08)}
-.hero{position:relative;isolation:isolate;text-align:center;padding:64px 0 88px;overflow:hidden;background:radial-gradient(circle at 50% 18%,#fffefb 0,#fcf8ed 55%,#f9f1dd 100%)}
-.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(212,148,22,.18);border-radius:50%;z-index:-1}
-.hero:before{width:560px;height:560px;left:-260px;top:130px}
-.hero:after{width:460px;height:460px;right:-210px;top:210px}
-.hero-watermark{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:420px;height:260px;object-fit:contain;opacity:.045;z-index:-1}
-.eyebrow{color:var(--green);font-weight:900;letter-spacing:6px;font-size:17px;margin-top:8px}
-.hero h1{font:700 clamp(48px,7vw,88px)/1.02 Georgia,serif;color:var(--red);margin:28px 0 18px}
-.tag{color:var(--gold);font-weight:900;letter-spacing:4px;font-size:20px}
-.launch{display:inline-flex;align-items:center;gap:10px;margin:34px 0 30px;padding:13px 24px;border:2px solid var(--gold);border-radius:999px;font-weight:900;color:var(--red);font-size:18px;background:rgba(255,253,248,.7);box-shadow:0 10px 25px rgba(104,60,16,.07)}
-.cta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;border-radius:999px;font-weight:900;font-size:17px;box-shadow:0 10px 22px rgba(76,44,18,.1);transition:.2s ease}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(76,44,18,.15)}
-.red{background:var(--red);color:#fff}
-.green{background:var(--green);color:#fff}
-section{padding:72px 0}
-.title{text-align:center;font:700 42px Georgia,serif;color:var(--red);margin:0 0 10px}
-.sub{text-align:center;max-width:700px;margin:0 auto 34px;color:var(--muted);line-height:1.65;font-size:16px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
-.card{position:relative;background:rgba(255,253,248,.92);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 18px 42px rgba(76,44,18,.09);transition:.22s ease}
-.card:hover{transform:translateY(-4px);box-shadow:0 24px 52px rgba(76,44,18,.13)}
-.food-link{display:block;overflow:hidden}.food{width:100%;height:290px;display:block;object-fit:cover;background:#f4dfad;transition:transform .45s ease}.food-link:hover .food{transform:scale(1.035)}
-.body{padding:24px 24px 26px}
-.name{font:700 30px Georgia,serif;color:var(--red);margin:0 0 8px}
-.desc{line-height:1.55;color:var(--muted);min-height:48px;margin:0}
-.row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:20px}
-.price-tag{font-size:13px;color:var(--green);font-weight:900;letter-spacing:.2px}
-.add{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-width:175px;border:0;background:linear-gradient(135deg,#c38408,#e1a728);color:#fffdf6;padding:14px 20px;border-radius:15px;font-weight:900;font-size:14px;letter-spacing:.7px;cursor:pointer;box-shadow:0 11px 24px rgba(137,86,8,.25);transition:transform .2s,box-shadow .2s,filter .2s;overflow:hidden}
-.add:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 15%,rgba(255,255,255,.28) 48%,transparent 80%);transform:translateX(-120%);transition:transform .55s}
-.add:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(137,86,8,.30);filter:saturate(1.08)}
-.add:hover:before{transform:translateX(120%)}
-.add:active{transform:translateY(0) scale(.98)}
-.add svg{width:18px;height:18px;flex:0 0 auto}
-.add-label{position:relative;z-index:1}
-.add svg{position:relative;z-index:1}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:60;background:var(--green);color:#fff;padding:13px 18px;border-radius:999px;font-weight:900;box-shadow:0 12px 26px rgba(0,0,0,.18);transition:.3s}.toast.show{opacity:1;transform:translate(-50%,0)}
-.about{background:linear-gradient(135deg,#2f5c2b,#254822);color:#fff;position:relative;overflow:hidden}
-.about:before{content:"";position:absolute;inset:18px;border:1px solid rgba(255,229,167,.12);border-radius:30px;pointer-events:none}
-.about .title{color:#ffe5a7}.about .sub{color:#f6eedf}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.stat{text-align:center;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);border-radius:20px;padding:24px}
-.stat b{display:block;font:700 29px Georgia,serif;color:#ffe5a2;margin-bottom:4px}
-.order{background:linear-gradient(135deg,#a71e1e,#821717);color:#fff;border-radius:28px;padding:32px;box-shadow:0 20px 44px rgba(99,19,19,.18)}
-.order h2{font:700 36px Georgia,serif;margin:0 0 10px}
-.list{background:#fff9ef;color:var(--ink);border-radius:17px;padding:16px;min-height:68px;border:1px solid rgba(212,148,22,.28)}
-.item{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #ead9b8}
-.item:last-child{border-bottom:0}
-.empty{color:#8a776a}
-.message-box{width:100%;min-height:118px;resize:vertical;border:1px solid rgba(212,148,22,.35);border-radius:17px;padding:16px;font:16px Arial,sans-serif;color:var(--ink);margin-top:16px;outline:none;background:#fffdf8}
-.message-box:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.12)}
-.order-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
-.wa,.chat-direct{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:0;border-radius:14px;padding:15px;font-weight:900;font-size:16px;cursor:pointer}
-.wa{background:#25d366;color:#fff}.chat-direct{background:#fff8ec;color:var(--red);border:1px solid rgba(212,148,22,.38)}
-.wa-float{position:fixed;right:24px;bottom:24px;z-index:50;width:64px;height:64px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px rgba(0,0,0,.2);animation:pulse 2.6s infinite}
-.wa-float svg{width:35px;height:35px}
-@keyframes pulse{0%,100%{box-shadow:0 12px 28px rgba(0,0,0,.2)}50%{box-shadow:0 12px 34px rgba(37,211,102,.32)}}
-.area{text-align:center;border:1px solid var(--line);background:rgba(255,253,248,.72);border-radius:22px;padding:24px;margin-top:22px;box-shadow:0 12px 28px rgba(76,44,18,.06)}
-.area b{color:var(--red)}
-footer{text-align:center;padding:34px 0 44px;color:#806c5c;font-size:13px}
-.brand{color:var(--red);font-weight:900;letter-spacing:2px;margin-bottom:7px}
-@media(max-width:720px){
- .nav{height:80px}.nav-logo{width:82px;height:66px}.links{gap:2px;font-size:12px}.links a{padding:9px 10px}
- .wrap{padding:0 18px}.hero{padding:54px 0 68px}.hero-watermark{width:300px;height:210px;top:18px}
- .eyebrow{font-size:11px;letter-spacing:3px}.hero h1{font-size:46px;margin:25px 0 18px}.tag{font-size:14px;letter-spacing:2px}
- .launch{font-size:15px;padding:11px 18px;margin:28px 0 22px}.btn{font-size:15px;padding:14px 21px}
- section{padding:58px 0}.grid,.stats,.order-actions{grid-template-columns:1fr}.food{height:240px}.title{font-size:36px}.name{font-size:28px}.row{align-items:stretch}.add{min-width:0;flex:1;padding:13px 15px;font-size:13px}.price-tag{display:flex;align-items:center}
- .wa-float{right:18px;bottom:18px;width:58px;height:58px}
-}
-</style></head><body><nav><div class="wrap nav"><a href="#top" class="logo-link" aria-label="Swastik Home Kitchen"><img class="nav-logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a><div class="links"><a href="#menu">MENU</a><a href="about.html">ABOUT</a><a class="cart-link" href="cart.html">CART <span id="cartCount" class="cart-count">0</span></a></div></div></nav><header id="top" class="hero"><div class="wrap"><img class="hero-watermark" src="assets/shk-logo.svg" alt="" aria-hidden="true"><div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div><h1>Swastik Home Kitchen</h1><div class="tag">SHUDH KHANNA WITH SHK WALA</div><div class="launch">LAUNCHING • 7 OCTOBER 2026</div><div class="cta"><a class="btn red" href="#menu">VIEW MENU</a><a class="btn green" href="cart.html">VIEW CART / CHECKOUT</a></div></div></header><section id="menu"><div class="wrap"><h2 class="title">Our Menu</h2><p class="sub">Homestyle favourites made for the SHK table.</p><div class="grid"><article class="card"><a class="food-link" href="product.html?item=aloo-paratha" aria-label="View Aloo Paratha details"><img class="food" src="assets/aloo-paratha.svg" alt="Aloo Paratha"></a><div class="body"><h3 class="name">Aloo Paratha</h3><p class="desc">Golden stuffed homestyle paratha. Pair it with butter and lassi.</p><div class="row"><span class="price-tag">Price: Update</span><button class="add" type="button" onclick="addItem('aloo-paratha')"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span class="add-label">ADD TO CART</span></button></div></div></article><article class="card"><a class="food-link" href="product.html?item=dal-baati-churma" aria-label="View Dal Baati Churma details"><img class="food" src="assets/dal-bati-churma-photo.jpg" alt="Dal Baati Churma"></a><div class="body"><h3 class="name">Dal – Baati – Churma</h3><p class="desc">Rajasthani comfort food with dal, ghee-rich baati and churma.</p><div class="row"><span class="price-tag">Price: Update</span><button class="add" type="button" onclick="addItem('dal-baati-churma')"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span class="add-label">ADD TO CART</span></button></div></div></article></div></div></section><footer><div class="wrap"><div class="brand">SWASTIK HOME KITCHEN</div>SHUDH KHANNA WITH SHK WALA<br>© 2026 SHK • Free static website</div></footer><a class="wa-float" href="https://wa.me/917483962677" target="_blank" rel="noopener" aria-label="Chat with SHK on WhatsApp"><svg viewBox="0 0 32 32" fill="none"><path fill="white" d="M19.11 17.35c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.92 2.93 4.65 4.11.65.28 1.15.45 1.54.57.65.21 1.24.18 1.7.11.52-.08 1.6-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32Z"/><path fill="white" d="M16.03 3.2c-7.08 0-12.83 5.75-12.83 12.83 0 2.26.59 4.38 1.63 6.22L3.1 28.8l6.72-1.69a12.8 12.8 0 0 0 6.21 1.6h.01c7.08 0 12.83-5.75 12.83-12.83S23.11 3.2 16.03 3.2Zm0 23.42h-.01c-2.01 0-3.98-.54-5.69-1.56l-.41-.24-3.99 1 1.07-3.89-.27-.42a10.61 10.61 0 1 1 9.3 5.11Z"/></svg></a><script>
-const SHK_WHATSAPP='917483962677';
-const CART_LEGACY={'Aloo Paratha':'aloo-paratha','Dal – Baati – Churma':'dal-baati-churma','Dal • Baati • Churma':'dal-baati-churma'};
-function readCart(){try{const raw=JSON.parse(localStorage.getItem('shkCart')||'[]');return Array.isArray(raw)?raw:[]}catch{return[]}}
-function getCart(){
- const merged={};
- readCart().forEach(x=>{
-   if(typeof x==='string'){const id=CART_LEGACY[x];if(id)merged[id]=(merged[id]||0)+1}
-   else if(x&&x.id){const id=CART_LEGACY[x.id]||x.id;if(id==='aloo-paratha'||id==='dal-baati-churma')merged[id]=(merged[id]||0)+Math.max(1,Math.floor(Number(x.qty)||1))}
- });
- return Object.entries(merged).map(([id,qty])=>({id,qty}));
-}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#fbf7eb,#fffdf8 50%,#f7efdf);color:var(--ink);font-family:Arial,sans-serif}a{text-decoration:none;color:inherit}
+.wrap{max-width:1180px;margin:auto;padding:0 24px}nav{position:sticky;top:0;z-index:30;background:rgba(251,247,235,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(76,44,18,.06)}
+.nav{min-height:92px;display:flex;align-items:center;justify-content:space-between}.nav-logo{width:108px;height:82px;object-fit:contain}.links{display:flex;gap:9px;align-items:center}.links a{padding:11px 15px;border-radius:999px;font-size:13px;font-weight:900;letter-spacing:1px}.links a:hover{background:#fffaf0;color:var(--red)}.cart-link{background:#fff5df;border:1px solid rgba(212,148,22,.28)}.cart-count{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 5px;margin-left:4px;border-radius:999px;background:var(--red);color:#fff;font-size:11px}
+.hero{text-align:center;padding:72px 0 86px;background:radial-gradient(circle at 50% 15%,#fffefb,#fcf8ee 55%,#f8f0dc);position:relative;overflow:hidden}.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(212,148,22,.18);border-radius:50%;z-index:0}.hero:before{width:580px;height:580px;left:-290px;top:100px}.hero:after{width:450px;height:450px;right:-225px;top:210px}
+.hero .wrap{position:relative;z-index:1}.eyebrow{color:var(--green);font-weight:900;letter-spacing:5px;font-size:14px}.hero h1{font:700 clamp(48px,7vw,88px)/1 Georgia,serif;color:var(--red);margin:25px 0 14px}.tagline{color:var(--gold);font-weight:900;letter-spacing:3px;font-size:18px}.launch{display:inline-flex;margin:28px 0 26px;padding:12px 22px;border:2px solid var(--gold);border-radius:999px;font-weight:900;color:var(--red);background:#fffdf8;box-shadow:0 10px 25px rgba(104,60,16,.07)}
+.cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 23px;border-radius:999px;font-weight:900;font-size:15px;transition:.2s;box-shadow:0 10px 22px rgba(76,44,18,.1)}.btn:hover{transform:translateY(-2px)}.red{background:var(--red);color:#fff}.green{background:var(--green);color:#fff}
+section{padding:70px 0}.title{text-align:center;font:700 44px Georgia,serif;color:var(--red);margin:0 0 9px}.sub{text-align:center;max-width:720px;margin:0 auto 30px;color:var(--muted);line-height:1.65}
+.menu-tools{display:grid;grid-template-columns:1fr 260px;gap:14px;align-items:center;margin:0 0 25px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#fffdf8;color:#6d584a;border-radius:999px;padding:10px 14px;font-size:12px;font-weight:900;cursor:pointer;transition:.18s}.filter:hover{transform:translateY(-1px)}.filter.active{background:var(--green);border-color:var(--green);color:#fff}
+.search{width:100%;height:44px;border:1px solid var(--line);border-radius:999px;padding:0 16px;background:#fffdf8;outline:none;color:var(--ink)}.search:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,148,22,.11)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:25px;overflow:hidden;box-shadow:0 18px 42px rgba(76,44,18,.09);transition:.22s}.card:hover{transform:translateY(-4px);box-shadow:0 25px 55px rgba(76,44,18,.13)}
+.food-link{display:block;overflow:hidden}.food{width:100%;height:245px;display:block;object-fit:cover;transition:transform .45s}.food-link:hover .food{transform:scale(1.045)}
+.body{padding:20px}.category{font-size:10px;font-weight:900;letter-spacing:1.4px;color:var(--green)}.name{font:700 25px Georgia,serif;color:var(--red);margin:7px 0 7px}.desc{margin:0;color:var(--muted);line-height:1.5;font-size:14px;min-height:42px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:17px}.price{font-size:18px;color:var(--green);font-weight:900}.add{border:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,#bd7b08,#e0a326);color:#fffdf8;font-weight:900;letter-spacing:.5px;cursor:pointer;box-shadow:0 10px 21px rgba(137,86,8,.24);transition:.18s}.add:hover{transform:translateY(-2px);box-shadow:0 15px 27px rgba(137,86,8,.3)}.add svg{width:18px;height:18px}
+.no-results{text-align:center;padding:28px;border:1px dashed var(--line);border-radius:18px;background:#fbf2df;color:var(--muted);grid-column:1/-1}
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:25;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px rgba(0,0,0,.2)}.wa-float svg{width:33px}
+footer{text-align:center;padding:35px 0 44px;color:#806c5c;font-size:13px}.brand{color:var(--red);font-weight:900;letter-spacing:2px;margin-bottom:7px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.menu-tools{grid-template-columns:1fr}.food{height:230px}}
+@media(max-width:650px){.nav{min-height:78px}.nav-logo{width:80px;height:64px}.links a{font-size:10px;padding:9px 10px}.links a:nth-child(2){display:none}.wrap{padding:0 16px}.hero{padding:55px 0 70px}.tagline{font-size:14px}.grid{grid-template-columns:1fr}.food{height:250px}.title{font-size:37px}.row{align-items:stretch}.add{flex:1}.price{display:flex;align-items:center}}
+</style></head>
+<body>
+<nav><div class="wrap nav"><a href="#top"><img class="nav-logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a><div class="links"><a href="#menu">MENU</a><a href="about.html">ABOUT</a><a class="cart-link" href="cart.html">CART <span id="cartCount" class="cart-count">0</span></a></div></div></nav>
+<header id="top" class="hero"><div class="wrap"><div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div><h1>Swastik Home Kitchen</h1><div class="tagline">SHUDH KHANNA WITH SHK WALA</div><div class="launch">LAUNCHING • 7 OCTOBER 2026</div><div class="cta"><a class="btn red" href="#menu">VIEW MENU</a><a class="btn green" href="cart.html">VIEW CART / CHECKOUT</a></div></div></header>
+<section id="menu"><div class="wrap"><h2 class="title">Our Menu</h2><p class="sub">Choose a category, explore every dish, and add your favourites to the SHK cart.</p><div class="menu-tools"><div id="filters" class="filters" aria-label="Menu filters"></div><input id="menuSearch" class="search" type="search" placeholder="Search menu..."></div><div id="menuGrid" class="grid"></div></div></section>
+<footer><div class="wrap"><div class="brand">SWASTIK HOME KITCHEN</div>SHUDH KHANNA WITH SHK WALA<br>© 2026 SHK • Namma Bengaluru</div></footer>
+<a class="wa-float" href="https://wa.me/917483962677" target="_blank" rel="noopener" aria-label="Chat with SHK on WhatsApp"><svg viewBox="0 0 32 32" fill="none"><path fill="white" d="M19.11 17.35c-.27-.14-1.6-.79-1.85-.88-.25.14-1.6-.79-1.85-.88-.25-.09-.43.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.92 2.93 4.65 4.11.65.28 1.15.45 1.54.57.65.21 1.24.18 1.7.11.52-.08 1.6-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32Z"/><path fill="white" d="M16.03 3.2c-7.08 0-12.83 5.75-12.83 12.83 0 2.26.59 4.38 1.63 6.22L3.1 28.8l6.72-1.69a12.8 12.8 0 0 0 6.21 1.6h.01c7.08 0 12.83-5.75 12.83-12.83S23.11 3.2 16.03 3.2Zm0 23.42h-.01c-2.01 0-3.98-.54-5.69-1.56l-.41-.24-3.99 1 1.07-3.89-.27-.42a10.61 10.61 0 1 1 9.3 5.11Z"/></svg></a>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/menu.js"></script><script>
+const legacy={'Aloo Paratha':'aloo-parotta','Dal – Baati – Churma':'dal-baati-churma'}; // old names only used to safely discard old local data
+const allowed=new Set(SHK_MENU.map(x=>x.id));
+function normalize(){try{const raw=JSON.parse(localStorage.getItem('shkCart')||'[]');if(!Array.isArray(raw))return[];const merged={};raw.forEach(x=>{let id=typeof x==='string'?null:x?.id;if(allowed.has(id))merged[id]=(merged[id]||0)+Math.max(1,Math.floor(Number(x.qty)||1))});return Object.entries(merged).map(([id,qty])=>({id,qty}))}catch{return[]}}
+function cart(){return normalize()}
 function saveCart(c){localStorage.setItem('shkCart',JSON.stringify(c))}
-function updateCartCount(){const e=document.querySelector('#cartCount');if(e)e.textContent=getCart().reduce((s,x)=>s+x.qty,0)}
-function showToast(msg){const t=document.querySelector('#toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1800)}
-function addItem(id){
- const cart=getCart();const row=cart.find(x=>x.id===id);
- if(row)row.qty+=1;else cart.push({id,qty:1});
- saveCart(cart);updateCartCount();
- const names={'aloo-paratha':'Aloo Paratha','dal-baati-churma':'Dal – Baati – Churma'};
- showToast(names[id]+' added to cart');
-}
-updateCartCount();
-</script><div id="toast" class="toast" role="status" aria-live="polite">Added to cart</div></body></html>
+function updateCount(){document.querySelector('#cartCount').textContent=cart().reduce((s,x)=>s+x.qty,0)}
+function toast(m){const t=document.querySelector('#toast');t.textContent=m;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1700)}
+function add(id){const c=cart(),r=c.find(x=>x.id===id);if(r)r.qty++;else c.push({id,qty:1});saveCart(c);updateCount();const item=SHK_MENU.find(x=>x.id===id);toast(item.name+' added to cart')}
+const categories=['All','Breads','Gravy','Rice','Beverages & Sides'];let active='All';
+function renderFilters(){document.querySelector('#filters').innerHTML=categories.map(c=>'<button type="button" class="filter '+(c===active?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('')}
+function render(){const q=document.querySelector('#menuSearch').value.trim().toLowerCase();const items=SHK_MENU.filter(x=>(active==='All'||x.category===active)&&(!q||x.name.toLowerCase().includes(q)));const grid=document.querySelector('#menuGrid');if(!items.length){grid.innerHTML='<div class="no-results">No dishes match your search. Try another category or search term.</div>';return}grid.innerHTML=items.map(x=>'<article class="card"><a class="food-link" href="product.html?item='+x.id+'"><img class="food" loading="lazy" src="'+x.image+'" alt="'+x.name+'"></a><div class="body"><div class="category">'+x.category.toUpperCase()+'</div><h3 class="name">'+x.name+'</h3><p class="desc">'+x.short+'</p><div class="row"><span class="price">Rs. '+x.price+'</span><button class="add" type="button" data-add="'+x.id+'"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10l2-7H6.2M9 19.5h.01M17 19.5h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>ADD TO CART</button></div></div></article>').join('')}
+document.querySelector('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;active=b.dataset.cat;renderFilters();render()});document.querySelector('#menuSearch').addEventListener('input',render);document.querySelector('#menuGrid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;e.preventDefault();e.stopPropagation();add(b.dataset.add)});updateCount();renderFilters();render();
+</script></body></html>

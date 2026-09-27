@@ -28,7 +28,8 @@ function render(){
  const c=read(),list=document.querySelector('#cartList'),sum=document.querySelector('#summaryItems'),n=qty(c);
  const total=c.reduce((s,x)=>s+(byId[x.id]?byId[x.id].price*x.qty:0),0);
  document.querySelector('#count').textContent=n;
- 
+ const checkoutButton=document.querySelector('#checkout');
+ if(checkoutButton)checkoutButton.style.display=n?'flex':'none';
  document.querySelector('#total').textContent=money(total);
  const badge=document.querySelector('#cartBadge');if(badge)badge.textContent=n;
 

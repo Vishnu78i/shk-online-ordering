@@ -1,51 +1,20 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#a71e1e">
-<title>SHK Menu Item</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#a71e1e"><title>Menu Item | SHK</title>
 <style>
 :root{--red:#a71e1e;--green:#2f5c2b;--gold:#d49316;--cream:#fbf7eb;--paper:#fffdf8;--ink:#3a2922;--muted:#766257;--line:#e4ca8f}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fbf7eb,#fffdf8 45%,#f6edda);color:var(--ink);font-family:Arial,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 22px}
-nav{position:sticky;top:0;z-index:20;background:rgba(251,247,235,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{min-height:92px;display:flex;align-items:center;justify-content:space-between}.logo{width:108px;height:82px;object-fit:contain}.links{display:flex;gap:8px}.links a{padding:10px 15px;border-radius:999px;font-size:13px;font-weight:900;letter-spacing:1px}.links a:hover{background:#fffaf0;color:var(--red)}
-main{padding:55px 0 80px}.crumb{color:var(--muted);font-size:13px;font-weight:800;margin-bottom:18px}.product{display:grid;grid-template-columns:1.08fr .92fr;gap:36px;align-items:center}.image-panel{background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:20px;box-shadow:0 22px 52px rgba(76,44,18,.12)}.image-panel img{width:100%;height:min(620px,55vw);display:block;object-fit:contain;background:#f6e4bb;border-radius:21px}.eyebrow{color:var(--green);font-size:13px;font-weight:900;letter-spacing:3px}.title{font:700 clamp(42px,6vw,70px)/1.02 Georgia,serif;color:var(--red);margin:15px 0 12px}.price{display:inline-flex;padding:10px 15px;border-radius:999px;background:#fff0c8;color:#6b4b11;font-weight:900;margin-bottom:18px}.description{font-size:18px;line-height:1.75;color:var(--muted);margin:0 0 21px}.detail-card{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.detail-card h2{font:700 28px Georgia,serif;color:var(--red);margin:0 0 10px}.detail-card p{color:var(--muted);line-height:1.7;margin:0}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.tag{padding:8px 11px;border-radius:999px;background:#edf5e9;color:var(--green);font-size:12px;font-weight:900}.actions{display:flex;gap:12px;margin-top:25px}.btn{flex:1;min-height:52px;border-radius:15px;border:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;cursor:pointer}.add{background:var(--gold);color:#2e220e}.cart{background:var(--green);color:#fff}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--green);color:#fff;padding:13px 18px;border-radius:999px;font-weight:900;transition:.3s;z-index:50}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:800px){.product{grid-template-columns:1fr}.image-panel img{height:360px}.nav{min-height:78px}.logo{width:80px;height:64px}.links a{font-size:10px;padding:9px}.wrap{padding:0 16px}.actions{flex-direction:column}}
-</style>
-</head>
-<body>
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,sans-serif;background:linear-gradient(180deg,#fbf7eb,#fffdf8 50%,#f4ead3);min-height:100vh}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:20;background:rgba(251,247,235,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{min-height:92px;display:flex;justify-content:space-between;align-items:center}.logo{width:108px;height:82px;object-fit:contain}.links{display:flex;gap:8px}.links a{padding:11px 15px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:1px}.links a:hover{background:#fffaf0;color:var(--red)}
+main{padding:52px 0 82px}.crumb{font-size:13px;color:var(--muted);font-weight:800;margin-bottom:18px}.product{display:grid;grid-template-columns:1.08fr .92fr;gap:38px;align-items:center}.image-card{background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:0 25px 58px rgba(76,44,18,.12)}.image-card img{width:100%;height:min(650px,56vw);display:block;object-fit:cover;border-radius:21px;background:#f1dfb9}.eyebrow{font-size:12px;color:var(--green);font-weight:900;letter-spacing:2.5px}.title{font:700 clamp(40px,5.5vw,66px)/1.03 Georgia,serif;color:var(--red);margin:13px 0}.price{display:inline-flex;padding:11px 16px;border-radius:999px;background:#fff0c9;color:#68480d;font-weight:900;font-size:18px}.description{font-size:18px;color:var(--muted);line-height:1.7;margin:20px 0}.detail{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.detail h2{font:700 28px Georgia,serif;color:var(--red);margin:0 0 9px}.detail p{color:var(--muted);line-height:1.7;margin:0}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.tag{padding:8px 11px;border-radius:999px;background:#edf5e9;color:var(--green);font-size:10px;font-weight:900}.actions{display:flex;gap:11px;margin-top:24px}.btn{flex:1;min-height:52px;border:0;border-radius:15px;display:flex;align-items:center;justify-content:center;font-weight:900;cursor:pointer}.add{background:linear-gradient(135deg,#bd7b08,#e0a326);color:#fff}.cart{background:var(--green);color:#fff}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--green);color:#fff;padding:13px 18px;border-radius:999px;font-weight:900;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.product{grid-template-columns:1fr}.image-card img{height:380px}.nav{min-height:78px}.logo{width:80px;height:64px}.links a{font-size:10px;padding:9px}.wrap{padding:0 16px}.actions{flex-direction:column}}
+</style></head><body>
 <nav><div class="wrap nav"><a href="index.html"><img class="logo" src="assets/shk-logo.svg" alt="Swastik Home Kitchen logo"></a><div class="links"><a href="index.html#menu">MENU</a><a href="about.html">ABOUT</a><a href="cart.html">CART</a></div></div></nav>
-<main><div class="wrap">
-<div class="crumb"><a href="index.html#menu">← Back to menu</a></div>
-<div id="product"></div>
-</div></main>
-<div id="toast" class="toast" role="status">Added to cart</div>
-<script>
-const items={
- 'aloo-paratha':{name:'Aloo Paratha',image:'assets/aloo-paratha.svg',price:'Price: Update',short:'Golden stuffed homestyle paratha. Pair it with butter and lassi.',about:'A beloved Indian comfort food made for a warm, satisfying meal. Aloo paratha is known for its soft, hearty potato filling inside a golden, cooked flatbread and is traditionally enjoyed with butter, curd, pickle or lassi.',tags:['COMFORT FOOD','HOMESTYLE','INDIAN CLASSIC']},
- 'dal-baati-churma':{name:'Dal • Baati • Churma',image:'assets/dal-bati-churma-photo.jpg',price:'Price: Update',short:'Rajasthani comfort food with dal, ghee-rich baati and churma.',about:'A classic Rajasthani combination that brings together savoury dal, baked baati and sweet churma. It is hearty, traditional and designed around the generous flavours associated with Rajasthan.',tags:['RAJASTHANI CLASSIC','TRADITION','HOMESTYLE']}
-};
-const item=items[new URLSearchParams(location.search).get('item')]||items['aloo-paratha'];
-document.title=item.name+' | SHK';
-document.querySelector('#product').innerHTML='<div class="product"><div class="image-panel"><img src="'+item.image+'" alt="'+item.name+'"></div><div><div class="eyebrow">SWASTIK HOME KITCHEN • MENU</div><h1 class="title">'+item.name+'</h1><div class="price">'+item.price+'</div><p class="description">'+item.short+'</p><div class="detail-card"><h2>About this dish</h2><p>'+item.about+'</p></div><div class="tags">'+item.tags.map(t=>'<span class="tag">'+t+'</span>').join('')+'</div><div class="actions"><button class="btn add" id="addButton" type="button">ADD TO CART</button><a class="btn cart" href="cart.html">VIEW CART</a></div></div></div>';
-function getCart(){
- try{const raw=JSON.parse(localStorage.getItem('shkCart')||'[]');return Array.isArray(raw)?raw:[]}catch{return[]}
-}
-function normalizeCart(){
- const legacy={'Aloo Paratha':'aloo-paratha','Dal – Baati – Churma':'dal-baati-churma','Dal • Baati • Churma':'dal-baati-churma'};
- const merged={};
- getCart().forEach(x=>{
-   if(typeof x==='string'){const id=legacy[x];if(id)merged[id]=(merged[id]||0)+1}
-   else if(x&&x.id){const id=legacy[x.id]||x.id;if(items[id])merged[id]=(merged[id]||0)+Math.max(1,Math.floor(Number(x.qty)||1))}
- });
- return Object.entries(merged).map(([id,qty])=>({id,qty}));
-}
-function addToCart(){
- const cart=normalizeCart();const row=cart.find(x=>x.id===itemKey);
- if(row)row.qty+=1;else cart.push({id:itemKey,qty:1});
- localStorage.setItem('shkCart',JSON.stringify(cart));
- const t=document.querySelector('#toast');t.textContent=item.name+' added to cart';t.classList.add('show');
- clearTimeout(window.__productToast);window.__productToast=setTimeout(()=>t.classList.remove('show'),1700);
-}
-const itemKey=Object.keys(items).find(k=>items[k]===item)||'aloo-paratha';
-document.querySelector('#addButton').addEventListener('click',addToCart);
-</script>
-</body></html>
+<main><div class="wrap"><div class="crumb"><a href="index.html#menu">← Back to menu</a></div><div id="product"></div></div></main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/menu.js"></script><script>
+const item=SHK_MENU.find(x=>x.id===new URLSearchParams(location.search).get('item'))||SHK_MENU[0];
+document.title=item.name+' • SHK';
+document.querySelector('#product').innerHTML='<div class="product"><div class="image-card"><img src="'+item.image+'" alt="'+item.name+'"></div><div><div class="eyebrow">'+item.category.toUpperCase()+' • SWASTIK HOME KITCHEN</div><h1 class="title">'+item.name+'</h1><div class="price">Rs. '+item.price+'</div><p class="description">'+item.short+'</p><div class="detail"><h2>About this dish</h2><p>'+item.about+'</p></div><div class="tags"><span class="tag">FRESHLY PRESENTED</span><span class="tag">SHK HOME KITCHEN</span><span class="tag">'+item.category.toUpperCase()+'</span></div><div class="actions"><button id="add" class="btn add" type="button">ADD TO CART</button><a class="btn cart" href="cart.html">VIEW CART</a></div></div></div>';
+function getCart(){try{const x=JSON.parse(localStorage.getItem('shkCart')||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
+function add(){const c=getCart().filter(x=>x&&x.id&&SHK_MENU.some(m=>m.id===x.id)).map(x=>({id:x.id,qty:Math.max(1,Math.floor(Number(x.qty)||1))}));const r=c.find(x=>x.id===item.id);if(r)r.qty++;else c.push({id:item.id,qty:1});localStorage.setItem('shkCart',JSON.stringify(c));const t=document.querySelector('#toast');t.textContent=item.name+' added to cart';t.classList.add('show');clearTimeout(window.__p);window.__p=setTimeout(()=>t.classList.remove('show'),1700)}
+document.querySelector('#add').addEventListener('click',add);
+</script></body></html>

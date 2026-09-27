@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#9d1c1c">
+<title>Swastik Home Kitchen | SHK</title>
+<style>
+:root{--r:#9d1c1c;--g:#2a5226;--a:#cd8f12;--c:#faf4e5;--i:#3b2727}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--c);color:var(--i);font-family:Arial,sans-serif}
+a{text-decoration:none;color:inherit}.wrap{max-width:1050px;margin:auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:5;background:#faf4e5;border-bottom:1px solid #dfc378}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between}.mini{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:#fff8ed;border:2px solid #cd8f12;color:#9d1c1c;font-weight:900;font-size:18px}
+.links{display:flex;gap:24px;font-weight:800;font-size:14px}.links a:hover{color:var(--r)}
+.hero{text-align:center;padding:42px 0 55px;background:radial-gradient(circle,#fffdf8,var(--c))}
+.logo{width:185px;height:185px;object-fit:contain}.eyebrow{color:var(--g);font-weight:900;letter-spacing:3px;font-size:13px}.hero h1{font:700 clamp(42px,7vw,72px)/1 Georgia,serif;color:var(--r);margin:12px 0}.tag{color:var(--a);font-weight:900;letter-spacing:2px}.launch{display:inline-block;margin:20px 0;padding:10px 20px;border:2px solid var(--a);border-radius:30px;font-weight:900;color:var(--r)}
+.cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{padding:14px 22px;border-radius:30px;font-weight:900}.red{background:var(--r);color:#fff}.green{background:var(--g);color:#fff}
+section{padding:60px 0}.title{text-align:center;font:700 40px Georgia,serif;color:var(--r);margin:0 0 10px}.sub{text-align:center;max-width:650px;margin:0 auto 30px;color:#695648;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.card{background:#fffdf7;border:1px solid #dfc278;border-radius:22px;overflow:hidden;box-shadow:0 12px 28px #5d38151a}.food{height:280px;display:grid;place-items:center;background:linear-gradient(135deg,#f4dca5,#fff7df);font-size:90px}.body{padding:20px}.name{font:700 29px Georgia,serif;color:var(--r);margin:0 0 8px}.desc{line-height:1.5;color:#695648;min-height:48px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px}.add{border:0;background:var(--a);padding:11px 15px;border-radius:12px;font-weight:900;cursor:pointer}
+.about{background:var(--g);color:white}.about .title{color:#ffe5a7}.about .sub{color:#f3ead7}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stat{text-align:center;border:1px solid #ffffff22;border-radius:18px;padding:20px}.stat b{display:block;font:700 28px Georgia,serif;color:#ffe5a2}
+.order{background:var(--r);color:#fff;border-radius:24px;padding:28px}.order h2{font:700 34px Georgia,serif;margin:0 0 12px}.list{background:#fff8ed;color:var(--i);border-radius:15px;padding:14px;min-height:65px}.item{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #ead9b8}.empty{color:#8a776a}.wa{width:100%;margin-top:15px;background:#1f8f3a;color:#fff;border:0;border-radius:13px;padding:15px;font-weight:900;font-size:16px;cursor:pointer}
+.area{text-align:center;border:1px solid #dfc378;padding:22px;margin-top:20px}.area b{color:var(--r)}footer{text-align:center;padding:30px 0 40px;color:#806c5c;font-size:13px}.brand{color:var(--r);font-weight:900;letter-spacing:2px;margin-bottom:7px}
+@media(max-width:720px){.links{display:none}.grid,.stats{grid-template-columns:1fr}.food{height:230px}}
+</style></head>
+<body>
+<nav><div class="wrap nav"><a href="#top" class="mini">SHK</a><div class="links"><a href="#menu">MENU</a><a href="#about">ABOUT</a><a href="#order">ORDER</a></div></div></nav>
+<header id="top" class="hero"><div class="wrap">
+<div class="mini" style="margin:0 auto 14px">SHK</div><div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div>
+<h1>Swastik Home Kitchen</h1><div class="tag">SHUDH KHANNA WITH SHK WALA</div><div class="launch">LAUNCHING • 7 OCTOBER 2026</div>
+<div class="cta"><a class="btn red" href="#menu">VIEW MENU</a><a class="btn green" href="#order">ORDER ON WHATSAPP</a></div>
+</div></header>
+<section id="menu"><div class="wrap"><h2 class="title">Our Menu</h2><p class="sub">Homestyle favourites made for the SHK table.</p><div class="grid">
+<article class="card"><div class="food">🥔</div><div class="body"><h3 class="name">Aloo Paratha</h3><p class="desc">Golden stuffed homestyle paratha. Pair it with butter and lassi.</p><div class="row"><b style="color:var(--g)">Price: Update</b><button class="add" onclick="addItem('Aloo Paratha')">ADD TO ORDER</button></div></div></article>
+<article class="card"><div class="food">🥘</div><div class="body"><h3 class="name">Dal – Baati – Churma</h3><p class="desc">Rajasthani comfort food with dal, ghee-rich baati and churma.</p><div class="row"><b style="color:var(--g)">Price: Update</b><button class="add" onclick="addItem('Dal – Baati – Churma')">ADD TO ORDER</button></div></div></article>
+</div></div></section>
+<section id="about" class="about"><div class="wrap"><h2 class="title">The SHK Story</h2><p class="sub">Swastik Home Kitchen brings 20+ years of food experience to Namma Bengaluru, with a focus on familiar, homestyle flavours.</p><div class="stats"><div class="stat"><b>20+</b>YEARS OF FOOD EXPERIENCE</div><div class="stat"><b>SHK</b>SWASTIK HOME KITCHEN</div><div class="stat"><b>BLR</b>NAMMA BENGALURU</div></div></div></section>
+<section id="order"><div class="wrap"><div class="order"><h2>Your SHK Order</h2><div id="list" class="list"><div class="empty">Your cart is empty. Add something from the menu.</div></div><button class="wa" onclick="sendWhatsApp()">SEND ORDER ON WHATSAPP</button><p style="font-size:12px;opacity:.8">Orders open directly in WhatsApp.</p></div><div class="area"><b>SERVING AREA</b><br>Bannerghatta • Jigani • APC</div></div></section>
+<footer><div class="wrap"><div class="brand">SWASTIK HOME KITCHEN</div>SHUDH KHANNA WITH SHK WALA<br>© 2026 SHK • Free static website</div></footer>
+<script>
+const SHK_WHATSAPP='917483962677';let cart=[];
+function addItem(n){cart.push(n);render();document.querySelector('#order').scrollIntoView({behavior:'smooth'})}
+function render(){let e=document.querySelector('#list');if(!cart.length){e.innerHTML='<div class="empty">Your cart is empty. Add something from the menu.</div>';return}let c={};cart.forEach(x=>c[x]=(c[x]||0)+1);e.innerHTML=Object.entries(c).map(([n,q])=>'<div class="item"><span>'+n+'</span><b>× '+q+'</b></div>').join('')}
+function sendWhatsApp(){if(!cart.length){alert('Please add at least one item.');return}let c={};cart.forEach(x=>c[x]=(c[x]||0)+1);let m='Hello Swastik Home Kitchen!%0A%0AI would like to order:%0A';Object.entries(c).forEach(([n,q])=>m+='• '+n+' × '+q+'%0A');m+='%0AName:%0AAddress:%0APickup/Delivery:';window.open('https://wa.me/'+SHK_WHATSAPP+'?text='+m,'_blank')}
+</script></body></html>

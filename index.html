@@ -76,6 +76,14 @@ section{padding:82px 0}
 .filter{border:1px solid var(--line);background:rgba(255,253,248,.88);color:#6d584a;border-radius:999px;padding:10px 14px;font-size:11px;font-weight:900;cursor:pointer;transition:.2s}
 .filter:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(76,44,18,.07)}
 .filter.active{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 9px 20px rgba(53,90,69,.16)}
+.filter-panel{max-height:0;overflow:hidden;opacity:0;transform:translateY(-6px);padding:0;transition:max-height .3s ease,opacity .25s ease,transform .25s ease,margin .3s ease}
+.filter-panel.open{max-height:160px;opacity:1;transform:none;margin-bottom:24px}
+.menu-bottom-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:30px auto 0;max-width:620px}
+.menu-action{min-height:52px;border-radius:16px;border:1px solid rgba(200,161,90,.5);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-size:12px;font-weight:900;letter-spacing:1.2px;cursor:pointer;transition:.22s;box-shadow:0 12px 25px rgba(76,44,18,.08)}
+.menu-action:hover{transform:translateY(-2px);box-shadow:0 17px 30px rgba(76,44,18,.13)}
+.filter-action{background:#fffaf2;color:var(--green)}
+.cart-action{background:var(--red);color:#fff}
+.menu-action-icon{font-size:15px}
 .search{width:100%;height:46px;border:1px solid var(--line);border-radius:999px;padding:0 17px;background:rgba(255,253,248,.92);outline:none;color:var(--ink);box-shadow:0 9px 20px rgba(76,44,18,.05)}
 .search:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,147,22,.11),0 9px 20px rgba(76,44,18,.05)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -134,6 +142,7 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   .hero{padding:34px 0 52px}.hero-logo{width:220px;height:165px;margin-bottom:0}.eyebrow{font-size:9px;letter-spacing:2.4px}.eyebrow:before,.eyebrow:after{width:14px}.hero h1{font-size:37px;line-height:1.02;margin:17px 0 12px}.tagline{font-size:12px}.subhero{font-size:13px}.launch{display:none}
   section{padding:58px 0}.section-title{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border-radius:17px}.card:after{inset:6px;border-radius:13px}.food{height:108px}.body{padding:10px 9px 11px}.image-badge{left:8px;top:8px;padding:5px 6px;font-size:7px;letter-spacing:.7px}.category{font-size:7px;letter-spacing:1px}.name{font-size:15px;line-height:1.05;margin:4px 0 4px}.desc{font-size:9px;line-height:1.35;min-height:25px}.row{gap:5px;margin-top:8px}.price{padding:5px 7px;font-size:10px}.add{min-height:31px;padding:7px 7px;border-radius:9px;font-size:7px;letter-spacing:.25px;gap:4px}.add svg{width:12px;height:12px}
   .delivery-inner{min-height:56px;gap:7px;padding:10px 8px}.delivery-badge{font-size:7px;padding:5px 7px;letter-spacing:.9px}.delivery-text{font-size:11px;letter-spacing:.7px}
+  .menu-bottom-actions{gap:8px;margin-top:20px}.menu-action{min-height:46px;border-radius:13px;font-size:9px;letter-spacing:.8px}.menu-action-icon{font-size:12px}
   .trust{grid-template-columns:repeat(2,1fr)}.trust-item{padding:13px 5px}.trust-item strong{font-size:16px}.trust-item{font-size:7px;letter-spacing:.8px}
   .menu-frame:before{inset:-7px -3px;border-radius:24px}.final-box{padding:34px 18px}.wa-float{right:14px;bottom:14px;width:54px;height:54px}.top-btn{right:15px;bottom:78px}
 }
@@ -154,29 +163,28 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
   </div>
 </nav>
 
-<header id="top" class="hero">
-  <div class="hero-bg" aria-hidden="true">
-    <span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span>
-    <i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i>
-  </div>
-  <div class="wrap hero-inner">
-    <div class="hero-logo-wrap"><img class="hero-logo" src="assets/shk-logo-clean.svg" alt="Swastik Home Kitchen — SHK"></div>
-    <div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div>
-    <div class="tagline"># SHUDH KHANA WITH SHK WALA</div>
-    <p class="subhero">Comforting Indian food, beautifully presented and ready to order from the SHK table to your home.</p>
-    <div class="cta">
-      <a class="btn red" href="#menu">VIEW MENU</a>
-      <a class="btn green" href="cart.html">VIEW CART / CHECKOUT</a>
-    </div>
-  </div>
-</header>
-
 <div class="delivery-banner" role="note" aria-label="Free delivery offer">
   <div class="wrap delivery-inner">
     <span class="delivery-badge">SHK SPECIAL</span>
     <span class="delivery-text">FREE DELIVERY <strong>• ON ORDERS RS. 250 &amp; ABOVE</strong></span>
   </div>
 </div>
+
+<header id="top" class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span>
+    <i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">NAMMA BENGALURU • HOME KITCHEN</div>
+    <div class="tagline"># SHUDH KHANA WITH SHK WALA</div>
+    <p class="subhero">Comforting Indian food, beautifully presented and ready to order from the SHK table to your home.</p>
+    <div class="cta">
+      <a class="btn red" href="#menu">VIEW MENU</a>
+    </div>
+  </div>
+</header>
+
 
 <div class="trustbar">
   <div class="wrap trust">
@@ -196,10 +204,18 @@ footer{text-align:center;padding:36px 0 48px;color:#806c5c;font-size:12px}
     </div>
     <div class="menu-frame">
       <div class="menu-tools">
-        <div id="filters" class="filters" aria-label="Menu filters"></div>
         <input id="menuSearch" class="search" type="search" placeholder="Search your favourite dish..." aria-label="Search menu">
       </div>
+      <div id="filters" class="filters filter-panel" aria-label="Menu filters"></div>
       <div id="menuGrid" class="grid"></div>
+      <div class="menu-bottom-actions">
+        <button id="filterToggle" class="menu-action filter-action" type="button" aria-expanded="false" aria-controls="filters">
+          <span>FILTER</span><span class="menu-action-icon">☰</span>
+        </button>
+        <a class="menu-action cart-action" href="cart.html">
+          <span>VIEW CART</span><span class="menu-action-icon">🛒</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -329,6 +345,12 @@ function render(){
     '</div></article>').join('');
   if(window.SHK_PREMIUM_REFRESH)window.SHK_PREMIUM_REFRESH();
 }
+document.querySelector('#filterToggle').addEventListener('click',()=>{
+  const panel=document.querySelector('#filters');
+  const button=document.querySelector('#filterToggle');
+  const open=panel.classList.toggle('open');
+  button.setAttribute('aria-expanded',String(open));
+});
 document.querySelector('#filters').addEventListener('click',e=>{
   const b=e.target.closest('[data-cat]');if(!b)return;
   active=b.dataset.cat;renderFilters();render();

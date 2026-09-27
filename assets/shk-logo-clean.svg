@@ -1,26 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-labelledby="title desc">
-<title id="title">Swastik Home Kitchen — SHK</title>
-<desc id="desc">Clean SHK logo with red swastik, gold accents, large S H K lettering and Swastik Home Kitchen name.</desc>
-<rect width="640" height="500" rx="34" fill="#fffdf8"/>
-<g transform="translate(320 18)">
-  <g fill="none" stroke="#8f2232" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M0 8V142H132Q202 142 224 78"/>
-    <path d="M218 232H84Q56 232 56 260V374"/>
-    <path d="M0 366V234H-132Q-202 234-224 298"/>
-    <path d="M-218 134H-84Q-56 134-56 106V0"/>
-  </g>
-  <g fill="#c8a15a">
-    <circle cx="-62" cy="183" r="12"/><circle cx="62" cy="183" r="12"/>
-    <circle cx="-62" cy="299" r="12"/><circle cx="62" cy="299" r="12"/>
-  </g>
-  <g fill="none" stroke="#c8a15a" stroke-width="11" stroke-linecap="round">
-    <path d="M-246 80V315"/><path d="M-222 62V333"/>
-    <path d="M246 80V315"/><path d="M222 62V333"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" role="img" aria-labelledby="title desc">
+<title id="title">SHK — Swastik Home Kitchen</title>
+<desc id="desc">SHK logo with large S H K initials, Swastik Home Kitchen name and Shudh Khanna With SHK Wala tagline.</desc>
+<rect width="1254" height="1254" fill="#fffdf8"/>
+<g font-family="Georgia, 'Times New Roman', serif" font-weight="700" text-anchor="middle">
+  <text x="627" y="715" font-size="420" letter-spacing="-18">
+    <tspan fill="#a95717">S</tspan><tspan fill="#355a45">H</tspan><tspan fill="#c88d13">K</tspan>
+  </text>
 </g>
-<text x="320" y="390" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="150" font-weight="700" letter-spacing="-7">
-  <tspan fill="#a95717">S</tspan><tspan fill="#355a45">H</tspan><tspan fill="#c58f32">K</tspan>
-</text>
-<g stroke="#c8a15a" stroke-width="3" stroke-linecap="round"><path d="M58 426H178"/><path d="M462 426H582"/></g>
-<text x="320" y="443" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="900" fill="#5b3026" letter-spacing="2.4">SWASTIK HOME KITCHEN</text>
+<g stroke="#d49316" stroke-width="6" stroke-linecap="round">
+  <path d="M72 788H170"/>
+  <path d="M1084 788H1182"/>
+</g>
+<text x="627" y="812" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" letter-spacing="1.5" fill="#4b2418">SWASTIK HOME KITCHEN</text>
+<text x="627" y="875" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="600" letter-spacing="8" fill="#c88d13">SHUDH KHANNA WITH SHK WALA</text>
 </svg>

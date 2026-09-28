@@ -69,6 +69,5 @@ test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ brows
   if (waRequests !== 100) failures.push('expected 100 WhatsApp navigations, got '+waRequests);
   await context.close();
 
-  expect(failures, failures.join('
-')).toEqual([]);
+  expect(failures, failures.join('\\n')).toEqual([]);
 });

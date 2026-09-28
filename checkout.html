@@ -142,18 +142,16 @@ async function handleConfirmation(){
  setLocationStatus('Customer and order details have been securely recorded. You can now place the WhatsApp order.','success');
 }
 document.querySelector('#confirm').addEventListener('change',handleConfirmation);
-document.querySelector('#form').addEventListener('input',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
-document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
+document.querySelector('#form').addEventListener('input',e=>{if(e.target.id!=='confirm'){savedFingerprint='';document.querySelector('#confirm').checked=false;}});
+document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='confirm'){savedFingerprint='';document.querySelector('#confirm').checked=false;}});
 
-async function placeOrder(){
+function placeOrder(){
  const cb=document.querySelector('#confirm');
- if(!cb.checked){cb.focus();alert('Please confirm that your details are correct.');return}
+ if(!cb.checked){cb.focus();alert('Please confirm that the details entered are correct.');return}
 
  const data=collectOrderData();
  if(!data)return;
 
- // Build WhatsApp message BEFORE any network request. This keeps the
- // navigation directly tied to the user's click and prevents popup blocking.
  let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';
  data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
  out+='\\nSUBTOTAL: Rs. '+data.subtotal+'\\nPACKAGING & SERVICE FEE: Rs. '+data.service_fee+'\\nGRAND TOTAL: Rs. '+data.total+'\\n\\nCUSTOMER DETAILS:\\nName: '+data.name+'\\nPhone: +91 '+data.phone+'\\nFulfilment: '+data.fulfilment+'\\nPayment Method: '+data.payment_method+'\\n';
@@ -164,30 +162,13 @@ async function placeOrder(){
 
  const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
 
- // Start the database save in the background, but NEVER make WhatsApp wait.
- // The checkbox already records the customer in normal use; this also saves
- // any details changed after the checkbox was ticked.
- const savePromise=saveCheckout(true);
-
+ // WhatsApp navigation is deliberately synchronous and happens directly
+ // from the user's click. No await, fetch, popup, or database call is allowed
+ // to delay this navigation.
  document.querySelector('#step3').classList.add('active');
  document.querySelector('#success').style.display='block';
-
- const opened=window.open(waUrl,'_blank');
- if(!opened){
-   // Fallback for browsers that block a new tab.
-   window.location.assign(waUrl);
- }
-
- savePromise.then(ok=>{
-   if(ok){
-     localStorage.removeItem('shkCart');
-     localStorage.removeItem('shkCartMessage');
-   }
- }).catch(()=>{});
-
- // Do not redirect this checkout tab. The WhatsApp tab is the order flow.
+ window.location.assign(waUrl);
 }
-
 toggle();render();
 document.querySelector('#step1').addEventListener('click',()=>{window.location.href='cart.html'});
 document.querySelector('#step2').addEventListener('click',()=>{document.querySelector('#form').scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#name').focus({preventScroll:true})});

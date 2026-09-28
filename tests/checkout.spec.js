@@ -31,7 +31,7 @@ test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ brows
     localStorage.removeItem('shkCartMessage');
   }, CART);
 
-  for (let n = 1; n <= 1; n++) {
+  for (let n = 1; n <= 100; n++) {
     await page.goto('http://127.0.0.1:4173/checkout.html?e2e='+n, {waitUntil:'domcontentloaded'});
     await page.locator('#pickup').check();
     await page.locator('#name').fill('Test Customer');
@@ -51,19 +51,24 @@ test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ brows
       if (!hit) failures.push(n+': CTA center is not clickable');
     }
 
-    console.log('BEFORE CONFIRM', n, page.url);\n    await page.locator('#confirm').check();\n    console.log('AFTER CONFIRM', n, page.url, 'checked=', await page.locator('#confirm').isChecked());
+    console.log('BEFORE CONFIRM', n, page.url);
+    await page.locator('#confirm').check();
+    console.log('AFTER CONFIRM', n, page.url, 'checked=', await page.locator('#confirm').isChecked());
     await page.waitForTimeout(150);
     if (!(await page.locator('#confirm').isChecked())) failures.push(n+': confirmation unchecked itself');
 
-    console.log('BEFORE CLICK', n, page.url, 'href=', await page.locator('#placeButton').getAttribute('href'));\n    await page.locator('#placeButton').click({timeout:10000});\n    console.log('AFTER CLICK', n, page.url);
+    console.log('BEFORE CLICK', n, page.url, 'href=', await page.locator('#placeButton').getAttribute('href'));
+    await page.locator('#placeButton').click({timeout:10000});
+    console.log('AFTER CLICK', n, page.url);
     await page.waitForTimeout(50);
 
     const href = await page.locator('#placeButton').getAttribute('href');
     if (!href?.startsWith(TARGET)) failures.push(n+': href not converted to WhatsApp target');
   }
 
-  if (waRequests !== 1) failures.push('expected 1 WhatsApp navigation, got '+waRequests);
+  if (waRequests !== 100) failures.push('expected 100 WhatsApp navigations, got '+waRequests);
   await context.close();
 
-  expect(failures, failures.join('\n')).toEqual([]);
+  expect(failures, failures.join('
+')).toEqual([]);
 });

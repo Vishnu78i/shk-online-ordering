@@ -171,7 +171,9 @@
     mo.observe(document.body, {childList:true, subtree:true});
   };
 
-  window.SHK_PREMIUM_REFRESH = () => { prepareExisting(); addButtonGlints(); revealAll(); };\n\n  const init = () => {
+  window.SHK_PREMIUM_REFRESH = () => { prepareExisting(); addButtonGlints(); revealAll(); };
+
+  const init = () => {
     installStyles();
     addScrollBar();
     prepareExisting();

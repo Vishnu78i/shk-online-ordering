@@ -25,7 +25,7 @@ main{padding:55px 0 84px}.kicker{text-align:center;color:var(--green);font-size:
 <div class="payment-option"><input id="upi" type="radio" name="payment" value="UPI" required><label for="upi"><span>📱 UPI</span></label></div>
 </div></div>
 <div class="field full"><label for="note">ORDER NOTE</label><textarea id="note" name="note" maxlength="300" placeholder="Anything else SHK should know?"></textarea></div></div>
-<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm that the details entered are correct and understand that SHK will receive this order on WhatsApp for confirmation.</label></div><button id="placeButton" class="place" type="button">PLACE ORDER ON WHATSAPP</button><div id="success" class="success">Opening WhatsApp with your completed order…</div></form></section></div></div></main>
+<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm that the details entered are correct and understand that SHK will receive this order on WhatsApp for confirmation.</label></div><a id="placeButton" class="place" href="#" role="button">PLACE ORDER ON WHATSAPP</a><div id="success" class="success">Opening WhatsApp with your completed order…</div></form></section></div></div></main>
 <div id="mapModal" class="map-modal" role="dialog" aria-modal="true" aria-labelledby="mapTitle"><div class="map-dialog"><div class="map-head"><div><h3 id="mapTitle">Select Delivery Location</h3><div class="map-subtitle">Search your area, street or landmark, then fine-tune the pin.</div></div><button id="mapClose" class="map-close" type="button" aria-label="Close map">×</button></div><div class="map-search"><div class="map-search-row"><input id="mapSearchInput" type="search" placeholder="Search area, street, building or landmark..." autocomplete="off"><button id="mapSearchBtn" class="map-search-btn" type="button">🔎 SEARCH</button></div><div id="mapSearchResults" class="map-search-results" aria-live="polite"></div></div><div class="map-stage"><div id="mapPicker"></div></div><div class="map-footer"><div class="map-tip">Tap anywhere on the map to place the delivery pin. Drag the pin to adjust the exact location, then confirm.</div><button id="confirmMap" class="confirm-map" type="button">CONFIRM THIS LOCATION</button></div></div></div>
 <script src="assets/menu.js"></script><script src="assets/premium.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
 const PHONE='917483962677',byId=Object.fromEntries(SHK_MENU.map(x=>[x.id,x]));
@@ -145,12 +145,12 @@ document.querySelector('#confirm').addEventListener('change',handleConfirmation)
 document.querySelector('#form').addEventListener('input',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
 document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
 
-function placeOrder(){
+function placeOrder(ev){
  const cb=document.querySelector('#confirm');
- if(!cb.checked){cb.focus();alert('Please tick the confirmation checkbox first.');return}
+ if(!cb.checked){ev.preventDefault();cb.focus();setLocationStatus('Please tick the confirmation checkbox before placing the WhatsApp order.','error');return}
 
  const data=collectOrderData();
- if(!data)return;
+ if(!data){ev.preventDefault();return}
 
  let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';
  data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
@@ -161,6 +161,8 @@ function placeOrder(){
  out+='\\n━━━━━━━━━━━━━━━━━━━━\\nPlease confirm the order and availability.\\n━━━━━━━━━━━━━━━━━━━━';
 
  const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
+ const button=ev.currentTarget;
+ button.href=waUrl;
 
  // WhatsApp navigation is deliberately synchronous and happens directly
  // from the user's click. No await, fetch, popup, or database call is allowed

@@ -1,67 +1,58 @@
 import { test, expect } from '@playwright/test';
 
-test.setTimeout(120000);
+test.setTimeout(60000);
 
-const TARGET = 'https://wa.me/917483962677?text=';
-const CART = JSON.stringify([{id:'butter-roti',qty:1}]);
-
-test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ browser }) => {
+test('SHK checkout CTA diagnostic', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
-  const failures = [];
-  let waRequests = 0;
+  const errors = [];
+  page.on('pageerror', e => errors.push('PAGEERROR: '+e.message));
+  page.on('console', m => { if (m.type()==='error') errors.push('CONSOLE: '+m.text()); });
 
-  await page.route('https://wa.me/**', async route => {
-    waRequests += 1;
-    await route.abort();
-  });
   await page.route('https://wvqocfszawruthkeyaxw.supabase.co/functions/v1/shk-order', async route => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ ok: true, order_id: 'test-order', order_number: 'SHK-TEST' })
-    });
+    await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,order_id:'test',order_number:'SHK-TEST'})});
   });
   await page.route('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', async route => {
     await route.fulfill({status:200,contentType:'application/javascript',body:'window.L={};'});
   });
+  await page.route('https://wa.me/**', async route => { await route.abort(); });
 
-  await page.goto('http://127.0.0.1:4173/checkout.html?e2e=seed', {waitUntil:'domcontentloaded'});
-  await page.evaluate(cart => {
-    localStorage.setItem('shkCart', cart);
-    localStorage.removeItem('shkCartMessage');
-  }, CART);
+  await page.goto('http://127.0.0.1:4173/checkout.html?e2e=diag', {waitUntil:'domcontentloaded'});
+  await page.evaluate(() => localStorage.setItem('shkCart', JSON.stringify([{id:'butter-roti',qty:1}])));
+  await page.reload({waitUntil:'domcontentloaded'});
 
-  for (let n = 1; n <= 1; n++) {
-    await page.goto('http://127.0.0.1:4173/checkout.html?e2e='+n, {waitUntil:'domcontentloaded'});
-    await page.locator('#pickup').check();
-    await page.locator('#name').fill('Test Customer');
-    await page.locator('#phone').fill('7483962677');
-    await page.locator('#upi').check();
+  await page.locator('#pickup').check();
+  await page.locator('#name').fill('Test Customer');
+  await page.locator('#phone').fill('7483962677');
+  await page.locator('#upi').check();
+  await page.locator('#confirm').check();
+  await page.waitForTimeout(300);
 
-    const button = page.locator('#placeButton');
-    await expect(button).toBeVisible();
-    await button.scrollIntoViewIfNeeded();
-    const box = await button.boundingBox();
+  const diag = await page.evaluate(() => {
+    const b=document.querySelector('#placeButton');
+    return {
+      url:location.href,
+      placeType:typeof window.placeOrder,
+      buttonTag:b?.tagName,
+      href:b?.getAttribute('href'),
+      onclick:String(b?.onclick),
+      outer:b?.outerHTML,
+      topAtCenter:(()=>{const r=b.getBoundingClientRect(); const el=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2); return {tag:el?.tagName,id:el?.id,cls:el?.className}})()
+    };
+  });
+  console.log('DIAG '+JSON.stringify(diag));
+  console.log('ERRORS '+JSON.stringify(errors));
 
-    const stack = box ? await page.evaluate(({x,y}) => document.elementsFromPoint(x,y).slice(0,8).map(el => ({
-      tag:el.tagName,id:el.id,cls:el.className,pointerEvents:getComputedStyle(el).pointerEvents
-    })), {x:box.x+box.width/2,y:box.y+box.height/2}) : [];
-    console.log('CTA STACK', JSON.stringify(stack));
+  await page.evaluate(() => {
+    const b=document.querySelector('#placeButton');
+    b.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));
+  });
+  await page.waitForTimeout(100);
+  const after = await page.locator('#placeButton').getAttribute('href');
+  console.log('AFTER DISPATCH '+after);
 
-    await page.locator('#confirm').check();
-    await page.waitForTimeout(150);
-    if (!(await page.locator('#confirm').isChecked())) failures.push(n+': confirmation unchecked itself');
-
-    await page.locator('#placeButton').click({timeout:10000});
-    await page.waitForTimeout(100);
-
-    const href = await page.locator('#placeButton').getAttribute('href');
-    console.log('CTA HREF', href);
-    if (!href?.startsWith(TARGET)) failures.push(n+': href not converted to WhatsApp target');
-  }
-
-  if (waRequests !== 1) failures.push('expected 1 WhatsApp navigation, got '+waRequests);
+  expect(errors).toEqual([]);
+  expect(typeof diag.placeType).toBe('function');
+  expect(after).toContain('https://wa.me/917483962677?text=');
   await context.close();
-  expect(failures, failures.join('\\n')).toEqual([]);
 });

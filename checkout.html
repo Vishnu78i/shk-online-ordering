@@ -25,7 +25,7 @@ main{padding:55px 0 84px}.kicker{text-align:center;color:var(--green);font-size:
 <div class="payment-option"><input id="upi" type="radio" name="payment" value="UPI" required><label for="upi"><span>📱 UPI</span></label></div>
 </div></div>
 <div class="field full"><label for="note">ORDER NOTE</label><textarea id="note" name="note" maxlength="300" placeholder="Anything else SHK should know?"></textarea></div></div>
-<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm that the details entered are correct and understand that SHK will receive this order on WhatsApp for confirmation.</label></div><a id="placeButton" class="place" href="https://wa.me/917483962677" target="_blank" rel="noopener">PLACE ORDER ON WHATSAPP</a><div id="success" class="success">Opening WhatsApp with your completed order…</div></form></section></div></div></main>
+<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm that the details entered are correct and understand that SHK will receive this order on WhatsApp for confirmation.</label></div><button id="placeButton" class="place" type="submit">PLACE ORDER ON WHATSAPP</button><div id="success" class="success">Opening WhatsApp with your completed order…</div></form></section></div></div></main>
 <div id="mapModal" class="map-modal" role="dialog" aria-modal="true" aria-labelledby="mapTitle"><div class="map-dialog"><div class="map-head"><div><h3 id="mapTitle">Select Delivery Location</h3><div class="map-subtitle">Search your area, street or landmark, then fine-tune the pin.</div></div><button id="mapClose" class="map-close" type="button" aria-label="Close map">×</button></div><div class="map-search"><div class="map-search-row"><input id="mapSearchInput" type="search" placeholder="Search area, street, building or landmark..." autocomplete="off"><button id="mapSearchBtn" class="map-search-btn" type="button">🔎 SEARCH</button></div><div id="mapSearchResults" class="map-search-results" aria-live="polite"></div></div><div class="map-stage"><div id="mapPicker"></div></div><div class="map-footer"><div class="map-tip">Tap anywhere on the map to place the delivery pin. Drag the pin to adjust the exact location, then confirm.</div><button id="confirmMap" class="confirm-map" type="button">CONFIRM THIS LOCATION</button></div></div></div>
 <script src="assets/menu.js"></script><script src="assets/premium.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
 const PHONE='917483962677',byId=Object.fromEntries(SHK_MENU.map(x=>[x.id,x]));
@@ -87,89 +87,89 @@ document.querySelector('#mapSearchInput').addEventListener('input',()=>{clearTim
 document.querySelector('#mapSearchResults').addEventListener('click',e=>{const b=e.target.closest('.map-result');if(!b)return;const lat=Number(b.dataset.lat),lng=Number(b.dataset.lon);placeMapMarker(lat,lng,17);document.querySelector('#mapSearchResults').classList.remove('show');setLocationStatus('Location found. Drag the pin to the exact doorstep and tap CONFIRM THIS LOCATION.','success')});
 
 function collectOrderData(){
- const val=id=>document.querySelector('#'+id)?.value.trim()||'';
- const fulfil=document.querySelector('input[name="fulfilment"]:checked')?.value||'';
- const payment=document.querySelector('input[name="payment"]:checked')?.value||'';
- const confirmed=document.querySelector('#confirm')?.checked?'YES':'NO';
+ const fulfil=document.querySelector('input[name="fulfilment"]:checked')?.value||'Delivery';
  const c=getCart();
- const name=val('name');
- const phone=normalPhone(val('phone'));
- const address=fulfil==='Delivery'?val('address'):'';
- const area=fulfil==='Delivery'?val('area'):'';
- const pin=fulfil==='Delivery'?val('pincode'):'';
- const location=fulfil==='Delivery'?val('location'):'';
- const note=val('note');
+ const name=document.querySelector('#name').value.trim();
+ const phone=normalPhone(document.querySelector('#phone').value);
+ const payment=document.querySelector('input[name="payment"]:checked')?.value||'Not selected';
+ const address=fulfil==='Delivery'?document.querySelector('#address').value.trim():'';
+ const area=fulfil==='Delivery'?document.querySelector('#area').value.trim():'';
+ const pin=fulfil==='Delivery'?document.querySelector('#pincode').value.trim():'';
+ const location=fulfil==='Delivery'?document.querySelector('#location').value.trim():'';
+ const note=document.querySelector('#note').value.trim();
  const cartMsg=localStorage.getItem('shkCartMessage')||'';
  const subtotal=c.reduce((s,x)=>s+byId[x.id].price*x.qty,0);
  const fee=feeFor(subtotal);
  const grand=subtotal+fee;
- const items=c.map(x=>{
-   const i=byId[x.id];
-   return{id:i.id,name:i.name,qty:x.qty,price:i.price,line_total:i.price*x.qty};
- });
- return {name,phone,fulfilment,address,area,pincode:pin,location_url:location,payment_method:payment,confirmed,items,subtotal,service_fee:fee,total:grand,note,cart_message:cartMsg};
+ const items=c.map(x=>{const i=byId[x.id];return{id:i.id,name:i.name,qty:x.qty,price:i.price,line_total:i.price*x.qty}});
+ return {name,phone,fulfilment:fulfil,address,area,pincode:pin,location_url:location,payment_method:payment,items,subtotal,service_fee:fee,total:grand,note,cart_message:cartMsg};
 }
 
-function buildWhatsAppUrl(){
- const data=collectOrderData();
- const lines=[];
- lines.push('Hello Swastik Home Kitchen!','');
- lines.push('━━━━━━━━━━━━━━━━━━━━','SHK CUSTOMER ORDER','━━━━━━━━━━━━━━━━━━━━','');
- lines.push('ORDER ITEMS:');
+function buildWhatsAppUrl(data){
+ let out='Hello Swastik Home Kitchen!\\n\\n';
+ out+='━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\n';
  if(data.items.length){
-   data.items.forEach(i=>lines.push('• '+i.name+' × '+i.qty+' — Rs. '+i.line_total));
+   out+='ORDER ITEMS:\\n';
+   data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
+   out+='\\n';
  }else{
-   lines.push('• No items found in cart');
+   out+='NO ITEMS FOUND IN CART\\n\\n';
  }
- lines.push('');
- lines.push('SUBTOTAL: Rs. '+data.subtotal);
- lines.push('PACKAGING & SERVICE FEE: Rs. '+data.service_fee);
- lines.push('GRAND TOTAL: Rs. '+data.total);
- lines.push('');
- lines.push('CUSTOMER DETAILS:');
- lines.push('Name: '+(data.name||'Not entered'));
- lines.push('Phone: '+(data.phone?'+91 '+data.phone:'Not entered'));
- lines.push('Fulfilment: '+(data.fulfilment||'Not selected'));
- lines.push('Payment Method: '+(data.payment_method||'Not selected'));
- lines.push('Checkout Confirmation: '+data.confirmed);
+ out+='SUBTOTAL: Rs. '+data.subtotal+'\\n';
+ out+='PACKAGING & SERVICE FEE: Rs. '+data.service_fee+'\\n';
+ out+='GRAND TOTAL: Rs. '+data.total+'\\n\\n';
+ out+='CUSTOMER DETAILS:\\n';
+ out+='Name: '+data.name+'\\n';
+ out+='Phone: +91 '+data.phone+'\\n';
+ out+='Fulfilment: '+data.fulfilment+'\\n';
+ out+='Payment Method: '+data.payment_method+'\\n';
  if(data.fulfilment==='Delivery'){
-   lines.push('');
-   lines.push('DELIVERY DETAILS:');
-   lines.push('Address: '+(data.address||'Not entered'));
-   lines.push('Area / Locality: '+(data.area||'Not entered'));
-   lines.push('PIN Code: '+(data.pincode||'Not entered'));
-   lines.push('Google Maps Location: '+(data.location_url||'Not shared'));
+   out+='\\nDELIVERY DETAILS:\\n';
+   out+='Address: '+data.address+'\\n';
+   out+='Area / Locality: '+data.area+'\\n';
+   out+='PIN Code: '+data.pincode+'\\n';
+   out+='Google Maps Location: '+(data.location_url||'Not shared')+'\\n';
  }
  if(data.cart_message){
-   lines.push('');
-   lines.push('CART MESSAGE:');
-   lines.push(data.cart_message);
+   out+='\\nCART MESSAGE:\\n'+data.cart_message+'\\n';
  }
  if(data.note){
-   lines.push('');
-   lines.push('ORDER NOTE:');
-   lines.push(data.note);
+   out+='\\nORDER NOTE:\\n'+data.note+'\\n';
  }
- lines.push('','━━━━━━━━━━━━━━━━━━━━','Please review the order and confirm availability.','━━━━━━━━━━━━━━━━━━━━');
- return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(lines.join('\n'));
+ out+='\\n━━━━━━━━━━━━━━━━━━━━\\nPlease confirm the order and availability.\\n━━━━━━━━━━━━━━━━━━━━';
+ return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
 }
 
-function updateWhatsAppLink(){
- const button=document.querySelector('#placeButton');
- if(button)button.href=buildWhatsAppUrl();
+function submitWhatsAppOrder(ev){
+ ev.preventDefault();
+ const form=ev.currentTarget;
+ if(!form.checkValidity()){
+   form.reportValidity();
+   return;
+ }
+ const data=collectOrderData();
+ if(!data.items.length){
+   alert('Your cart is empty.');
+   return;
+ }
+ if(data.fulfilment==='Delivery'&&!data.location_url){
+   setLocationStatus('Please share your delivery location before placing the WhatsApp order.','error');
+   document.querySelector('#locationBtn').focus();
+   return;
+ }
+ const waUrl=buildWhatsAppUrl(data);
+ document.querySelector('#step3').classList.add('active');
+ document.querySelector('#success').style.display='block';
+ const popup=window.open(waUrl,'_blank');
+ if(!popup){
+   window.location.href=waUrl;
+ }
 }
 
 toggle();
 render();
 document.querySelector('#step1').addEventListener('click',()=>{window.location.href='cart.html'});
 document.querySelector('#step2').addEventListener('click',()=>{document.querySelector('#form').scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#name').focus({preventScroll:true})});
+document.querySelector('#form').addEventListener('submit',submitWhatsAppOrder);
 
-document.querySelector('#form').addEventListener('input',updateWhatsAppLink);
-document.querySelector('#form').addEventListener('change',updateWhatsAppLink);
-
-document.querySelector('#placeButton').addEventListener('click',()=>{
- document.querySelector('#placeButton').href=buildWhatsAppUrl();
-});
-
-updateWhatsAppLink();
 </script></body></html>

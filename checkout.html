@@ -87,38 +87,89 @@ document.querySelector('#mapSearchInput').addEventListener('input',()=>{clearTim
 document.querySelector('#mapSearchResults').addEventListener('click',e=>{const b=e.target.closest('.map-result');if(!b)return;const lat=Number(b.dataset.lat),lng=Number(b.dataset.lon);placeMapMarker(lat,lng,17);document.querySelector('#mapSearchResults').classList.remove('show');setLocationStatus('Location found. Drag the pin to the exact doorstep and tap CONFIRM THIS LOCATION.','success')});
 
 function collectOrderData(){
- const form=document.querySelector('#form');
- if(!form.checkValidity()){form.reportValidity();return null}
- const fulfil=document.querySelector('input[name="fulfilment"]:checked').value;
- if(fulfil==='Delivery'&&!document.querySelector('#location').value.trim()){setLocationStatus('Please share your current location before confirming the order.','error');document.querySelector('#locationBtn').focus();return null}
- const c=getCart(),name=document.querySelector('#name').value.trim(),phone=normalPhone(document.querySelector('#phone').value),payment=document.querySelector('input[name="payment"]:checked')?.value||'',address=fulfil==='Delivery'?document.querySelector('#address').value.trim():'',area=fulfil==='Delivery'?document.querySelector('#area').value.trim():'',pin=fulfil==='Delivery'?document.querySelector('#pincode').value.trim():'',location=fulfil==='Delivery'?document.querySelector('#location').value.trim():'',note=document.querySelector('#note').value.trim(),cartMsg=localStorage.getItem('shkCartMessage')||'',subtotal=c.reduce((s,x)=>s+byId[x.id].price*x.qty,0),fee=feeFor(subtotal),grand=subtotal+fee;
- if(!c.length){alert('Your cart is empty.');return null}
- const items=c.map(x=>{const i=byId[x.id];return{id:i.id,name:i.name,qty:x.qty,price:i.price,line_total:i.price*x.qty}});
- return {name,phone,fulfilment,address,area,pincode:pin,location_url:location,payment_method:payment,items,subtotal,service_fee:fee,total:grand,note,cart_message:cartMsg};
+ const val=id=>document.querySelector('#'+id)?.value.trim()||'';
+ const fulfil=document.querySelector('input[name="fulfilment"]:checked')?.value||'';
+ const payment=document.querySelector('input[name="payment"]:checked')?.value||'';
+ const confirmed=document.querySelector('#confirm')?.checked?'YES':'NO';
+ const c=getCart();
+ const name=val('name');
+ const phone=normalPhone(val('phone'));
+ const address=fulfil==='Delivery'?val('address'):'';
+ const area=fulfil==='Delivery'?val('area'):'';
+ const pin=fulfil==='Delivery'?val('pincode'):'';
+ const location=fulfil==='Delivery'?val('location'):'';
+ const note=val('note');
+ const cartMsg=localStorage.getItem('shkCartMessage')||'';
+ const subtotal=c.reduce((s,x)=>s+byId[x.id].price*x.qty,0);
+ const fee=feeFor(subtotal);
+ const grand=subtotal+fee;
+ const items=c.map(x=>{
+   const i=byId[x.id];
+   return{id:i.id,name:i.name,qty:x.qty,price:i.price,line_total:i.price*x.qty};
+ });
+ return {name,phone,fulfilment,address,area,pincode:pin,location_url:location,payment_method:payment,confirmed,items,subtotal,service_fee:fee,total:grand,note,cart_message:cartMsg};
+}
+
+function buildWhatsAppUrl(){
+ const data=collectOrderData();
+ const lines=[];
+ lines.push('Hello Swastik Home Kitchen!','');
+ lines.push('━━━━━━━━━━━━━━━━━━━━','SHK CUSTOMER ORDER','━━━━━━━━━━━━━━━━━━━━','');
+ lines.push('ORDER ITEMS:');
+ if(data.items.length){
+   data.items.forEach(i=>lines.push('• '+i.name+' × '+i.qty+' — Rs. '+i.line_total));
+ }else{
+   lines.push('• No items found in cart');
+ }
+ lines.push('');
+ lines.push('SUBTOTAL: Rs. '+data.subtotal);
+ lines.push('PACKAGING & SERVICE FEE: Rs. '+data.service_fee);
+ lines.push('GRAND TOTAL: Rs. '+data.total);
+ lines.push('');
+ lines.push('CUSTOMER DETAILS:');
+ lines.push('Name: '+(data.name||'Not entered'));
+ lines.push('Phone: '+(data.phone?'+91 '+data.phone:'Not entered'));
+ lines.push('Fulfilment: '+(data.fulfilment||'Not selected'));
+ lines.push('Payment Method: '+(data.payment_method||'Not selected'));
+ lines.push('Checkout Confirmation: '+data.confirmed);
+ if(data.fulfilment==='Delivery'){
+   lines.push('');
+   lines.push('DELIVERY DETAILS:');
+   lines.push('Address: '+(data.address||'Not entered'));
+   lines.push('Area / Locality: '+(data.area||'Not entered'));
+   lines.push('PIN Code: '+(data.pincode||'Not entered'));
+   lines.push('Google Maps Location: '+(data.location_url||'Not shared'));
+ }
+ if(data.cart_message){
+   lines.push('');
+   lines.push('CART MESSAGE:');
+   lines.push(data.cart_message);
+ }
+ if(data.note){
+   lines.push('');
+   lines.push('ORDER NOTE:');
+   lines.push(data.note);
+ }
+ lines.push('','━━━━━━━━━━━━━━━━━━━━','Please review the order and confirm availability.','━━━━━━━━━━━━━━━━━━━━');
+ return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(lines.join('\n'));
 }
 
 function updateWhatsAppLink(){
- const data=collectOrderData();
  const button=document.querySelector('#placeButton');
- if(!button)return;
- if(!data){
-   button.href='https://wa.me/917483962677';
-   return;
- }
- let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';
- data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
- out+='\\nSUBTOTAL: Rs. '+data.subtotal+'\\nPACKAGING & SERVICE FEE: Rs. '+data.service_fee+'\\nGRAND TOTAL: Rs. '+data.total+'\\n\\nCUSTOMER DETAILS:\\nName: '+data.name+'\\nPhone: +91 '+data.phone+'\\nFulfilment: '+data.fulfilment+'\\nPayment Method: '+data.payment_method+'\\n';
- if(data.fulfilment==='Delivery')out+='\\nDELIVERY DETAILS:\\nAddress: '+data.address+'\\nArea / Locality: '+data.area+'\\nPIN Code: '+data.pincode+'\\nCurrent Location: '+data.location_url+'\\n';
- if(data.cart_message)out+='\\nCART MESSAGE:\\n'+data.cart_message+'\\n';
- if(data.note)out+='\\nORDER NOTE:\\n'+data.note+'\\n';
- out+='\\n━━━━━━━━━━━━━━━━━━━━\\nPlease confirm the order and availability.\\n━━━━━━━━━━━━━━━━━━━━';
- button.href='https://wa.me/917483962677?text='+encodeURIComponent(out);
+ if(button)button.href=buildWhatsAppUrl();
 }
 
-toggle();render();
+toggle();
+render();
 document.querySelector('#step1').addEventListener('click',()=>{window.location.href='cart.html'});
 document.querySelector('#step2').addEventListener('click',()=>{document.querySelector('#form').scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#name').focus({preventScroll:true})});
+
 document.querySelector('#form').addEventListener('input',updateWhatsAppLink);
 document.querySelector('#form').addEventListener('change',updateWhatsAppLink);
+
+document.querySelector('#placeButton').addEventListener('click',()=>{
+ document.querySelector('#placeButton').href=buildWhatsAppUrl();
+});
+
 updateWhatsAppLink();
 </script></body></html>

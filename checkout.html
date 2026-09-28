@@ -142,8 +142,18 @@ document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='
 async function placeOrder(ev){
  ev.preventDefault();
  if(!document.querySelector('#confirm').checked){document.querySelector('#confirm').focus();alert('Please confirm that your details are correct.');return}
- const ok=await saveCheckout(true); if(!ok)return;
- const data=collectOrderData(); if(!data)return;
+
+ // Open a tab immediately while the click is still a user gesture.
+ // After the database save (await), browsers may block a new window as a popup.
+ const waWindow=window.open('about:blank','_blank');
+ if(!waWindow){alert('Please allow pop-ups for this site so WhatsApp can open.');return}
+ waWindow.document.write('<title>Opening WhatsApp…</title><p style="font-family:Arial,sans-serif;padding:30px">Saving your SHK order and opening WhatsApp…</p>');
+
+ const ok=await saveCheckout(true);
+ if(!ok){try{waWindow.close()}catch{};return}
+ const data=collectOrderData();
+ if(!data){try{waWindow.close()}catch{};return}
+
  let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';
  data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
  out+='\\nSUBTOTAL: Rs. '+data.subtotal+'\\nPACKAGING & SERVICE FEE: Rs. '+data.service_fee+'\\nGRAND TOTAL: Rs. '+data.total+'\\n\\nCUSTOMER DETAILS:\\nName: '+data.name+'\\nPhone: +91 '+data.phone+'\\nFulfilment: '+data.fulfilment+'\\nPayment Method: '+data.payment_method+'\\n';
@@ -151,10 +161,12 @@ async function placeOrder(ev){
  if(data.cart_message)out+='\\nCART MESSAGE:\\n'+data.cart_message+'\\n';
  if(data.note)out+='\\nORDER NOTE:\\n'+data.note+'\\n';
  out+='\\n━━━━━━━━━━━━━━━━━━━━\\nPlease confirm the order and availability.\\n━━━━━━━━━━━━━━━━━━━━';
+
  document.querySelector('#step3').classList.add('active');
  document.querySelector('#success').style.display='block';
  const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
- window.open(waUrl,'_blank');
+ waWindow.location.href=waUrl;
+
  localStorage.removeItem('shkCart');localStorage.removeItem('shkCartMessage');
  setTimeout(()=>{window.location.href='index.html#menu'},250);
 }

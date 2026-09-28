@@ -141,18 +141,21 @@ document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='
 
 async function placeOrder(ev){
  ev.preventDefault();
- if(!document.querySelector('#confirm').checked){document.querySelector('#confirm').focus();alert('Please confirm that your details are correct.');return}
+ const cb=document.querySelector('#confirm');
+ if(!cb.checked){cb.focus();alert('Please confirm that your details are correct.');return}
 
- // Open a tab immediately while the click is still a user gesture.
- // After the database save (await), browsers may block a new window as a popup.
- const waWindow=window.open('about:blank','_blank');
- if(!waWindow){alert('Please allow pop-ups for this site so WhatsApp can open.');return}
- waWindow.document.write('<title>Opening WhatsApp…</title><p style="font-family:Arial,sans-serif;padding:30px">Saving your SHK order and opening WhatsApp…</p>');
-
- const ok=await saveCheckout(true);
- if(!ok){try{waWindow.close()}catch{};return}
  const data=collectOrderData();
- if(!data){try{waWindow.close()}catch{};return}
+ if(!data)return;
+
+ // The checkbox already saves the order to Supabase. Do not wait for another
+ // network request here: waiting can leave the WhatsApp tab stuck on a blank
+ // "Saving…" page and can also break popup/navigation handling.
+ const fingerprint=JSON.stringify(data);
+ if(!savedCheckoutId||savedFingerprint!==fingerprint){
+   cb.checked=false;
+   alert('Your details have changed. Please tick the confirmation checkbox again before placing the WhatsApp order.');
+   return;
+ }
 
  let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';
  data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
@@ -164,11 +167,14 @@ async function placeOrder(ev){
 
  document.querySelector('#step3').classList.add('active');
  document.querySelector('#success').style.display='block';
- const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
- waWindow.location.href=waUrl;
 
- localStorage.removeItem('shkCart');localStorage.removeItem('shkCartMessage');
- setTimeout(()=>{window.location.href='index.html#menu'},250);
+ // Navigate directly from the real button click so the browser does not
+ // block WhatsApp after an async operation.
+ const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
+ window.location.href=waUrl;
+
+ localStorage.removeItem('shkCart');
+ localStorage.removeItem('shkCartMessage');
 }
 toggle();render();
 document.querySelector('#step1').addEventListener('click',()=>{window.location.href='cart.html'});

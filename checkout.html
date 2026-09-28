@@ -106,38 +106,61 @@ function collectOrderData(){
 }
 
 function buildWhatsAppUrl(data){
- let out='Hello Swastik Home Kitchen!\\n\\n';
- out+='━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\n';
+ const lines=[];
+ lines.push('🙏 Hello Swastik Home Kitchen!');
+ lines.push('');
+ lines.push('╔══════════════════════════════╗');
+ lines.push('        🧾 SHK ORDER');
+ lines.push('╚══════════════════════════════╝');
+ lines.push('');
+
+ lines.push('🍽️ *ORDER SUMMARY*');
+ lines.push('──────────────────────────────');
  if(data.items.length){
-   out+='ORDER ITEMS:\\n';
-   data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
-   out+='\\n';
+   data.items.forEach(i=>{
+     lines.push('• '+i.name+'  × '+i.qty+'   Rs. '+i.line_total);
+   });
  }else{
-   out+='NO ITEMS FOUND IN CART\\n\\n';
+   lines.push('• No food items found');
  }
- out+='SUBTOTAL: Rs. '+data.subtotal+'\\n';
- out+='PACKAGING & SERVICE FEE: Rs. '+data.service_fee+'\\n';
- out+='GRAND TOTAL: Rs. '+data.total+'\\n\\n';
- out+='CUSTOMER DETAILS:\\n';
- out+='Name: '+data.name+'\\n';
- out+='Phone: +91 '+data.phone+'\\n';
- out+='Fulfilment: '+data.fulfilment+'\\n';
- out+='Payment Method: '+data.payment_method+'\\n';
+ lines.push('──────────────────────────────');
+ lines.push('💰 Subtotal: Rs. '+data.subtotal);
+ lines.push('📦 Packaging & Service: Rs. '+data.service_fee);
+ lines.push('🧮 *Grand Total: Rs. '+data.total+'*');
+ lines.push('');
+
+ lines.push('👤 *CUSTOMER DETAILS*');
+ lines.push('──────────────────────────────');
+ lines.push('• Name: '+(data.name||'Not provided'));
+ lines.push('• Phone: +91 '+(data.phone||'Not provided'));
+ lines.push('• Fulfilment: '+data.fulfilment);
+ lines.push('• Payment: '+data.payment_method);
  if(data.fulfilment==='Delivery'){
-   out+='\\nDELIVERY DETAILS:\\n';
-   out+='Address: '+data.address+'\\n';
-   out+='Area / Locality: '+data.area+'\\n';
-   out+='PIN Code: '+data.pincode+'\\n';
-   out+='Google Maps Location: '+(data.location_url||'Not shared')+'\\n';
+   lines.push('');
+   lines.push('📍 *DELIVERY DETAILS*');
+   lines.push('──────────────────────────────');
+   lines.push('• Address: '+(data.address||'Not provided'));
+   lines.push('• Area: '+(data.area||'Not provided'));
+   lines.push('• PIN Code: '+(data.pincode||'Not provided'));
+   lines.push('• Google Maps: '+(data.location_url||'Not shared'));
  }
  if(data.cart_message){
-   out+='\\nCART MESSAGE:\\n'+data.cart_message+'\\n';
+   lines.push('');
+   lines.push('💬 *CART MESSAGE*');
+   lines.push('• '+data.cart_message);
  }
  if(data.note){
-   out+='\\nORDER NOTE:\\n'+data.note+'\\n';
+   lines.push('');
+   lines.push('📝 *ORDER NOTE*');
+   lines.push('• '+data.note);
  }
- out+='\\n━━━━━━━━━━━━━━━━━━━━\\nPlease confirm the order and availability.\\n━━━━━━━━━━━━━━━━━━━━';
- return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
+
+ lines.push('');
+ lines.push('✅ *Please review the order, confirm availability and proceed with the customer.*');
+ lines.push('');
+ lines.push('Thank you for choosing *Swastik Home Kitchen* ❤️');
+ lines.push('━━━━━━━━━━━━━━━━━━━━');
+ return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(lines.join('\n'));
 }
 
 function submitWhatsAppOrder(ev){

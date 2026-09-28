@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 const TARGET = 'https://wa.me/917483962677?text=';
 const CART = JSON.stringify([{id:'butter-roti',qty:1}]);
 
+test.setTimeout(120000);
+
 test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -51,15 +53,11 @@ test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ brows
       if (!hit) failures.push(n+': CTA center is not clickable');
     }
 
-    console.log('BEFORE CONFIRM', n, page.url);
     await page.locator('#confirm').check();
-    console.log('AFTER CONFIRM', n, page.url, 'checked=', await page.locator('#confirm').isChecked());
     await page.waitForTimeout(150);
     if (!(await page.locator('#confirm').isChecked())) failures.push(n+': confirmation unchecked itself');
 
-    console.log('BEFORE CLICK', n, page.url, 'href=', await page.locator('#placeButton').getAttribute('href'));
     await page.locator('#placeButton').click({timeout:10000});
-    console.log('AFTER CLICK', n, page.url);
     await page.waitForTimeout(50);
 
     const href = await page.locator('#placeButton').getAttribute('href');

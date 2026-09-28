@@ -105,13 +105,17 @@ async function saveCheckout(markForWhatsApp=false){
  if(savedCheckoutId&&savedFingerprint===fingerprint)return true;
  savingCheckout=true;
  const button=document.querySelector('.place');
- if(button){button.disabled=true;button.textContent='SAVING ORDER…'}
+ if(button){button.setAttribute('aria-busy','true');button.dataset.originalText=button.textContent;button.textContent='SAVING CUSTOMER DETAILS…'}
+ let timeoutId=null;
  try{
    if(!savedCheckoutId)savedCheckoutId=crypto.randomUUID();
+   const controller=new AbortController();
+   timeoutId=setTimeout(()=>controller.abort(),8000);
    const res=await fetch(SUPABASE_URL+'/functions/v1/shk-order',{
      method:'POST',
      headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY},
-     body:JSON.stringify({...data,checkout_id:savedCheckoutId,consent_at:new Date().toISOString()})
+     body:JSON.stringify({...data,checkout_id:savedCheckoutId,consent_at:new Date().toISOString()}),
+     signal:controller.signal
    });
    const result=await res.json().catch(()=>({}));
    if(!res.ok||!result.ok)throw new Error(result.error||'Database could not save the order.');
@@ -120,12 +124,14 @@ async function saveCheckout(markForWhatsApp=false){
  }catch(err){
    savedCheckoutId='';
    savedFingerprint='';
-   setLocationStatus('Your order could not be saved yet. Please check your connection and confirm again.','error');
-   alert('SHK order save failed: '+(err.message||'Please try again.'));
+   const message=err?.name==='AbortError'?'Customer database took too long to respond. Please try the confirmation again.':(err.message||'Please try again.');
+   setLocationStatus(message,'error');
+   alert('SHK customer-data save failed: '+message);
    return false;
  }finally{
+   clearTimeout(timeoutId);
    savingCheckout=false;
-   if(button){button.disabled=false;button.textContent='PLACE ORDER ON WHATSAPP'}
+   if(button){button.removeAttribute('aria-busy');button.textContent=button.dataset.originalText||'PLACE ORDER ON WHATSAPP';delete button.dataset.originalText}
  }
 }
 async function handleConfirmation(){
@@ -152,9 +158,10 @@ async function placeOrder(ev){
  // "Saving…" page and can also break popup/navigation handling.
  const fingerprint=JSON.stringify(data);
  if(!savedCheckoutId||savedFingerprint!==fingerprint){
-   cb.checked=false;
-   alert('Your details have changed. Please tick the confirmation checkbox again before placing the WhatsApp order.');
-   return;
+   // If details changed, save the latest version now instead of silently
+   // making the green WhatsApp button appear unresponsive.
+   const ok=await saveCheckout(true);
+   if(!ok){cb.checked=false;return}
  }
 
  let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';

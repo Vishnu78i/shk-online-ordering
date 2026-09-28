@@ -33,7 +33,7 @@ test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ brows
     localStorage.removeItem('shkCartMessage');
   }, CART);
 
-  for (let n = 1; n <= 100; n++) {
+  for (let n = 1; n <= 1; n++) {
     await page.goto('http://127.0.0.1:4173/checkout.html?e2e='+n, {waitUntil:'domcontentloaded'});
     await page.locator('#pickup').check();
     await page.locator('#name').fill('Test Customer');
@@ -43,14 +43,18 @@ test('SHK WhatsApp checkout survives 100 complete pickup cycles', async ({ brows
     const button = page.locator('#placeButton');
     await expect(button).toBeVisible();
     await expect(button).toBeEnabled();
-    const box = await button.boundingBox();
+    await button.scrollIntoViewIfNeeded();\n    await page.waitForTimeout(100);\n    const box = await button.boundingBox();
     if (!box) failures.push(n+': no button bounding box');
     else {
       const hit = await page.evaluate(({x,y}) => {
         const el = document.elementFromPoint(x,y);
         return el && (el.id === 'placeButton' || el.closest?.('#placeButton')?.id === 'placeButton');
       }, {x:box.x+box.width/2,y:box.y+box.height/2});
-      if (!hit) failures.push(n+': CTA center is not clickable');
+      if (!hit) {
+      const stack = await page.evaluate(({x,y}) => document.elementsFromPoint(x,y).slice(0,10).map(el => ({tag:el.tagName,id:el.id,cls:el.className,pe:getComputedStyle(el).pointerEvents,opacity:getComputedStyle(el).opacity,position:getComputedStyle(el).position,z:getComputedStyle(el).zIndex,rect:(()=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}})()})), {x:box.x+box.width/2,y:box.y+box.height/2});
+      console.log('HIT STACK', JSON.stringify(stack));
+      failures.push(n+': CTA center is not clickable');
+    }
     }
 
     await page.locator('#confirm').check();

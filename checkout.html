@@ -115,7 +115,8 @@ async function saveCheckout(markForWhatsApp=false){
      method:'POST',
      headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY},
      body:JSON.stringify({...data,checkout_id:savedCheckoutId,consent_at:new Date().toISOString()}),
-     signal:controller.signal
+     signal:controller.signal,
+     keepalive:true
    });
    const result=await res.json().catch(()=>({}));
    if(!res.ok||!result.ok)throw new Error(result.error||'Database could not save the order.');

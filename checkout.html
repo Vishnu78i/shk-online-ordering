@@ -15,7 +15,7 @@ main{padding:55px 0 84px}.kicker{text-align:center;color:var(--green);font-size:
 <nav><div class="wrap nav"><a href="index.html"><img class="logo" src="assets/shk-logo-clean.svg" alt="Swastik Home Kitchen logo"></a><div class="links"><a href="index.html#menu">MENU</a><a href="about.html">ABOUT</a><a href="cart.html">CART</a></div></div></nav>
 <main><div class="wrap"><div class="kicker">SWASTIK HOME KITCHEN</div><h1>Checkout</h1><p class="lead">Enter your details and choose delivery or pickup. Your completed customer information will be included in the WhatsApp order.</p><div class="progress" aria-label="Checkout steps"><button id="step1" class="step step-btn clickable" type="button">1 • CART</button><span class="line"></span><button id="step2" class="step active step-btn clickable" type="button">2 • DETAILS</button><span class="line"></span><button id="step3" class="step step-btn" type="button" disabled>3 • WHATSAPP</button></div>
 <div class="grid"><section class="panel"><h2>Your Order</h2><div id="orderList" class="order-list"></div><div class="fee-row"><span>Packaging &amp; Service Fee</span><strong id="serviceFee">Rs. 9</strong></div><div class="sum"><span>Grand Total</span><strong id="grandTotal">Rs. 0</strong></div><div id="preview" class="preview"></div><a class="back" href="cart.html">← Back to cart</a></section>
-<section class="panel"><h2>Customer Details</h2><form id="form" onsubmit="placeOrder(event)"><div class="form">
+<section class="panel"><h2>Customer Details</h2><form id="form"><div class="form">
 <div class="field"><label for="name">FULL NAME *</label><input id="name" name="name" required maxlength="80" autocomplete="name" placeholder="Your full name"></div>
 <div class="field"><label for="phone">PHONE NUMBER *</label><input id="phone" name="phone" required inputmode="tel" autocomplete="tel" pattern="(?:\+91[6-9]\d{9}|[6-9]\d{9})" placeholder="10-digit mobile number"><small>Indian mobile number</small></div>
 <div class="field full"><label>FULFILMENT *</label><div class="choice-row"><div class="choice"><input id="delivery" type="radio" name="fulfilment" value="Delivery" checked><label for="delivery">DELIVERY</label></div><div class="choice"><input id="pickup" type="radio" name="fulfilment" value="Pickup"><label for="pickup">PICKUP</label></div></div></div>
@@ -25,7 +25,7 @@ main{padding:55px 0 84px}.kicker{text-align:center;color:var(--green);font-size:
 <div class="payment-option"><input id="upi" type="radio" name="payment" value="UPI" required><label for="upi"><span>📱 UPI</span></label></div>
 </div></div>
 <div class="field full"><label for="note">ORDER NOTE</label><textarea id="note" name="note" maxlength="300" placeholder="Anything else SHK should know?"></textarea></div></div>
-<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm that the details entered are correct and understand that SHK will receive this order on WhatsApp for confirmation.</label></div><button class="place" type="submit">PLACE ORDER ON WHATSAPP</button><div id="success" class="success">Opening WhatsApp with your completed order…</div></form></section></div></div></main>
+<div class="consent"><input id="confirm" type="checkbox" required><label for="confirm">I confirm that the details entered are correct and understand that SHK will receive this order on WhatsApp for confirmation.</label></div><button id="placeButton" class="place" type="button">PLACE ORDER ON WHATSAPP</button><div id="success" class="success">Opening WhatsApp with your completed order…</div></form></section></div></div></main>
 <div id="mapModal" class="map-modal" role="dialog" aria-modal="true" aria-labelledby="mapTitle"><div class="map-dialog"><div class="map-head"><div><h3 id="mapTitle">Select Delivery Location</h3><div class="map-subtitle">Search your area, street or landmark, then fine-tune the pin.</div></div><button id="mapClose" class="map-close" type="button" aria-label="Close map">×</button></div><div class="map-search"><div class="map-search-row"><input id="mapSearchInput" type="search" placeholder="Search area, street, building or landmark..." autocomplete="off"><button id="mapSearchBtn" class="map-search-btn" type="button">🔎 SEARCH</button></div><div id="mapSearchResults" class="map-search-results" aria-live="polite"></div></div><div class="map-stage"><div id="mapPicker"></div></div><div class="map-footer"><div class="map-tip">Tap anywhere on the map to place the delivery pin. Drag the pin to adjust the exact location, then confirm.</div><button id="confirmMap" class="confirm-map" type="button">CONFIRM THIS LOCATION</button></div></div></div>
 <script src="assets/menu.js"></script><script src="assets/premium.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
 const PHONE='917483962677',byId=Object.fromEntries(SHK_MENU.map(x=>[x.id,x]));
@@ -145,25 +145,15 @@ document.querySelector('#confirm').addEventListener('change',handleConfirmation)
 document.querySelector('#form').addEventListener('input',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
 document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
 
-async function placeOrder(ev){
- ev.preventDefault();
+async function placeOrder(){
  const cb=document.querySelector('#confirm');
  if(!cb.checked){cb.focus();alert('Please confirm that your details are correct.');return}
 
  const data=collectOrderData();
  if(!data)return;
 
- // The checkbox already saves the order to Supabase. Do not wait for another
- // network request here: waiting can leave the WhatsApp tab stuck on a blank
- // "Saving…" page and can also break popup/navigation handling.
- const fingerprint=JSON.stringify(data);
- if(!savedCheckoutId||savedFingerprint!==fingerprint){
-   // If details changed, save the latest version now instead of silently
-   // making the green WhatsApp button appear unresponsive.
-   const ok=await saveCheckout(true);
-   if(!ok){cb.checked=false;return}
- }
-
+ // Build WhatsApp message BEFORE any network request. This keeps the
+ // navigation directly tied to the user's click and prevents popup blocking.
  let out='Hello Swastik Home Kitchen!\\n\\n━━━━━━━━━━━━━━━━━━━━\\nSHK CUSTOMER ORDER\\n━━━━━━━━━━━━━━━━━━━━\\n\\nORDER ITEMS:\\n';
  data.items.forEach(i=>{out+='• '+i.name+' × '+i.qty+' — Rs. '+i.line_total+'\\n'});
  out+='\\nSUBTOTAL: Rs. '+data.subtotal+'\\nPACKAGING & SERVICE FEE: Rs. '+data.service_fee+'\\nGRAND TOTAL: Rs. '+data.total+'\\n\\nCUSTOMER DETAILS:\\nName: '+data.name+'\\nPhone: +91 '+data.phone+'\\nFulfilment: '+data.fulfilment+'\\nPayment Method: '+data.payment_method+'\\n';
@@ -172,18 +162,34 @@ async function placeOrder(ev){
  if(data.note)out+='\\nORDER NOTE:\\n'+data.note+'\\n';
  out+='\\n━━━━━━━━━━━━━━━━━━━━\\nPlease confirm the order and availability.\\n━━━━━━━━━━━━━━━━━━━━';
 
+ const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
+
+ // Start the database save in the background, but NEVER make WhatsApp wait.
+ // The checkbox already records the customer in normal use; this also saves
+ // any details changed after the checkbox was ticked.
+ const savePromise=saveCheckout(true);
+
  document.querySelector('#step3').classList.add('active');
  document.querySelector('#success').style.display='block';
 
- // Navigate directly from the real button click so the browser does not
- // block WhatsApp after an async operation.
- const waUrl='https://wa.me/'+PHONE+'?text='+encodeURIComponent(out);
- window.location.href=waUrl;
+ const opened=window.open(waUrl,'_blank');
+ if(!opened){
+   // Fallback for browsers that block a new tab.
+   window.location.assign(waUrl);
+ }
 
- localStorage.removeItem('shkCart');
- localStorage.removeItem('shkCartMessage');
+ savePromise.then(ok=>{
+   if(ok){
+     localStorage.removeItem('shkCart');
+     localStorage.removeItem('shkCartMessage');
+   }
+ }).catch(()=>{});
+
+ // Do not redirect this checkout tab. The WhatsApp tab is the order flow.
 }
+
 toggle();render();
 document.querySelector('#step1').addEventListener('click',()=>{window.location.href='cart.html'});
 document.querySelector('#step2').addEventListener('click',()=>{document.querySelector('#form').scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#name').focus({preventScroll:true})});
+document.querySelector('#placeButton').addEventListener('click',placeOrder);
 </script></body></html>

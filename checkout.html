@@ -138,16 +138,16 @@ async function handleConfirmation(){
  const cb=document.querySelector('#confirm');
  if(!cb.checked)return;
  const ok=await saveCheckout(false);
- if(!ok){cb.checked=false;return}
- setLocationStatus('Customer and order details have been securely recorded. You can now place the WhatsApp order.','success');
+ if(ok){setLocationStatus('Customer and order details have been securely recorded. You can now place the WhatsApp order.','success');}
+ else {setLocationStatus('WhatsApp ordering is still available. Customer-data saving will be retried when you place the order.','error');}
 }
 document.querySelector('#confirm').addEventListener('change',handleConfirmation);
-document.querySelector('#form').addEventListener('input',e=>{if(e.target.id!=='confirm'){savedFingerprint='';document.querySelector('#confirm').checked=false;}});
-document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='confirm'){savedFingerprint='';document.querySelector('#confirm').checked=false;}});
+document.querySelector('#form').addEventListener('input',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
+document.querySelector('#form').addEventListener('change',e=>{if(e.target.id!=='confirm'){savedFingerprint='';}});
 
 function placeOrder(){
  const cb=document.querySelector('#confirm');
- if(!cb.checked){cb.focus();alert('Please confirm that the details entered are correct.');return}
+ if(!cb.checked){cb.focus();alert('Please tick the confirmation checkbox first.');return}
 
  const data=collectOrderData();
  if(!data)return;

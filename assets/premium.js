@@ -97,7 +97,7 @@
     document.querySelectorAll(selectors).forEach(el => {
       if (el.matches('nav,footer,script,style')) return;
       prepare(el, index++);
-      if (['card','photo-card','food-card','value-card','story-panel','closing-box','item-card','panel'].some(c => el.classList.contains(c))) {
+      if (['card','photo-card','food-card','value-card','story-panel','closing-box','item-card'].some(c => el.classList.contains(c))) {
         el.classList.add('tilt-card','shk-lift');
       }
     });
@@ -160,9 +160,9 @@
       if (!changed) return;
       requestAnimationFrame(() => {
         let index = 0;
-        document.querySelectorAll('.card,.summary-item,.item-card,.panel,.image-card,.field,.choice,.payment-option,.food-card,.value-card,.story-panel,.closing-box').forEach(el => {
+        document.querySelectorAll('.card,.summary-item,.item-card,.image-card,.field,.choice,.payment-option,.food-card,.value-card,.story-panel,.closing-box').forEach(el => {
           prepare(el, index++);
-          if (['card','summary-item','item-card','panel','food-card','value-card','story-panel','closing-box'].some(c => el.classList.contains(c))) el.classList.add('tilt-card','shk-lift');
+          if (['card','summary-item','item-card','food-card','value-card','story-panel','closing-box'].some(c => el.classList.contains(c))) el.classList.add('tilt-card','shk-lift');
         });
         addButtonGlints();
         revealAll();
